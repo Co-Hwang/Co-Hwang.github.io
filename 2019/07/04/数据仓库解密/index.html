@@ -91,9 +91,13 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703202618787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703210836793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/201907032112105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:updated_time" content="2019-07-04T11:02:59.051Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:updated_time" content="2019-07-04T11:08:55.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="据仓库整体架构解析">
 <meta name="twitter:description" content="数据仓库概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
@@ -351,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.3k 字
+                  2.1k 字
                 </span>
               
 
@@ -367,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -395,7 +399,7 @@
 <p><strong>2、数据集市阶段</strong><br>这个阶段，主要是根据某个业务部门的需要，进行一定的数据的采集，整理，按照业务人员的需要，进行多维报表的展现，能够提供对特定业务指导的数据，并且能够提供特定的领导决策数据。</p>
 <p><strong>3、数据仓库阶段</strong><br>这个阶段，主要是按照一定的数据模型，对整个企业的数据进行采集，整理，并且能够按照各个业务部门的需要，提供跨部门的，完全一致的业务报表数据，能够通过数据仓库生成对对业务具有指导性的数据，同时，为领导决策提供全面的数据支持。</p>
 <p>通过数据仓库建设的发展阶段，我们能够看出，数据仓库的建设和数据集市的建设的重要区别就在于数据模型的支持。因此，数据模型的建设，对于我们数据仓库的建设，有着决定性的意义。</p>
-<h2 id="架构分层-重要"><a href="#架构分层-重要" class="headerlink" title="架构分层  重要"></a>架构分层  <font color="#dd0000">重要</font></h2><p>如下图所示：<br><img src="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库架构"><br><img src="https://img-blog.csdnimg.cn/20190703202618787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库分层"><br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =470x450)</p>
+<h2 id="架构分层-重要"><a href="#架构分层-重要" class="headerlink" title="架构分层  重要"></a>架构分层  <font color="#dd0000">重要</font></h2><p>如下图所示：<br><img src="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库架构"><br><img src="https://img-blog.csdnimg.cn/20190703202618787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库分层"><br><img src="https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <ul>
 <li><strong>数据缓冲层</strong><br>&emsp;&emsp;数据缓冲层也称待转换区，这里是源业务系统数据的快照，保存细节数据，按天保存。这一层重点要保证数据的快速，准确入库。快速是指尽量减少该过程的时间，准确是指数据入库过程中保证无数据丢失，无乱码，错行等情况。<br>&emsp;&emsp;功能定义：即 Stage，又称数据中转区，该层通过ETL过程获取源业务系统的数据增量，主要按日存 储明细数据。为ODM层提供基础数据。</li>
 <li><strong>贴源明细层</strong><br>&emsp;&emsp;数据贴源层是用于合并、存储生产系统历史至今数据，表结构及数据类型和源系统保持一致，对不同业务类型表使用不同的存储策略，对有价值的历史状态、历史关系、历史属性进行拉链表处理，比如用户账户信息等。<br>同时对每张表按业务归属用统一缩略语做标识并对其中敏感数据进行加密与脱敏处理，对明确的脏数据规则加以过滤清洗。<br>&emsp;&emsp;功能定义：全称 Original Data Mart ，该层负责合并、存储生产系统历史至今数据，按照业务归属组织数据，并进行脱敏及脏数据清洗处理。<br>（a）起到隔离作用，屏蔽源系统数据结构变更、切库迁移等技术性需求<br>（b）为后续主题模型、应用集市和数据探索区提供基础支撑</li>
@@ -410,19 +414,19 @@
 <ul>
 <li>大部分美团侧的同步方式采用全量表，全量表<strong>无分区</strong>，每天凌晨流程执行完后，表中数据是截止到前一天的mysql数据。</li>
 </ul>
-<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =370x350)</p>
+<p><img src="https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p><font size="4"><strong>增量表</strong></font></p>
 <ul>
 <li><strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的分区会存放mysql在那一天所产生的增量数据（insert，update的数据），注意目前增量表的同步方式不会包含历史数据，即只存放增量数据。</li>
 </ul>
-<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =370x330)</p>
+<p><img src="https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <p><font size="4" color="#dd0000"><strong>快照表</strong></font></p>
 <ul>
 <li><strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的数据都是截止到那一天mysql的全量数据。</li>
 </ul>
 <p><font size="4"><strong>拉链表</strong></font></p>
 <ul>
-<li>维护历史状态，以及最新状态数据的一种表，拉链表根据拉链粒度的不同，实际上相当于快照，只不过做了优化，去除了一部分不变的记录而已,通过拉链表可以很方便的还原出拉链时点的客户记录。<br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =370x330)</li>
+<li>维护历史状态，以及最新状态数据的一种表，拉链表根据拉链粒度的不同，实际上相当于快照，只不过做了优化，去除了一部分不变的记录而已,通过拉链表可以很方便的还原出拉链时点的客户记录。<br><img src="https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
 </ul>
 <p><font size="4"><strong>流水表</strong></font></p>
 <ul>
