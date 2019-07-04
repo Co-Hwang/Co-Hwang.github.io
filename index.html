@@ -304,7 +304,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/04/数据仓库解密/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2019/07/04/数据仓库解密/" itemprop="url">据仓库整体架构解析</a></h1>
         
 
         <div class="post-meta">
@@ -386,69 +386,14 @@
 
       
         
-          
-            <p>@[TOC](<font size="6">数据仓库整体架构解析</font><br> )</p>
-<h1 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
-<h2 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h2><p>数据仓库的发展大致经历了这样的三个过程：</p>
-<p><strong>1、简单报表阶段</strong><br>这个阶段，系统的主要目标是解决一些日常的工作中业务人员需要的报表，以及生成一些简单的能够帮助领导进行决策所需要的汇总数据。这个阶段的大部分表现形式为数据库和前端报表工具。</p>
-<p><strong>2、数据集市阶段</strong><br>这个阶段，主要是根据某个业务部门的需要，进行一定的数据的采集，整理，按照业务人员的需要，进行多维报表的展现，能够提供对特定业务指导的数据，并且能够提供特定的领导决策数据。</p>
-<p><strong>3、数据仓库阶段</strong><br>这个阶段，主要是按照一定的数据模型，对整个企业的数据进行采集，整理，并且能够按照各个业务部门的需要，提供跨部门的，完全一致的业务报表数据，能够通过数据仓库生成对对业务具有指导性的数据，同时，为领导决策提供全面的数据支持。</p>
-<p>通过数据仓库建设的发展阶段，我们能够看出，数据仓库的建设和数据集市的建设的重要区别就在于数据模型的支持。因此，数据模型的建设，对于我们数据仓库的建设，有着决定性的意义。</p>
-<h2 id="架构分层-重要"><a href="#架构分层-重要" class="headerlink" title="架构分层  重要"></a>架构分层  <font color="#dd0000">重要</font></h2><p>如下图所示：<br><img src="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库架构"><br><img src="https://img-blog.csdnimg.cn/20190703202618787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库分层"><br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =470x450)</p>
-<ul>
-<li><strong>数据缓冲层</strong><br>&emsp;&emsp;数据缓冲层也称待转换区，这里是源业务系统数据的快照，保存细节数据，按天保存。这一层重点要保证数据的快速，准确入库。快速是指尽量减少该过程的时间，准确是指数据入库过程中保证无数据丢失，无乱码，错行等情况。<br>&emsp;&emsp;功能定义：即 Stage，又称数据中转区，该层通过ETL过程获取源业务系统的数据增量，主要按日存 储明细数据。为ODM层提供基础数据。</li>
-<li><strong>贴源明细层</strong><br>&emsp;&emsp;数据贴源层是用于合并、存储生产系统历史至今数据，表结构及数据类型和源系统保持一致，对不同业务类型表使用不同的存储策略，对有价值的历史状态、历史关系、历史属性进行拉链表处理，比如用户账户信息等。<br>同时对每张表按业务归属用统一缩略语做标识并对其中敏感数据进行加密与脱敏处理，对明确的脏数据规则加以过滤清洗。<br>&emsp;&emsp;功能定义：全称 Original Data Mart ，该层负责合并、存储生产系统历史至今数据，按照业务归属组织数据，并进行脱敏及脏数据清洗处理。<br>（a）起到隔离作用，屏蔽源系统数据结构变更、切库迁移等技术性需求<br>（b）为后续主题模型、应用集市和数据探索区提供基础支撑</li>
-<li><strong>整合明细层</strong><br>&emsp;&emsp;仓库基础层来源于ODM，数据粒度同于ODM，并做了数据清洗及数据脱敏处理与部分预关联工作。原则上，协议、事件相关明细按业务过程整合拉平重要业务节点数据，以宽表落地；用户、产品、流量作为主题做企业级整合。<br>&emsp;&emsp;功能定义：全称 Integrate Data Mart，该层按照主题划分对核心业务数据进行企级整合，在保持原有数据粒度的基础上，完成标准化 (维度、代码 ) 以及数据预关联操作。</li>
-<li><strong>共性加工层</strong><br>&emsp;&emsp;基于应用集市沉淀的通用类属性、指标而创建面向支持应用系统、数据分析与数据挖掘的公共数据层，主要形式有将重要的京东业务链组合起来的累积快照表和以重要维度为粒度的重要指标汇总表。<br>&emsp;&emsp;功能定义：全称 Summary Data Mart 该层基于应用集市沉淀的通类属性、指标而创建，面向支持应用系统、数据分析与挖掘的公共层。</li>
-<li><strong>维度层</strong><br>&emsp;&emsp;维度是对具体分析对象的分析角度，维度要具备丰富的属性，历史信息的可追溯性，对通用的维表要保持一致性。分为公共维度和个性维度。公共维度有数据资产部建设和维护，个性维度各自建设和维护。</li>
-<li><strong>敏感处理层</strong> </li>
-<li><strong>数据补录层</strong><br><img src="https://img-blog.csdnimg.cn/20190703210836793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
-<li><strong>集市层</strong><br>&emsp;&emsp;某部门或某些特定用户因特定应用目的而设计创建的数据集，集市分为共享集市和非共享集市；共享集市可对非共享集市提供服务，共享集市间不允许直接共享数据； 非共享集市间不允许直接共享数据，须通过下沉“共性加工层”方式进行数据共享。<br>&emsp;&emsp;每个集市逻辑上分为基础层和应用层。基础层由数据资产部与业务团队共建；应用层由业务团队依据应用目的自建；<br>&emsp;&emsp;各部门业务需求通过各自集市提供服务，原则上不允许直接使用仓库层数据。<br>&emsp;&emsp;功能定义：即 DataMart，这里的 X指代变量，用于某部门或些特定户因应目的而建数据。<br><img src="https://img-blog.csdnimg.cn/201907032112105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
-</ul>
-<h2 id="全量表，增量表，拉链表，流水表，快照表"><a href="#全量表，增量表，拉链表，流水表，快照表" class="headerlink" title="全量表，增量表，拉链表，流水表，快照表"></a>全量表，增量表，拉链表，流水表，快照表</h2><p><font size="4"><strong>全量表</strong></font></p>
-<ul>
-<li>大部分美团侧的同步方式采用全量表，全量表<strong>无分区</strong>，每天凌晨流程执行完后，表中数据是截止到前一天的mysql数据。</li>
-</ul>
-<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =370x350)</p>
-<p><font size="4"><strong>增量表</strong></font></p>
-<ul>
-<li><strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的分区会存放mysql在那一天所产生的增量数据（insert，update的数据），注意目前增量表的同步方式不会包含历史数据，即只存放增量数据。</li>
-</ul>
-<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =370x330)</p>
-<p><font size="4" color="#dd0000"><strong>快照表</strong></font></p>
-<ul>
-<li><strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的数据都是截止到那一天mysql的全量数据。</li>
-</ul>
-<p><font size="4"><strong>拉链表</strong></font></p>
-<ul>
-<li>维护历史状态，以及最新状态数据的一种表，拉链表根据拉链粒度的不同，实际上相当于快照，只不过做了优化，去除了一部分不变的记录而已,通过拉链表可以很方便的还原出拉链时点的客户记录。<br>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =370x330)</li>
-</ul>
-<p><font size="4"><strong>流水表</strong></font></p>
-<ul>
-<li>对于表的每一个修改都会记录，可以用于反映实际记录的变更。</li>
-</ul>
-<hr>
-<ul>
-<li><input checked disabled type="checkbox"> <p>拉链表通常是对账户信息的历史变动进行处理保留的结果；拉链表用于统计账户及客户的情况。</p>
-</li>
-<li><input checked disabled type="checkbox"> <p>流水表是每天的交易形成的历史；流水表用于统计业务相关情况。</p>
-</li>
-</ul>
-<hr>
-<h2 id="存储策略"><a href="#存储策略" class="headerlink" title="存储策略"></a>存储策略</h2><ul>
-<li>I （增量）：每日一个增量数据分区、适用于日志及交易流水等信息。</li>
-<li>A（全量）：保留最新一份儿全量数据、适用于无变化的维度或者不关注变化的数据存储。</li>
-<li>S（快照）：是“A”的扩展、每日一个全量数据分区、适用于台账表等业务系统的汇总信息等。</li>
-<li>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。<h2 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h2><ol>
-<li>STAGE、ODM、IDM字段类型原则上只允许使用以下3种：bigint、decmail、string。</li>
-</ol>
-<strong>bigint</strong>：数量、次数、人数等整数字段。<br><strong>decmail(30,6)</strong>：金额、比率等小数字段。一般情况下使用所示精度，入仓调研时的特殊情况视具体而定。<br><strong>string</strong>：订单编号、SKU编号、描述类信息等字符字段 注:流量等特殊情况下可以使用MAP等复合类型，但需要事先知会数据仓库组。 <ol start="2">
-<li>SDM及各集市字段类型可以使用HIVE支持的任何类型。</li>
-</ol>
-</li>
-</ul>
-
-          
+          <h1 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>&emsp;&emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/04/数据仓库解密/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -519,7 +464,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/04/入职第二日总结/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2019/07/04/入职第二日总结/" itemprop="url">2019.7.02一日回顾</a></h1>
         
 
         <div class="post-meta">
@@ -563,7 +508,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  420 字
+                  412 字
                 </span>
               
 
@@ -601,24 +546,21 @@
 
       
         
-          
-            <p>@[TOC](<font size="6">2019.7.02一日回顾</font><br> )</p>
-<h1 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h1><p>嗨，Hwang！今天的任务如下：</p>
+          <h1 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h1><p>嗨，Hwang！今天的任务如下：</p>
 <ul>
 <li>同小组数据分析师及产品进行了交流，并在姐姐们指导下逐步申请开通<strong>银河+系统</strong>中各类权限。&lt;数据接入、计算作业申请、表赋权、元数据等&gt;</li>
 <li>进一步明确所在部门组织架构，人员分布，从大体上对自己所在位置有基本认知。</li>
-<li>逐步掌握markdown的编辑方式，开始CSDN之旅。<h2 id="任务安排"><a href="#任务安排" class="headerlink" title="任务安排"></a>任务安排</h2></li>
-</ul>
-<p>明确了后续需要完成跟进的任务。<br>1、熟悉阅读京东数科各类文档规范。&lt;画像体系说明、标签中心操作手册、画像系统产品白皮书、京东金融画像集市说明&gt;<br>2、逐步熟悉银河系统旗下的标签系统（老版本）熟悉<a href="https://usertag7.jd.com/#/caseMarket" target="_blank" rel="noopener">画像系统</a>（新版本）<br>3、着重开始学习Hive下的SQL语句。<font color="#dd0000"><strong>重要</strong></font><br>4、7.03日数科文化大讲堂、7.04日技术课程的参加。<br>5、完成<strong>新员工入职培训——京小东成长记</strong>等入职课程的培训及考试。</p>
-<h2 id="后续跟进"><a href="#后续跟进" class="headerlink" title="后续跟进"></a>后续跟进</h2><p>1、进一步跟进各类申请流程，如工牌卡贴的制作、显示屏的申请<br>2、完善电脑给类环境的配置、插件的安装<br>3、对VPN等权限进行进一步申请</p>
-<h2 id="插入链接与图片"><a href="#插入链接与图片" class="headerlink" title="插入链接与图片"></a>插入链接与图片</h2><p>链接: <a href="https://mp.csdn.net" target="_blank" rel="noopener">link</a>.<br>插入图片：<kbd>Ctrl/Command</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd><br><img src="https://img-blog.csdnimg.cn/20190702205843775.png#pic_center" alt="无法显示"></p>
-<h2 id="如何插入一段漂亮的代码片"><a href="#如何插入一段漂亮的代码片" class="headerlink" title="如何插入一段漂亮的代码片"></a>如何插入一段漂亮的代码片</h2><pre><code>去[博客设置](https://mp.csdn.net/configure)页面，选择一款你喜欢的代码片高亮样式，下面展示同样高亮的 `代码片`.</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// An highlighted block</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="string">'bar'</span>;</span><br></pre></td></tr></table></figure>
-
-
-          
+<li>逐步掌握markdown的编辑方式，开始CSDN之旅。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/04/入职第二日总结/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </li></ul></div>
     
     
     
@@ -686,7 +628,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/04/作业管理与说明/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2019/07/04/作业管理与说明/" itemprop="url">文档基础学习</a></h1>
         
 
         <div class="post-meta">
@@ -768,94 +710,24 @@
 
       
         
-          
-            <p>@[TOC](<font size="6">文档基础学习</font><br> )</p>
-<h1 id="作业管理规范"><a href="#作业管理规范" class="headerlink" title="作业管理规范"></a>作业管理规范</h1><h2 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h2><ul>
+          <h1 id="作业管理规范"><a href="#作业管理规范" class="headerlink" title="作业管理规范"></a>作业管理规范</h1><h2 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h2><ul>
 <li><strong>抽取作业</strong>：指将数据从数据源接入在到数据仓库的作业。 </li>
 <li><strong>计算作业</strong>：指通过脚本逻辑实现对数据进行加工处理的作业。</li>
 <li><strong>推送作业</strong>：指将源端的数据推送目标系统的作业。</li>
 <li><strong>质量作业</strong>：指通过配置质量检查规则对数据质量进行监测的作业。</li>
 <li><strong>作业负责人</strong>：指负责创建作业管理作业的人员</li>
 <li><strong>下游作业负责人</strong>：指负责创建下游作业管理下游作业的人员</li>
-<li><strong>数据平台维护人员</strong>：指负责维护平台管控数据的人员</li>
-</ul>
-<h2 id="作业生命周期管理-重要"><a href="#作业生命周期管理-重要" class="headerlink" title="作业生命周期管理   重要"></a>作业生命周期管理   <font color="#dd0000"><strong>重要</strong></font></h2><p><strong>1、作业上线管理</strong></p>
-<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =400x400)<br><strong>2、作业下线管理</strong></p>
-<p>![在这里插入图片描述](<a href="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center</a> =400x400)<br><strong>3、数据平台对于连续失败15天的作业进行强制下线处理。</strong></p>
-<h2 id="作业脚本开发规范"><a href="#作业脚本开发规范" class="headerlink" title="作业脚本开发规范"></a>作业脚本开发规范</h2><p><font size="4"><strong>脚本命名</strong></font></p>
-<ol>
-<li>脚本名称仅由小写字母，数字及下划线组成，且与该脚本生成的Hive目标表名一致。</li>
-<li>脚本名称最大长度30位，对于超长内容尽量以JD缩写代替，可参考《京东数科数据仓库高频词根术语表》文档命名。</li>
-</ol>
-<p><font size="4"><strong>脚本注释</strong></font></p>
-<ol>
-<li>保持注释与代码行为完全一致。 </li>
-<li>Description（描述）：描述脚本的作用，内容清晰易懂。</li>
-<li>Creator（创建人）、Modified By（修改人）：请使用京东邮箱，不允许填写中文名及各类简称。</li>
-<li>Modified By（修改人）、Modified Time （修改时间）及Modified Content （修改内容）：新建脚本时留空；如为已线上脚本，则请仔细填写修改人、修改时间、修改内容信息。</li>
-</ol>
-<p><font size="4"><strong>SQL规范</strong></font></p>
-<ol>
-<li>脚本由一个或多个SQL片段组合而成,串行完成处理任务。</li>
-<li>SQL语句不能以注释开始，片段中的半角括号需要成对出现，否则脚本执行时将报错。 </li>
-<li>SQL关键字大写，并保持必要的缩进。</li>
-<li>SQL中使用到的表名应显式的描述为“库表”.“表名”方式。</li>
-<li>脚本中不允许创建或者删除非临时表表，不允许出现truncate或者rename 语法</li>
-<li>临时表统一存放于tmp库中，命名方式如下所示：<br>临时表：TMP_ODM_ACTV_BT_PLUS_PLANRELATION_S_D_T[X]<br>脚本名：ODM_ACTV_BT_PLUS_PLANRELATION_S_D.py 其中TMP为临时表前缀，T<br>[X]为数字下标。当临时表使用完毕后，需在脚本的最后一个SQL片段中统一删除。</li>
-<li>脚本中不允许INSERT临时表和目标表以外的表。</li>
-<li>段裁剪（只查询业务处理需要的字段）</li>
-<li>分区裁剪（查询条件限定分区字段，对应的比较值要求是固定条件，不能使用表字段或者执行时取值函数）</li>
-<li>查询条件尽早过滤（关联条件前置为表过滤条件，空值过滤）</li>
-<li>关联表时关联条件使用表唯一字段（关联表数据提前去重，避免使用多对多关联；不同类型字段关联时转换成同类型关联，大小表关联时小表前置）</li>
-<li>关联表时倾斜数据可以使用map join</li>
-<li>需要多次查询的含数据日期以外查询条件的数据，创建临时表保存数据。</li>
-<li>group by替代distinct</li>
-<li>max(struct())替代rownumber()=1</li>
-<li>muti-insert（一次查询结果插入多个表/分区）</li>
-</ol>
-<h2 id="如何作业部署规范"><a href="#如何作业部署规范" class="headerlink" title="如何作业部署规范"></a>如何作业部署规范</h2><ul>
-<li><input checked disabled type="checkbox"> 规范1：同层级间作业不准互相依</li>
-<li><input checked disabled type="checkbox"> 规范2：普通接入作业优先级为80，普通计算作业优先级为149，普通推送作业优先级为150，质量作业优先级170.重点作业优先级小于30</li>
-</ul>
-<ul>
-<li>注明任务名称       <code>set mapreduce.job.name=jobname_cusname_seq;   use xxdb;</code></li>
-<li>不允许CREATE/DROP非临时表，不允许TRUNCATE/RENAME</li>
-<li>不允许INSERT临时表和目标表以外的表</li>
-</ul>
-<h2 id="常用UDF函数"><a href="#常用UDF函数" class="headerlink" title="常用UDF函数"></a>常用UDF函数</h2><p><strong>UDF的全称为user-defined function，用户定义函数</strong>，为什么有它的存在呢？有的时候 你要写的查询无法轻松地使用Hive提供的内置函数来表示，通过写UDF，Hive就可以方便地插入用户写的处理代码并在查询中使用它们，相当于在HQL（Hive SQL）中自定义一些函数。</p>
-<p>Hive中有三种UDF:(普通)UDF、用户定义聚集函数（user-defined aggregate function，UDAF）、用户定义表生成函数（user-defined table-generating function，UDTF）。</p>
-<ul>
-<li><input checked disabled type="checkbox"> UDF操作作用于单个数据行，并且产生一个数据行作为输出。大多数函数都属于这一类（比如数学函数和字符串函数）。</li>
-<li><input checked disabled type="checkbox"> UDAF 接受多个输入数据行，并产生一个输出数据行。想COUNT和MAX这样的函数就是聚集函数。</li>
-<li><input checked disabled type="checkbox"> UDTF 操作作用于单个数据行，并且产生多个数据行——-一个表作为输出</li>
-</ul>
-<p>表格如下：<br>UDF名称     | UDF介绍<br>——– | —–<br>sysdate  | 获取系统日期<br>changedate  | 日期函数<br>date_format  | 日期格式化<br>idNo_province  | 身份证查询所在省份<br>distanceCalculator  | 距离计算<br>IPExt  | ip地址信息获取<br>idcardnotrans  | 15位身份证转18位<br>rep_ascii  | 过滤特殊字符</p>
-<h2 id="SQL编写注意事项"><a href="#SQL编写注意事项" class="headerlink" title="SQL编写注意事项"></a>SQL编写注意事项</h2><ul>
-<li><p>sql编写区，多个sql用分号分隔即可 在sql中可以使用大量的日期变量，例如： <code>select * from {table1} where dt=&#39;{tx_date}&#39;</code></p>
-</li>
-<li><p>变量和别名一样，需要用{}括起来，日期变量的所有日期都是根据当前任务数据日期计算而来，如果当前的数据日期为：2017-10-09，则上述语句程序解析后，实际运行语句为： <code>select * from tmp.tmp_a_payment_1 where dt=&#39;2017-10-09&#39;</code> </p>
-<p><font color="#dd0000"><strong>注意事项</strong></font></p>
-<ol>
-<li>字段裁剪（只查询业务处理需要的字段）</li>
-<li>分区裁剪（查询条件限定分区字段，对应的比较值要求是固定条件，不能使用表字段或者执行时取值函数）</li>
-<li>查询条件尽早过滤（关联条件前置为表过滤条件，空值过滤）</li>
-<li>关联表时关联条件使用表唯一字段（关联表数据提前去重，避免使用多对多关联；不同类型字段关联时转换成同类型关联，大小表关联时小表前置）</li>
-<li>关联表时倾斜数据可以使用map join</li>
-<li>需要多次查询的含数据日期以外查询条件的数据，创建临时表保存数据</li>
-<li>group by替代distinct</li>
-<li>max(struct())替代rownumber()=1</li>
-<li>muti-insert（一次查询结果插入多个表/分区）</li>
-</ol>
-</li>
-</ul>
-<p>下面展示同样高亮的 <code>代码片</code>.</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// An highlighted block</span><br><span class="line"><span class="comment"># SQL</span></span><br><span class="line">sql=""" <span class="keyword">select</span></span><br><span class="line">              <span class="keyword">case</span> <span class="keyword">when</span> <span class="keyword">count</span>(<span class="number">1</span>)&lt;&gt;<span class="number">0</span> <span class="keyword">then</span> <span class="string">"CHECK_OK"</span></span><br><span class="line">              <span class="keyword">else</span> <span class="string">'CHECK_FAILED'</span></span><br><span class="line">              <span class="keyword">end</span> pop_info_flag</span><br><span class="line">         <span class="keyword">from</span> app.a_01_pop_info_basic <span class="keyword">where</span> dt=<span class="string">'&#123;tx_date&#125;'</span>;         </span><br><span class="line">    """</span><br><span class="line"></span><br><span class="line">sql_task = SqlTask()</span><br><span class="line">sql_task.set_sql_runner(RUNNER_SPARK_SQL)</span><br><span class="line">sql_task.set_sql(sql)</span><br><span class="line">return_code = sql_task.execute()</span><br><span class="line">sys.exit(return_code)</span><br></pre></td></tr></table></figure>
-
-
-          
+<li><strong>数据平台维护人员</strong>：指负责维护平台管控数据的人员
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/04/作业管理与说明/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </li></ul></div>
     
     
     
