@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据基础学习—作业管理规范与说明">
+<meta property="og:url" content="http://yoursite.com/2019/07/04/作业管理与说明/index.html">
+<meta property="og:site_name" content="这個人好蠢、">
+<meta property="og:description" content="一、术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:updated_time" content="2019-07-05T17:17:57.864Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据基础学习—作业管理规范与说明">
+<meta name="twitter:description" content="一、术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/04/作业管理与说明/">
+
+
+
+
+
+  <title>数据基础学习—作业管理规范与说明 | 这個人好蠢、</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/Co-Hwang"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">这個人好蠢、</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪懂坚持 | 全靠死撑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+<script>
+  
+  window.onload = function(){
+    var path = 'https://Co-Hwang.github.io'; //
+    var localhostItem = String(window.location).split(path)[1];
+    var LiNode = document.querySelectorAll('#menu > li > a')
+    
+    for(var i = 0; i< LiNode.length;i++){
+      var item = String(LiNode[i].href).split(path)[1];
+      if(item == localhostItem && item != undefined){
+        LiNode[i].setAttribute('style','border-bottom:1px solid black');
+      }
+    }
+  };
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/作业管理与说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="想当校长的老王">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这個人好蠢、">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据基础学习—作业管理规范与说明</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-04T18:54:02+08:00">
+                2019-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、术语解释"><a href="#一、术语解释" class="headerlink" title="一、术语解释"></a>一、术语解释</h2><p><strong>抽取作业</strong>：指将数据从数据源接入在到数据仓库的作业。 </p>
+<p><strong>计算作业</strong>：指通过脚本逻辑实现对数据进行加工处理的作业。</p>
+<p><strong>推送作业</strong>：指将源端的数据推送目标系统的作业。</p>
+<p><strong>质量作业</strong>：指通过配置质量检查规则对数据质量进行监测的作业。</p>
+<p><strong>作业负责人</strong>：指负责创建作业管理作业的人员</p>
+<p><strong>下游作业负责人</strong>：指负责创建下游作业管理下游作业的人员</p>
+<p><strong>数据平台维护人员</strong>：指负责维护平台管控数据的人员</p>
+<a id="more"></a>
+
+<h2 id="二、作业生命周期管理-重要"><a href="#二、作业生命周期管理-重要" class="headerlink" title="二、作业生命周期管理   重要"></a>二、作业生命周期管理   <font color="#dd0000"><strong>重要</strong></font></h2><p><font size="4"><strong>1、作业线上管理</strong></font></p>
+<p><img src="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><font size="4"><strong>2、作业线下管理</strong></font></p>
+<p><img src="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><font size="4"><strong>3、数据平台对于连续失败15天的作业进行强制下线处理。</strong></font></p>
+<h2 id="三、作业脚本开发规范"><a href="#三、作业脚本开发规范" class="headerlink" title="三、作业脚本开发规范"></a>三、作业脚本开发规范</h2><p><font size="4"><strong>1、脚本命名</strong></font></p>
+<ul>
+<li>脚本名称仅由小写字母，数字及下划线组成，且与该脚本生成的Hive目标表名一致。</li>
+<li>脚本名称最大长度30位，对于超长内容尽量以JD缩写代替，可参考《京东数科数据仓库高频词根术语表》文档命名。</li>
+</ul>
+<p><font size="4"><strong>2、脚本注释</strong></font></p>
+<ul>
+<li>保持注释与代码行为完全一致。 </li>
+<li>Description（描述）：描述脚本的作用，内容清晰易懂。</li>
+<li>Creator（创建人）、Modified By（修改人）：请使用京东邮箱，不允许填写中文名及各类简称。Modified By（修改人）、Modified Time （修改时间）及Modified Content （修改内容）：新建脚本时留空；如为已线上脚本，则请仔细填写修改人、修改时间、修改内容信息。</li>
+</ul>
+<p><font size="4"><strong>3、SQL规范</strong></font></p>
+<ul>
+<li><input checked disabled type="checkbox"> 脚本由一个或多个SQL片段组合而成,串行完成处理任务。</li>
+<li><input checked disabled type="checkbox"> SQL语句不能以注释开始，片段中的半角括号需要成对出现，否则脚本执行时将报错。 </li>
+<li><input checked disabled type="checkbox"> SQL关键字大写，并保持必要的缩进。</li>
+<li><input checked disabled type="checkbox"> SQL中使用到的表名应显式的描述为“库表”.“表名”方式。</li>
+<li><input checked disabled type="checkbox"> 脚本中不允许创建或者删除非临时表表，不允许出现truncate或者rename 语法</li>
+<li><input checked disabled type="checkbox"> 临时表统一存放于tmp库中，命名方式如下所示：<br> 临时表：TMP_ODM_ACTV_BT_PLUS_PLANRELATION_S_D_T[X]<br> 脚本名：ODM_ACTV_BT_PLUS_PLANRELATION_S_D.py 其中TMP为临时表前缀，T<br> [X]为数字下标。当临时表使用完毕后，需在脚本的最后一个SQL片段中统一删除。</li>
+<li><input checked disabled type="checkbox"> 脚本中不允许INSERT临时表和目标表以外的表。</li>
+<li><input checked disabled type="checkbox"> 段裁剪（只查询业务处理需要的字段）</li>
+<li><input checked disabled type="checkbox"> 分区裁剪（查询条件限定分区字段，对应的比较值要求是固定条件，不能使用表字段或者执行时取值函数）</li>
+<li><input checked disabled type="checkbox"> 查询条件尽早过滤（关联条件前置为表过滤条件，空值过滤）</li>
+<li><input checked disabled type="checkbox"> 关联表时关联条件使用表唯一字段（关联表数据提前去重，避免使用多对多关联；不同类型字段关联时转换成同类型关联，大小表关联时小表前置）</li>
+<li><input checked disabled type="checkbox"> 关联表时倾斜数据可以使用map join</li>
+<li><input checked disabled type="checkbox"> 需要多次查询的含数据日期以外查询条件的数据，创建临时表保存数据。</li>
+<li><input checked disabled type="checkbox"> group by替代distinct</li>
+<li><input checked disabled type="checkbox"> max(struct())替代rownumber()=1</li>
+<li><input checked disabled type="checkbox"> muti-insert（一次查询结果插入多个表/分区）</li>
+</ul>
+<h2 id="四、如何作业部署规范"><a href="#四、如何作业部署规范" class="headerlink" title="四、如何作业部署规范"></a>四、如何作业部署规范</h2><ol>
+<li><p>规范1：同层级间作业不准互相依</p>
+</li>
+<li><p>规范2：普通接入作业优先级为80，普通计算作业优先级为149，普通推送作业优先级为150，质量作业优先级170，重点作业优先级小于30</p>
+</li>
+</ol>
+<ul>
+<li>注明任务名称       <code>set mapreduce.job.name=jobname_cusname_seq;   use xxdb;</code></li>
+<li>不允许CREATE/DROP非临时表，不允许TRUNCATE/RENAME</li>
+<li>不允许INSERT临时表和目标表以外的表</li>
+</ul>
+<h2 id="五、常用UDF函数"><a href="#五、常用UDF函数" class="headerlink" title="五、常用UDF函数"></a>五、常用UDF函数</h2><p>​    <strong>UDF的全称为user-defined function，用户定义函数</strong>，为什么有它的存在呢？有的时候 你要写的查询无法轻松地使用Hive提供的内置函数来表示，通过写UDF，Hive就可以方便地插入用户写的处理代码并在查询中使用它们，相当于在HQL（Hive SQL）中自定义一些函数。</p>
+<p>​    Hive中有三种UDF:(普通)UDF、用户定义聚集函数（user-defined aggregate function，UDAF）、用户定义表生成函数（user-defined table-generating function，UDTF）。</p>
+<ul>
+<li>UDF操作作用于单个数据行，并且产生一个数据行作为输出。大多数函数都属于这一类（比如数学函数和字符串函数）。</li>
+<li>UDAF 接受多个输入数据行，并产生一个输出数据行。想COUNT和MAX这样的函数就是聚集函数。</li>
+<li>UDTF 操作作用于单个数据行，并且产生多个数据行——-一个表作为输出</li>
+</ul>
+<p>表格如下：<br>UDF名称     | UDF介绍<br>——– | —–<br>sysdate  | 获取系统日期<br>changedate  | 日期函数<br>date_format  | 日期格式化<br>idNo_province  | 身份证查询所在省份<br>distanceCalculator  | 距离计算<br>IPExt  | ip地址信息获取<br>idcardnotrans  | 15位身份证转18位<br>rep_ascii  | 过滤特殊字符</p>
+<h2 id="六、SQL编写注意事项"><a href="#六、SQL编写注意事项" class="headerlink" title="六、SQL编写注意事项"></a>六、SQL编写注意事项</h2><ul>
+<li><p>sql编写区，多个sql用分号分隔即可 在sql中可以使用大量的日期变量，例如： <code>select * from {table1} where dt=&#39;{tx_date}&#39;</code></p>
+</li>
+<li><p>变量和别名一样，需要用{}括起来，日期变量的所有日期都是根据当前任务数据日期计算而来，如果当前的数据日期为：2017-10-09，则上述语句程序解析后，实际运行语句为： <code>select * from tmp.tmp_a_payment_1 where dt=&#39;2017-10-09&#39;</code> </p>
+<p><font color="#dd0000"><strong>注意事项</strong></font></p>
+<ol>
+<li>字段裁剪（只查询业务处理需要的字段）</li>
+<li>分区裁剪（查询条件限定分区字段，对应的比较值要求是固定条件，不能使用表字段或者执行时取值函数）</li>
+<li>查询条件尽早过滤（关联条件前置为表过滤条件，空值过滤）</li>
+<li>关联表时关联条件使用表唯一字段（关联表数据提前去重，避免使用多对多关联；不同类型字段关联时转换成同类型关联，大小表关联时小表前置）</li>
+<li>关联表时倾斜数据可以使用map join</li>
+<li>需要多次查询的含数据日期以外查询条件的数据，创建临时表保存数据</li>
+<li>group by替代distinct</li>
+<li>max(struct())替代rownumber()=1</li>
+<li>muti-insert（一次查询结果插入多个表/分区）</li>
+</ol>
+</li>
+</ul>
+<p>下面展示同样高亮的 <code>代码片</code>.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// An highlighted block</span><br><span class="line"><span class="comment"># SQL</span></span><br><span class="line">sql=""" <span class="keyword">select</span></span><br><span class="line">              <span class="keyword">case</span> <span class="keyword">when</span> <span class="keyword">count</span>(<span class="number">1</span>)&lt;&gt;<span class="number">0</span> <span class="keyword">then</span> <span class="string">"CHECK_OK"</span></span><br><span class="line">              <span class="keyword">else</span> <span class="string">'CHECK_FAILED'</span></span><br><span class="line">              <span class="keyword">end</span> pop_info_flag</span><br><span class="line">         <span class="keyword">from</span> app.a_01_pop_info_basic <span class="keyword">where</span> dt=<span class="string">'&#123;tx_date&#125;'</span>;         </span><br><span class="line">    """</span><br><span class="line"></span><br><span class="line">sql_task = SqlTask()</span><br><span class="line">sql_task.set_sql_runner(RUNNER_SPARK_SQL)</span><br><span class="line">sql_task.set_sql(sql)</span><br><span class="line">return_code = sql_task.execute()</span><br><span class="line">sys.exit(return_code)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/04/总要留下点什么/" rel="prev" title="总要留下点什么...">
+                总要留下点什么... <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="想当校长的老王">
+            
+              <p class="site-author-name" itemprop="name">想当校长的老王</p>
+              <p class="site-description motion-element" itemprop="description">愿能阅尽天下事，洗手仍能做羹汤</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Co-Hwang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.163.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、术语解释"><span class="nav-number">1.</span> <span class="nav-text">一、术语解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、作业生命周期管理-重要"><span class="nav-number">2.</span> <span class="nav-text">二、作业生命周期管理   重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、作业脚本开发规范"><span class="nav-number">3.</span> <span class="nav-text">三、作业脚本开发规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、如何作业部署规范"><span class="nav-number">4.</span> <span class="nav-text">四、如何作业部署规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、常用UDF函数"><span class="nav-number">5.</span> <span class="nav-text">五、常用UDF函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、SQL编写注意事项"><span class="nav-number">6.</span> <span class="nav-text">六、SQL编写注意事项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">想当校长的老王</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 浏览量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
