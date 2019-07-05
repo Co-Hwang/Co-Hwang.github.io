@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:updated_time" content="2019-07-05T17:24:36.127Z">
+<meta property="og:updated_time" content="2019-07-05T17:27:35.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据基础学习—作业管理规范与说明">
 <meta name="twitter:description" content="一、术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
@@ -413,22 +413,22 @@
 </ul>
 <p><font size="4"><strong>3、SQL规范</strong></font></p>
 <ul>
-<li><input checked disabled type="checkbox"> 脚本由一个或多个SQL片段组合而成,串行完成处理任务。</li>
-<li><input checked disabled type="checkbox"> SQL语句不能以注释开始，片段中的半角括号需要成对出现，否则脚本执行时将报错。 </li>
-<li><input checked disabled type="checkbox"> SQL关键字大写，并保持必要的缩进。</li>
-<li><input checked disabled type="checkbox"> SQL中使用到的表名应显式的描述为“库表”.“表名”方式。</li>
-<li><input checked disabled type="checkbox"> 脚本中不允许创建或者删除非临时表表，不允许出现truncate或者rename 语法</li>
-<li><input checked disabled type="checkbox"> 临时表统一存放于tmp库中，命名方式如下所示：<br>临时表：TMP_ODM_ACTV_BT_PLUS_PLANRELATION_S_D_T[X]<br>脚本名：ODM_ACTV_BT_PLUS_PLANRELATION_S_D.py 其中TMP为临时表前缀，T<br>[X]为数字下标。当临时表使用完毕后，需在脚本的最后一个SQL片段中统一删除。</li>
-<li><input checked disabled type="checkbox"> 脚本中不允许INSERT临时表和目标表以外的表。</li>
-<li><input checked disabled type="checkbox"> 段裁剪（只查询业务处理需要的字段）</li>
-<li><input checked disabled type="checkbox"> 分区裁剪（查询条件限定分区字段，对应的比较值要求是固定条件，不能使用表字段或者执行时取值函数）</li>
-<li><input checked disabled type="checkbox"> 查询条件尽早过滤（关联条件前置为表过滤条件，空值过滤）</li>
-<li><input checked disabled type="checkbox"> 关联表时关联条件使用表唯一字段（关联表数据提前去重，避免使用多对多关联；不同类型字段关联时转换成同类型关联，大小表关联时小表前置）</li>
-<li><input checked disabled type="checkbox"> 关联表时倾斜数据可以使用map join</li>
-<li><input checked disabled type="checkbox"> 需要多次查询的含数据日期以外查询条件的数据，创建临时表保存数据。</li>
-<li><input checked disabled type="checkbox"> group by替代distinct</li>
-<li><input checked disabled type="checkbox"> max(struct())替代rownumber()=1</li>
-<li><input checked disabled type="checkbox"> muti-insert（一次查询结果插入多个表/分区）</li>
+<li>脚本由一个或多个SQL片段组合而成,串行完成处理任务。</li>
+<li>SQL语句不能以注释开始，片段中的半角括号需要成对出现，否则脚本执行时将报错。 </li>
+<li>SQL关键字大写，并保持必要的缩进。</li>
+<li>SQL中使用到的表名应显式的描述为“库表”.“表名”方式。</li>
+<li>脚本中不允许创建或者删除非临时表表，不允许出现truncate或者rename 语法</li>
+<li>临时表统一存放于tmp库中，命名方式如下所示：临时表：TMP_ODM_ACTV_BT_PLUS_PLANRELATION_S_D_T[X] 脚本名：ODM_ACTV_BT_PLUS_PLANRELATION_S_D.py 其中TMP为临时表前缀，T[X]为数字下标。当临时表使用完毕后，需在脚本的最后一个SQL片段中统一删除。</li>
+<li>脚本中不允许INSERT临时表和目标表以外的表。</li>
+<li>段裁剪（只查询业务处理需要的字段）</li>
+<li>分区裁剪（查询条件限定分区字段，对应的比较值要求是固定条件，不能使用表字段或者执行时取值函数）</li>
+<li>查询条件尽早过滤（关联条件前置为表过滤条件，空值过滤）</li>
+<li>关联表时关联条件使用表唯一字段（关联表数据提前去重，避免使用多对多关联；不同类型字段关联时转换成同类型关联，大小表关联时小表前置）</li>
+<li>关联表时倾斜数据可以使用map join</li>
+<li>需要多次查询的含数据日期以外查询条件的数据，创建临时表保存数据。</li>
+<li>group by替代distinct</li>
+<li>max(struct())替代rownumber()=1</li>
+<li>muti-insert（一次查询结果插入多个表/分区）</li>
 </ul>
 <h2 id="四、如何作业部署规范"><a href="#四、如何作业部署规范" class="headerlink" title="四、如何作业部署规范"></a>四、如何作业部署规范</h2><ol>
 <li><p>规范1：同层级间作业不准互相依</p>
