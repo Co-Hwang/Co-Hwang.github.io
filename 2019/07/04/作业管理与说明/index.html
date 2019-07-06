@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:updated_time" content="2019-07-06T04:24:25.436Z">
+<meta property="og:updated_time" content="2019-07-06T04:29:11.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据基础学习—作业管理规范与说明">
 <meta name="twitter:description" content="术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
@@ -418,23 +418,23 @@
 <p><strong>数据平台维护人员</strong>：指负责维护平台管控数据的人员</p>
 <a id="more"></a>
 
-<h2 id="作业生命周期管理-重要"><a href="#作业生命周期管理-重要" class="headerlink" title="作业生命周期管理   重要"></a>作业生命周期管理   <font color="#dd0000"><strong>重要</strong></font></h2><p><font size="4"><strong>A、作业线上管理</strong></font></p>
+<h2 id="作业生命周期管理-重要"><a href="#作业生命周期管理-重要" class="headerlink" title="作业生命周期管理   重要"></a>作业生命周期管理   <font color="#dd0000"><strong>重要</strong></font></h2><p><strong>A、作业线上管理</strong></p>
 <p><img src="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><font size="4"><strong>B、作业线下管理</strong></font></p>
+<p><strong>B、作业线下管理</strong></p>
 <p><img src="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p><font size="4"><strong>C、数据平台对于连续失败15天的作业进行强制下线处理。</strong></font></p>
-<h2 id="作业脚本开发规范"><a href="#作业脚本开发规范" class="headerlink" title="作业脚本开发规范"></a>作业脚本开发规范</h2><p><font size="4"><strong>A、脚本命名</strong></font></p>
+<p><strong>C、数据平台对于连续失败15天的作业进行强制下线处理</strong></p>
+<h2 id="作业脚本开发规范"><a href="#作业脚本开发规范" class="headerlink" title="作业脚本开发规范"></a>作业脚本开发规范</h2><p><strong>A、脚本命名</strong></p>
 <ul>
 <li>脚本名称仅由小写字母，数字及下划线组成，且与该脚本生成的Hive目标表名一致。</li>
 <li>脚本名称最大长度30位，对于超长内容尽量以JD缩写代替，可参考《京东数科数据仓库高频词根术语表》文档命名。</li>
 </ul>
-<p><font size="4"><strong>B、脚本注释</strong></font></p>
+<p><strong>B、脚本注释</strong></p>
 <ul>
 <li>保持注释与代码行为完全一致。 </li>
 <li>Description（描述）：描述脚本的作用，内容清晰易懂。</li>
 <li>Creator（创建人）、Modified By（修改人）：请使用京东邮箱，不允许填写中文名及各类简称。Modified By（修改人）、Modified Time （修改时间）及Modified Content （修改内容）：新建脚本时留空；如为已线上脚本，则请仔细填写修改人、修改时间、修改内容信息。</li>
 </ul>
-<p><font size="4"><strong>C、SQL规范</strong></font></p>
+<p><strong>C、SQL规范</strong></p>
 <ul>
 <li>脚本由一个或多个SQL片段组合而成,串行完成处理任务。</li>
 <li>SQL语句不能以注释开始，片段中的半角括号需要成对出现，否则脚本执行时将报错。 </li>
