@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172202466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190703172232312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:updated_time" content="2019-07-06T04:29:11.658Z">
+<meta property="og:updated_time" content="2019-07-06T04:39:33.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据基础学习—作业管理规范与说明">
 <meta name="twitter:description" content="术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
@@ -460,13 +460,12 @@
 <li><input checked disabled type="checkbox"> 不允许CREATE/DROP非临时表，不允许TRUNCATE/RENAME</li>
 <li><input checked disabled type="checkbox"> 不允许INSERT临时表和目标表以外的表</li>
 </ul>
-<h2 id="常用UDF函数"><a href="#常用UDF函数" class="headerlink" title="常用UDF函数"></a>常用UDF函数</h2><p>&emsp;&emsp;<strong>UDF的全称为user-defined function，用户定义函数</strong>，为什么有它的存在呢？有的时候 你要写的查询无法轻松地使用Hive提供的内置函数来表示，通过写UDF，Hive就可以方便地插入用户写的处理代码并在查询中使用它们，相当于在HQL（Hive SQL）中自定义一些函数。<br>&emsp;&emsp;Hive中有三种UDF:(普通)UDF、用户定义聚集函数（user-defined aggregate function，UDAF）、用户定义表生成函数（user-defined table-generating function，UDTF）。</p>
-<ul>
-<li>UDF操作作用于单个数据行，并且产生一个数据行作为输出。大多数函数都属于这一类（比如数学函数和字符串函数）。</li>
-<li>UDAF 接受多个输入数据行，并产生一个输出数据行。想COUNT和MAX这样的函数就是聚集函数。</li>
-<li>UDTF 操作作用于单个数据行，并且产生多个数据行——-一个表作为输出</li>
-</ul>
-<p>表格如下：</p>
+<h2 id="常用UDF函数"><a href="#常用UDF函数" class="headerlink" title="常用UDF函数"></a>常用UDF函数</h2><p>&emsp;&emsp;<strong>UDF的全称为user-defined function，用户定义函数</strong>，为什么有它的存在呢？有的时候 你要写的查询无法轻松地使用Hive提供的内置函数来表示，通过写UDF，Hive就可以方便地插入用户写的处理代码并在查询中使用它们，相当于在HQL（Hive SQL）中自定义一些函数。</p>
+<p>&emsp;&emsp;Hive中有三种UDF:(普通)UDF、用户定义聚集函数（user-defined aggregate function，UDAF）、用户定义表生成函数（user-defined table-generating function，UDTF）。</p>
+<p>&emsp;&emsp;A、UDF操作作用于单个数据行，并且产生一个数据行作为输出。大多数函数都属于这一类（比如数学函数和字符串函数）。</p>
+<p>&emsp;&emsp;B、UDAF 接受多个输入数据行，并产生一个输出数据行。想COUNT和MAX这样的函数就是聚集函数。</p>
+<p>&emsp;&emsp;C、UDTF 操作作用于单个数据行，并且产生多个数据行——-一个表作为输出</p>
+<p>&emsp;&emsp;<strong>表格如下：</strong></p>
 <table>
 <thead>
 <tr>
@@ -507,10 +506,8 @@
 <td align="center">过滤特殊字符</td>
 </tr>
 </tbody></table>
-<h2 id="SQL编写注意事项"><a href="#SQL编写注意事项" class="headerlink" title="SQL编写注意事项"></a>SQL编写注意事项</h2><ul>
-<li>sql编写区，多个sql用分号分隔即可 在sql中可以使用大量的日期变量，例如： <code>select * from {table1} where dt=&#39;{tx_date}&#39;</code></li>
-<li>变量和别名一样，需要用{}括起来，日期变量的所有日期都是根据当前任务数据日期计算而来，如果当前的数据日期为：2017-10-09，则上述语句程序解析后，实际运行语句为： <code>select * from tmp.tmp_a_payment_1 where dt=&#39;2017-10-09&#39;</code> </li>
-</ul>
+<h2 id="SQL编写注意事项"><a href="#SQL编写注意事项" class="headerlink" title="SQL编写注意事项"></a>SQL编写注意事项</h2><p>&emsp;&emsp;sql编写区，多个sql用分号分隔即可 在sql中可以使用大量的日期变量，例如： <code>select * from {table1} where dt=&#39;{tx_date}&#39;</code></p>
+<p>&emsp;&emsp;变量和别名一样，需要用{}括起来，日期变量的所有日期都是根据当前任务数据日期计算而来，如果当前的数据日期为：2017-10-09，则上述语句程序解析后，实际运行语句为： <code>select * from tmp.tmp_a_payment_1 where dt=&#39;2017-10-09&#39;</code> </p>
 <p><font color="#dd0000"><strong>注意事项</strong></font></p>
 <ol>
 <li>字段裁剪（只查询业务处理需要的字段）</li>
