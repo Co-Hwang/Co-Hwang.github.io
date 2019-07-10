@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v3wf2v1sj30la0jodhz.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v2pi42hdj30ko0igjxi.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v3vxr5k8j30yq0lmq7c.jpg">
-<meta property="og:updated_time" content="2019-07-10T14:21:29.015Z">
+<meta property="og:updated_time" content="2019-07-10T14:24:18.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据仓库架构解析&lt;详细！！！！&gt;">
 <meta name="twitter:description" content="数据仓库 概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
@@ -493,19 +493,13 @@
 <li><input checked disabled type="checkbox"> 流水表是每天的交易形成的历史；流水表用于统计业务相关情况。</li>
 </ul>
 <h2 id="存储策略"><a href="#存储策略" class="headerlink" title="存储策略"></a>存储策略</h2><ul>
-<li><p>I （增量）：每日一个增量数据分区、适用于日志及交易流水等信息。</p>
-</li>
-<li><p>A（全量）：保留最新一份儿全量数据、适用于无变化的维度或者不关注变化的数据存储。</p>
-</li>
-<li><p>S（快照）：是“A”的扩展、每日一个全量数据分区、适用于台账表等业务系统的汇总信息等。</p>
-</li>
-<li><p>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。</p>
-<h2 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h2><ul>
-<li>STAGE、ODM、IDM字段类型原则上只允许使用以下3种：bigint、decmail、string。<br><strong>bigint</strong>：数量、次数、人数等整数字段。<br><strong>decmail(30,6)</strong>：金额、比率等小数字段。一般情况下使用所示精度，入仓调研时的特殊情况视具体而定。<br><strong>string</strong>：订单编号、SKU编号、描述类信息等字符字段 注:流量等特殊情况下可以使用MAP等复合类型，但需要事先知会数据仓库组。 </li>
-<li>SDM及各集市字段类型可以使用HIVE支持的任何类型。</li>
+<li>I （增量）：每日一个增量数据分区、适用于日志及交易流水等信息。</li>
+<li>A（全量）：保留最新一份儿全量数据、适用于无变化的维度或者不关注变化的数据存储。</li>
+<li>S（快照）：是“A”的扩展、每日一个全量数据分区、适用于台账表等业务系统的汇总信息等。</li>
+<li>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。<h2 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h2></li>
 </ul>
-</li>
-</ul>
+<p>&emsp;&emsp;STAGE、ODM、IDM字段类型原则上只允许使用以下3种：bigint、decmail、string。SDM及各集市字段类型可以使用HIVE支持的任何类型。</p>
+<p>&emsp;&emsp;<strong>1、bigint</strong>：数量、次数、人数等整数字段。<br>&emsp;&emsp;<strong>2、decmail(30,6)</strong>：金额、比率等小数字段。一般情况下使用所示精度，入仓调研时的特殊情况视具体而定。<br>&emsp;&emsp;<strong>3、string</strong>：订单编号、SKU编号、描述类信息等字符字段 注:流量等特殊情况下可以使用MAP等复合类型，但需要事先知会数据仓库组。 </p>
 <h2 id="高频词根术语表"><a href="#高频词根术语表" class="headerlink" title="高频词根术语表"></a>高频词根术语表</h2><table>
 <thead>
 <tr>
@@ -685,6 +679,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/04/作业管理与说明/" rel="prev" title="数据基础学习—作业管理规范与说明">
+                数据基础学习—作业管理规范与说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -762,7 +760,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -773,7 +771,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -784,7 +782,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
