@@ -99,10 +99,10 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1k3aw7sj31hu0qaqd9.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1lgxc6vj31gi0eqwnm.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v1mfpigfj31dg0u0k51.jpg">
-<meta property="og:image" content="http://yoursite.com/Users/hwang/JD/Hexo/Blog_pic/%E5%85%A8%E9%87%8F%E8%A1%A8.png">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v3wf2v1sj30la0jodhz.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v2pi42hdj30ko0igjxi.jpg">
-<meta property="og:image" content="http://yoursite.com/Users/hwang/JD/Hexo/Blog_pic/%E6%8B%89%E9%93%BE%E8%A1%A8.png">
-<meta property="og:updated_time" content="2019-07-10T14:17:40.822Z">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v3vxr5k8j30yq0lmq7c.jpg">
+<meta property="og:updated_time" content="2019-07-10T14:21:29.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据仓库架构解析&lt;详细！！！！&gt;">
 <meta name="twitter:description" content="数据仓库 概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
@@ -477,7 +477,7 @@
 <p>&emsp;&emsp;某部门或某些特定用户因特定应用目的而设计创建的数据集，集市分为共享集市和非共享集市；共享集市可对非共享集市提供服务，共享集市间不允许直接共享数据； 非共享集市间不允许直接共享数据，须通过下沉“共性加工层”方式进行数据共享。<br>&emsp;&emsp;每个集市逻辑上分为基础层和应用层。基础层由数据资产部与业务团队共建；应用层由业务团队依据应用目的自建；<br>&emsp;&emsp;各部门业务需求通过各自集市提供服务，原则上不允许直接使用仓库层数据。<br>&emsp;&emsp;功能定义：即 <strong>DataMart</strong>，这里的 X指代变量，用于某部门或些特定户因应目的而建数据。<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v1mfpigfj31dg0u0k51.jpg" alt="数据集市层"></p>
 <h2 id="全量表，增量表，拉链表，流水表，快照表"><a href="#全量表，增量表，拉链表，流水表，快照表" class="headerlink" title="全量表，增量表，拉链表，流水表，快照表"></a>全量表，增量表，拉链表，流水表，快照表</h2><p><strong>A、全量表</strong></p>
 <p>&emsp;&emsp;大部分美团侧的同步方式采用全量表，全量表<strong>无分区</strong>，每天凌晨流程执行完后，表中数据是截止到前一天的mysql数据。</p>
-<p><img src="/Users/hwang/JD/Hexo/Blog_pic/%E5%85%A8%E9%87%8F%E8%A1%A8.png" alt="全量表"></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v3wf2v1sj30la0jodhz.jpg" alt></p>
 <p><strong>B、增量表</strong></p>
 <p>&emsp;&emsp;<strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的分区会存放mysql在那一天所产生的增量数据（insert，update的数据），注意目前增量表的同步方式不会包含历史数据，即只存放增量数据。对于源系统每天抽取的一部分数据，通常来说抽取的条件，数据的创建日期或者更新日期等于当日。&lt;日志类、交易流水类&gt;</p>
 <p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v2pi42hdj30ko0igjxi.jpg" alt></p>
@@ -485,7 +485,7 @@
 <p>&emsp;&emsp;<strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的数据都是截止到那一天mysql的全量数据。适用于业务系统的汇总，已下单、已付款、已出库，每天的这个状态都会得到记录。</p>
 <p><strong>D、拉链表</strong>（多为增量拉链，多在ODM层进行，用户的属性表、注册信息等）</p>
 <p>&emsp;&emsp;<strong>维护历史</strong>状态，以及最新状态数据的一种表，拉链表根据拉链粒度的不同，实际上相当于快照，只不过做了优化，去除了一部分不变的记录而已,通过拉链表可以很方便的还原出拉链时点的客户记录。（4712 传统。。。）</p>
-<p><img src="/Users/hwang/JD/Hexo/Blog_pic/%E6%8B%89%E9%93%BE%E8%A1%A8.png" alt="拉链表"></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v3vxr5k8j30yq0lmq7c.jpg" alt></p>
 <p><strong>E、流水表</strong></p>
 <p>&emsp;&emsp;对于表的每一个修改都会记录，可以用于反映实际记录的变更。</p>
 <ul>
@@ -684,10 +684,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/04/作业管理与说明/" rel="prev" title="数据基础学习—作业管理规范与说明">
-                数据基础学习—作业管理规范与说明 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
