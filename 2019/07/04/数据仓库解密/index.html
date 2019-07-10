@@ -85,24 +85,28 @@
 <meta name="description" content="数据仓库 概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
 <meta name="keywords" content="数据仓库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据仓库架构解析">
+<meta property="og:title" content="数据仓库架构解析&lt;详细！！！！&gt;">
 <meta property="og:url" content="http://yoursite.com/2019/07/04/数据仓库解密/index.html">
 <meta property="og:site_name" content="这個人好蠢、">
 <meta property="og:description" content="数据仓库 概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703202618787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190703210836793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/201907032112105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:updated_time" content="2019-07-06T04:46:27.856Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1s07wdfj311i0m6wqp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v2s38iwjj310w0nq17u.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v2u6tlt3j30yq0m079e.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v2ene53yj31380jcqcs.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1jd2dbvj31hy0n6n3v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1jeh15bj30r60oo77o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1k3aw7sj31hu0qaqd9.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1lgxc6vj31gi0eqwnm.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v1mfpigfj31dg0u0k51.jpg">
+<meta property="og:image" content="http://yoursite.com/Users/hwang/JD/Hexo/Blog_pic/%E5%85%A8%E9%87%8F%E8%A1%A8.png">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v2pi42hdj30ko0igjxi.jpg">
+<meta property="og:image" content="http://yoursite.com/Users/hwang/JD/Hexo/Blog_pic/%E6%8B%89%E9%93%BE%E8%A1%A8.png">
+<meta property="og:updated_time" content="2019-07-10T14:17:40.822Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据仓库架构解析">
+<meta name="twitter:title" content="数据仓库架构解析&lt;详细！！！！&gt;">
 <meta name="twitter:description" content="数据仓库 概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1s07wdfj311i0m6wqp.jpg">
 
 
 
@@ -138,7 +142,7 @@
 
 
 
-  <title>数据仓库架构解析 | 这個人好蠢、</title>
+  <title>数据仓库架构解析<详细！！！！> | 这個人好蠢、</详细！！！！></title>
   
 
 
@@ -312,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据仓库架构解析</h1>
+          <h1 class="post-title" itemprop="name headline">数据仓库架构解析<详细！！！！></详细！！！！></h1>
         
 
         <div class="post-meta">
@@ -378,7 +382,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.2k 字
+                  2.9k 字
                 </span>
               
 
@@ -394,7 +398,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  10 分钟
                 </span>
               
             </div>
@@ -419,64 +423,168 @@
 <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>&emsp;&emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
 <a id="more"></a>
 
-<p><strong>A、发展历程</strong></p>
-<p>数据仓库的发展大致经历了这样的三个过程：</p>
-<p><strong>B、简单报表阶段</strong></p>
+<h2 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h2><p>数据仓库的发展大致经历了这样的三个过程：</p>
+<p><strong>A、简单报表阶段</strong></p>
 <p>&emsp;&emsp;这个阶段，系统的主要目标是解决一些日常的工作中业务人员需要的报表，以及生成一些简单的能够帮助领导进行决策所需要的汇总数据。这个阶段的大部分表现形式为数据库和前端报表工具。</p>
-<p><strong>C、数据集市阶段</strong></p>
+<p><strong>B、数据集市阶段</strong></p>
 <p>&emsp;&emsp;这个阶段，主要是根据某个业务部门的需要，进行一定的数据的采集，整理，按照业务人员的需要，进行多维报表的展现，能够提供对特定业务指导的数据，并且能够提供特定的领导决策数据。</p>
-<p><strong>D、数据仓库阶段</strong></p>
+<p><strong>C、数据仓库阶段</strong></p>
 <p>  这个阶段，主要是按照一定的数据模型，对整个企业的数据进行采集，整理，并且能够按照各个业务部门的需要，提供跨部门的，完全一致的业务报表数据，能够通过数据仓库生成对对业务具有指导性的数据，同时，为领导决策提供全面的数据支持。<br>&emsp;&emsp;通过数据仓库建设的发展阶段，我们能够看出，数据仓库的建设和数据集市的建设的重要区别就在于数据模型的支持。因此，数据模型的建设，对于我们数据仓库的建设，有着决定性的意义。</p>
+<h2 id="数据仓库与数据库的区别"><a href="#数据仓库与数据库的区别" class="headerlink" title="数据仓库与数据库的区别"></a>数据仓库与数据库的区别</h2><p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1s07wdfj311i0m6wqp.jpg" alt></p>
+<p>&emsp;&emsp;数据仓库只是BI有机组成的一个部分。BI包括底层的数据仓库和建立在其之上背后的决策报表、数据分析、数据挖掘及深度运算等基于数据的能力。BI是一种方案，包含了数据仓库的构建技术、报表技术、挖掘技术等等。</p>
+<p>&emsp;&emsp;<font color="#dd0000">数据仓库：面向主题的，集成的，时变的，易失的。（核心概念）</font></p>
+<p>&emsp;&emsp;数据库：</p>
+<ul>
+<li><input checked disabled type="checkbox"> 面向应用，根据具体的事件和操作对象，为了达成线上的应用、交易需求进行的设计过程。</li>
+<li><input checked disabled type="checkbox"> 业务导向、需求驱动，业务人员提出明确的需求（如线上实现10ms的交易需求），清晰的指导方式</li>
+<li><input checked disabled type="checkbox"> 设计目标：在线事务处理，一个事务是一次完整的数据查询或者修改的操作，是为企业特定需求服务的，并且实现时是有响应时间，数据安全等系统层面考量的。</li>
+</ul>
+<p>&emsp;&emsp;数据仓库：</p>
+<ul>
+<li><input checked disabled type="checkbox"> 面向主题，不断的发展更新自己的主题，最终建成一个全有向、完整的分析数据环境。</li>
+<li><input checked disabled type="checkbox"> 很难获得用户的需求到底是什么，使用人群十分广泛，设计人员了解到仓库里有哪些数据、主题、模型，在此基础再去布局能完成的任务。是一个逐渐迭代的过程。</li>
+<li><input checked disabled type="checkbox"> 为了做分析决策，建立起企业内全局的数据环境，元数据进入到数据仓库后不会再发生更新，对于数据的响应时间不敏感。设计时更多的考虑数据的组织，如何实现主题划分。</li>
+</ul>
+<h2 id="数据仓库的主题"><a href="#数据仓库的主题" class="headerlink" title="数据仓库的主题"></a>数据仓库的主题</h2><p><strong>数据仓库的主题：</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v2s38iwjj310w0nq17u.jpg" alt="数据仓库的主题"></p>
+<p><strong>数据仓库的基本数据类型：</strong></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v2u6tlt3j30yq0m079e.jpg" alt="数据仓库基本数据类型"></p>
+<h2 id="大数据平台架构"><a href="#大数据平台架构" class="headerlink" title="大数据平台架构"></a>大数据平台架构</h2><p>如下图所示：</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v2ene53yj31380jcqcs.jpg" alt="大数据平台架构"></p>
+<p>&emsp;&emsp;例：男性、40岁左右、爱抽烟、有车的。<strong>BitMap</strong> 这种引擎可以快速得到响应的结果。</p>
 <h2 id="架构分层-重要"><a href="#架构分层-重要" class="headerlink" title="架构分层  重要"></a>架构分层  <font color="#dd0000">重要</font></h2><p>如下图所示：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190703203345121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库架构"><br><img src="https://img-blog.csdnimg.cn/20190703202618787.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="数据仓库分层"><br><img src="https://img-blog.csdnimg.cn/20190703203625456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1jd2dbvj31hy0n6n3v.jpg" alt="数据仓库分层"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1jeh15bj30r60oo77o.jpg" alt="数据仓库分层类比"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1k3aw7sj31hu0qaqd9.jpg" alt="数据仓库分层细节"></p>
 <p><strong>A、数据缓冲层</strong></p>
-<p>&emsp;&emsp;数据缓冲层也称待转换区，这里是源业务系统数据的快照，保存细节数据，按天保存。这一层重点要保证数据的快速，准确入库。快速是指尽量减少该过程的时间，准确是指数据入库过程中保证无数据丢失，无乱码，错行等情况。<br>&emsp;&emsp;功能定义：即 Stage，又称数据中转区，该层通过ETL过程获取源业务系统的数据增量，主要按日存 储明细数据。为ODM层提供基础数据。</p>
+<p>&emsp;&emsp;数据缓冲层也称待转换区，这里是源业务系统数据的<strong>快照</strong>，两者力度一致，保存细节数据，按天保存。这一层重点要保证数据的快速，准确入库。快速是指尽量减少该过程的时间，准确是指数据入库过程中保证无数据丢失，无乱码，错行等情况，进行简单的数据清洗，涉及敏感的数据会直接进行加密。<br>&emsp;&emsp;功能定义：即 <strong>Stage</strong>，又称数据中转区，该层通过ETL过程获取源业务系统的数据增量，主要按日存储明细数据。为ODM层提供基础数据。</p>
 <p><strong>B、贴源明细层</strong></p>
-<p>&emsp;&emsp;数据贴源层是用于合并、存储生产系统历史至今数据，表结构及数据类型和源系统保持一致，对不同业务类型表使用不同的存储策略，对有价值的历史状态、历史关系、历史属性进行拉链表处理，比如用户账户信息等。<br>同时对每张表按业务归属用统一缩略语做标识并对其中敏感数据进行加密与脱敏处理，对明确的脏数据规则加以过滤清洗。<br>&emsp;&emsp;功能定义：全称 Original Data Mart ，该层负责合并、存储生产系统历史至今数据，按照业务归属组织数据，并进行脱敏及脏数据清洗处理。</p>
+<p>&emsp;&emsp;数据贴源层是用于合并、存储生产系统历史至今数据，表结构及数据类型和源系统保持一致，对不同业务类型表使用不同的存储策略，对有价值的历史状态、历史关系、历史属性进行拉链表处理，比如用户账户信息等。同时对每张表按业务归属用统一缩略语做标识并对其中敏感数据进行加密与脱敏处理，对明确的脏数据规则加以过滤清洗。<br>&emsp;&emsp;功能定义：全称 <strong>Original Data Mart</strong>，该层负责合并、存储生产系统历史至今数据，按照业务归属组织数据，并进行脱敏及脏数据清洗处理。</p>
 <ul>
 <li><input checked disabled type="checkbox"> 起到隔离作用，屏蔽源系统数据结构变更、切库迁移等技术性需求</li>
 <li><input checked disabled type="checkbox"> 为后续主题模型、应用集市和数据探索区提供基础支撑</li>
 </ul>
 <p><strong>C、整合明细层</strong></p>
-<p>&emsp;&emsp;仓库基础层来源于ODM，数据粒度同于ODM，并做了数据清洗及数据脱敏处理与部分预关联工作。原则上，协议、事件相关明细按业务过程整合拉平重要业务节点数据，以宽表落地；用户、产品、流量作为主题做企业级整合。<br>&emsp;&emsp;功能定义：全称 Integrate Data Mart，该层按照主题划分对核心业务数据进行企级整合，在保持原有数据粒度的基础上，完成标准化 (维度、代码 ) 以及数据预关联操作。</p>
+<p>&emsp;&emsp;仓库基础层来源于ODM，数据粒度同于ODM，并做了数据清洗及数据脱敏处理与部分预关联工作。原则上，协议、事件相关明细按业务过程整合拉平重要业务节点数据，以宽表落地；用户、产品、流量作为主题做企业级整合。<br>&emsp;&emsp;功能定义：全称 <strong>Integrate Data Mart</strong>，该层按照主题划分对核心业务数据进行企级整合，在保持原有数据粒度的基础上，完成标准化 (维度、代码 ) 以及数据预关联操作。</p>
 <p><strong>D、共性加工层</strong></p>
-<p>&emsp;&emsp;基于应用集市沉淀的通用类属性、指标而创建面向支持应用系统、数据分析与数据挖掘的公共数据层，主要形式有将重要的京东业务链组合起来的累积快照表和以重要维度为粒度的重要指标汇总表。<br>&emsp;&emsp;功能定义：全称 Summary Data Mart 该层基于应用集市沉淀的通类属性、指标而创建，面向支持应用系统、数据分析与挖掘的公共层。</p>
+<p>&emsp;&emsp;基于应用集市沉淀的通用类属性、指标而创建面向支持应用系统、数据分析与数据挖掘的公共数据层，主要形式有将重要的京东业务链组合起来的累积快照表和以重要维度为粒度的重要指标汇总表。<br>&emsp;&emsp;功能定义：全称 <strong>Summary Data Mart</strong>， 该层基于应用集市沉淀的通类属性、指标而创建，面向支持应用系统、数据分析与挖掘的公共层。</p>
 <p><strong>E、维度层</strong></p>
 <p>&emsp;&emsp;维度是对具体分析对象的分析角度，维度要具备丰富的属性，历史信息的可追溯性，对通用的维表要保持一致性。分为公共维度和个性维度。公共维度有数据资产部建设和维护，个性维度各自建设和维护。</p>
 <p><strong>F、敏感处理层</strong></p>
 <p><strong>G、数据补录层</strong></p>
-<p><img src="https://img-blog.csdnimg.cn/20190703210836793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1lgxc6vj31gi0eqwnm.jpg" alt="数据补录层"></p>
 <p><strong>H、数据集市层</strong></p>
-<p>&emsp;&emsp;某部门或某些特定用户因特定应用目的而设计创建的数据集，集市分为共享集市和非共享集市；共享集市可对非共享集市提供服务，共享集市间不允许直接共享数据； 非共享集市间不允许直接共享数据，须通过下沉“共性加工层”方式进行数据共享。<br>&emsp;&emsp;每个集市逻辑上分为基础层和应用层。基础层由数据资产部与业务团队共建；应用层由业务团队依据应用目的自建；<br>&emsp;&emsp;各部门业务需求通过各自集市提供服务，原则上不允许直接使用仓库层数据。<br>&emsp;&emsp;功能定义：即 DataMart，这里的 X指代变量，用于某部门或些特定户因应目的而建数据。<br><img src="https://img-blog.csdnimg.cn/201907032112105.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;某部门或某些特定用户因特定应用目的而设计创建的数据集，集市分为共享集市和非共享集市；共享集市可对非共享集市提供服务，共享集市间不允许直接共享数据； 非共享集市间不允许直接共享数据，须通过下沉“共性加工层”方式进行数据共享。<br>&emsp;&emsp;每个集市逻辑上分为基础层和应用层。基础层由数据资产部与业务团队共建；应用层由业务团队依据应用目的自建；<br>&emsp;&emsp;各部门业务需求通过各自集市提供服务，原则上不允许直接使用仓库层数据。<br>&emsp;&emsp;功能定义：即 <strong>DataMart</strong>，这里的 X指代变量，用于某部门或些特定户因应目的而建数据。<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v1mfpigfj31dg0u0k51.jpg" alt="数据集市层"></p>
 <h2 id="全量表，增量表，拉链表，流水表，快照表"><a href="#全量表，增量表，拉链表，流水表，快照表" class="headerlink" title="全量表，增量表，拉链表，流水表，快照表"></a>全量表，增量表，拉链表，流水表，快照表</h2><p><strong>A、全量表</strong></p>
 <p>&emsp;&emsp;大部分美团侧的同步方式采用全量表，全量表<strong>无分区</strong>，每天凌晨流程执行完后，表中数据是截止到前一天的mysql数据。</p>
-<p><img src="https://img-blog.csdnimg.cn/2019070416490219.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="/Users/hwang/JD/Hexo/Blog_pic/%E5%85%A8%E9%87%8F%E8%A1%A8.png" alt="全量表"></p>
 <p><strong>B、增量表</strong></p>
-<p>&emsp;&emsp;<strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的分区会存放mysql在那一天所产生的增量数据（insert，update的数据），注意目前增量表的同步方式不会包含历史数据，即只存放增量数据。</p>
-<p><img src="https://img-blog.csdnimg.cn/20190704171743479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;<strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的分区会存放mysql在那一天所产生的增量数据（insert，update的数据），注意目前增量表的同步方式不会包含历史数据，即只存放增量数据。对于源系统每天抽取的一部分数据，通常来说抽取的条件，数据的创建日期或者更新日期等于当日。&lt;日志类、交易流水类&gt;</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v2pi42hdj30ko0igjxi.jpg" alt></p>
 <p><strong>C、快照表</strong></p>
-<p>&emsp;&emsp;<strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的数据都是截止到那一天mysql的全量数据。</p>
-<p><strong>D、拉链表</strong></p>
-<p>&emsp;&emsp;维护历史状态，以及最新状态数据的一种表，拉链表根据拉链粒度的不同，实际上相当于快照，只不过做了优化，去除了一部分不变的记录而已,通过拉链表可以很方便的还原出拉链时点的客户记录。</p>
-<p><img src="https://img-blog.csdnimg.cn/20190704172638581.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI1Mzk0MjI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>&emsp;&emsp;<strong>按天分区</strong>，分区字段为<code>dt=YYYYMMDD</code>，每一天的数据都是截止到那一天mysql的全量数据。适用于业务系统的汇总，已下单、已付款、已出库，每天的这个状态都会得到记录。</p>
+<p><strong>D、拉链表</strong>（多为增量拉链，多在ODM层进行，用户的属性表、注册信息等）</p>
+<p>&emsp;&emsp;<strong>维护历史</strong>状态，以及最新状态数据的一种表，拉链表根据拉链粒度的不同，实际上相当于快照，只不过做了优化，去除了一部分不变的记录而已,通过拉链表可以很方便的还原出拉链时点的客户记录。（4712 传统。。。）</p>
+<p><img src="/Users/hwang/JD/Hexo/Blog_pic/%E6%8B%89%E9%93%BE%E8%A1%A8.png" alt="拉链表"></p>
 <p><strong>E、流水表</strong></p>
 <p>&emsp;&emsp;对于表的每一个修改都会记录，可以用于反映实际记录的变更。</p>
 <ul>
 <li><input checked disabled type="checkbox"> 拉链表通常是对账户信息的历史变动进行处理保留的结果；拉链表用于统计账户及客户的情况。</li>
 <li><input checked disabled type="checkbox"> 流水表是每天的交易形成的历史；流水表用于统计业务相关情况。</li>
 </ul>
-<hr>
 <h2 id="存储策略"><a href="#存储策略" class="headerlink" title="存储策略"></a>存储策略</h2><ul>
-<li>I （增量）：每日一个增量数据分区、适用于日志及交易流水等信息。</li>
-<li>A（全量）：保留最新一份儿全量数据、适用于无变化的维度或者不关注变化的数据存储。</li>
-<li>S（快照）：是“A”的扩展、每日一个全量数据分区、适用于台账表等业务系统的汇总信息等。</li>
-<li>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。</li>
-</ul>
-<hr>
+<li><p>I （增量）：每日一个增量数据分区、适用于日志及交易流水等信息。</p>
+</li>
+<li><p>A（全量）：保留最新一份儿全量数据、适用于无变化的维度或者不关注变化的数据存储。</p>
+</li>
+<li><p>S（快照）：是“A”的扩展、每日一个全量数据分区、适用于台账表等业务系统的汇总信息等。</p>
+</li>
+<li><p>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。</p>
 <h2 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h2><ul>
-<li>STAGE、ODM、IDM字段类型原则上只允许使用以下3种：bigint、decmail、string。<br> <strong>bigint</strong>：数量、次数、人数等整数字段。<br> <strong>decmail(30,6)</strong>：金额、比率等小数字段。一般情况下使用所示精度，入仓调研时的特殊情况视具体而定。<br> <strong>string</strong>：订单编号、SKU编号、描述类信息等字符字段 注:流量等特殊情况下可以使用MAP等复合类型，但需要事先知会数据仓库组。 </li>
+<li>STAGE、ODM、IDM字段类型原则上只允许使用以下3种：bigint、decmail、string。<br><strong>bigint</strong>：数量、次数、人数等整数字段。<br><strong>decmail(30,6)</strong>：金额、比率等小数字段。一般情况下使用所示精度，入仓调研时的特殊情况视具体而定。<br><strong>string</strong>：订单编号、SKU编号、描述类信息等字符字段 注:流量等特殊情况下可以使用MAP等复合类型，但需要事先知会数据仓库组。 </li>
 <li>SDM及各集市字段类型可以使用HIVE支持的任何类型。</li>
 </ul>
+</li>
+</ul>
+<h2 id="高频词根术语表"><a href="#高频词根术语表" class="headerlink" title="高频词根术语表"></a>高频词根术语表</h2><table>
+<thead>
+<tr>
+<th align="center">名词中文名</th>
+<th align="center">名词英文名</th>
+<th align="center">缩写</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">pin</td>
+<td align="center">user_pin</td>
+<td align="center">user_pin</td>
+</tr>
+<tr>
+<td align="center">交易</td>
+<td align="center">transact/transaction</td>
+<td align="center">tx</td>
+</tr>
+<tr>
+<td align="center">date_format</td>
+<td align="center">product</td>
+<td align="center">prod</td>
+</tr>
+<tr>
+<td align="center">商户、商家</td>
+<td align="center">merchant</td>
+<td align="center">mht</td>
+</tr>
+<tr>
+<td align="center">distanceCalculator</td>
+<td align="center">距离计算</td>
+<td align="center">fst</td>
+</tr>
+<tr>
+<td align="center">业务类型</td>
+<td align="center">business_type</td>
+<td align="center">biz_type</td>
+</tr>
+<tr>
+<td align="center">交易渠道</td>
+<td align="center">order_channel</td>
+<td align="center">ordr_chnl</td>
+</tr>
+<tr>
+<td align="center">流量</td>
+<td align="center">过滤特殊字符</td>
+<td align="center">brs</td>
+</tr>
+<tr>
+<td align="center">风控</td>
+<td align="center">risk</td>
+<td align="center">risk</td>
+</tr>
+<tr>
+<td align="center">商户编码</td>
+<td align="center">merchant_code</td>
+<td align="center">mht_code</td>
+</tr>
+<tr>
+<td align="center">分期</td>
+<td align="center">stage</td>
+<td align="center">stg</td>
+</tr>
+<tr>
+<td align="center">授信</td>
+<td align="center">credit</td>
+<td align="center">crdt</td>
+</tr>
+<tr>
+<td align="center">贷款</td>
+<td align="center">loan</td>
+<td align="center">loan</td>
+</tr>
+<tr>
+<td align="center">余额</td>
+<td align="center">balance</td>
+<td align="center">bal</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -539,7 +647,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2019/07/04/数据仓库解密/" title="数据仓库架构解析">http://yoursite.com/2019/07/04/数据仓库解密/</a>
+    <a href="http://yoursite.com/2019/07/04/数据仓库解密/" title="数据仓库架构解析<详细！！！！>">http://yoursite.com/2019/07/04/数据仓库解密/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -567,8 +675,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/04/总要留下点什么/" rel="next" title="总要留下点什么...">
-                <i class="fa fa-chevron-left"></i> 总要留下点什么...
+              <a href="/2019/07/04/用户画像和标签/" rel="next" title="用户画像和标签">
+                <i class="fa fa-chevron-left"></i> 用户画像和标签
               </a>
             
           </div>
@@ -577,8 +685,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/04/用户画像和标签/" rel="prev" title="用户画像和标签">
-                用户画像和标签 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/04/作业管理与说明/" rel="prev" title="数据基础学习—作业管理规范与说明">
+                数据基础学习—作业管理规范与说明 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -729,7 +837,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构分层-重要"><span class="nav-number">2.</span> <span class="nav-text">架构分层  重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全量表，增量表，拉链表，流水表，快照表"><span class="nav-number">3.</span> <span class="nav-text">全量表，增量表，拉链表，流水表，快照表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储策略"><span class="nav-number">4.</span> <span class="nav-text">存储策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段类型"><span class="nav-number">5.</span> <span class="nav-text">字段类型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发展历程"><span class="nav-number">2.</span> <span class="nav-text">发展历程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库与数据库的区别"><span class="nav-number">3.</span> <span class="nav-text">数据仓库与数据库的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库的主题"><span class="nav-number">4.</span> <span class="nav-text">数据仓库的主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据平台架构"><span class="nav-number">5.</span> <span class="nav-text">大数据平台架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构分层-重要"><span class="nav-number">6.</span> <span class="nav-text">架构分层  重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全量表，增量表，拉链表，流水表，快照表"><span class="nav-number">7.</span> <span class="nav-text">全量表，增量表，拉链表，流水表，快照表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储策略"><span class="nav-number">8.</span> <span class="nav-text">存储策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段类型"><span class="nav-number">9.</span> <span class="nav-text">字段类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高频词根术语表"><span class="nav-number">10.</span> <span class="nav-text">高频词根术语表</span></a></li></ol></div>
             
 
           </div>
