@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4g5ibs7j31360jc44g.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v4hvyrtej314s0l411q.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v5oz5disj30zq0hk45w.jpg">
-<meta property="og:updated_time" content="2019-07-10T16:02:05.199Z">
+<meta property="og:updated_time" content="2019-07-11T14:55:05.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HiveSQL语法&lt;基本原理、时间操作函数...&gt;">
 <meta name="twitter:description" content="HiveSQL语法">
@@ -378,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k 字
+                  3.8k 字
                 </span>
               
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12 分钟
+                  15 分钟
                 </span>
               
             </div>
@@ -447,7 +447,7 @@
 <p>&emsp;&emsp;<strong>2）</strong>不规范写法：<code>select ... from tableA a left join tableB b on a.id=b.id and a.dt=&#39;xxx&#39; and b.dt=&#39;xxx&#39;</code>，程序的具体执行逻辑取决于hive解释器版本，不一定与用户的想法一致，而且会占用额外资源</p>
 <p>&emsp;&emsp;<strong>3）</strong>不规范写法：<code>select ... from tableA a left join tableB b on [a.id](http://a.id/)=[b.id](http://b.id/) where a.dt=&#39;xxx&#39; and b.dt=&#39;xxx&#39;</code>，除非确信需要在<code>join</code>后过滤，否则这么写结果是错的，而且会占用额外资源，本例会造成笛卡尔积，并且<code>b.dt</code>条件导致<code>left join</code>白做了</p>
 <p><strong>E、</strong>少用<code>left join</code>，只有在保留左表数据有意义的时候才使用<code>left join</code>，需注意<code>left join</code>外面的<code>where</code>条件里不应该有右表的条件（右表为null除外），否则<code>left join</code>就无意义了</p>
-<h3 id="关于union-all"><a href="#关于union-all" class="headerlink" title="关于union all"></a><strong>关于union all</strong></h3><p>&emsp;&emsp;Tez模式下<code>unionall</code>是并行计算的，因此涉及很多个大表<code>union all</code>在TEZ模式下执行将占用过多资源，可以考虑改成mapreduce或者改成分区表，一个分区一个分区的插入数据。</p>
+<h3 id="关于union-all"><a href="#关于union-all" class="headerlink" title="关于union all"></a><strong>关于union all</strong></h3><p>Tez模式下<code>unionall</code>是并行计算的，因此涉及很多个大表<code>union all</code>在TEZ模式下执行将占用过多资源，可以考虑改成mapreduce或者改成分区表，一个分区一个分区的插入数据。</p>
 <h3 id="关于数据倾斜"><a href="#关于数据倾斜" class="headerlink" title="关于数据倾斜"></a><strong>关于数据倾斜</strong></h3><p><strong>A、</strong>数据倾斜指数据中少数key对应的记录数非常多的情况，例如日志表中<code>pin=null</code>的情况，订单表中品类=话费充值的情况等。</p>
 <p><strong>B、</strong>数据倾斜会严重影响reduce阶段的执行时间，包括<code>groupby</code>，<code>join</code>以及窗口函数等情况，因为同一个key的所有记录都会发送到特定的一个reduce节点上，所以个别节点的计算量会远大于平均水平，具体参见Hive计算复杂度分析。</p>
 <p><strong>C、</strong>对全表做复杂汇总计算如<code>count(distinct)</code>，排<code>orderby</code>序，或者窗口函数的时候，由于只能使用1个reduce节点，所以也会导致运算时间超长。</p>
@@ -471,8 +471,7 @@
 <p>&emsp;&emsp;<strong>B、Spark：</strong>Spark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark基于map reduce算法实现的分布式计算，拥有Hadoop MapReduce所具有的优点；但不同于MapReduce的是Job中间输出和结果可以保存在内存中，从而不再需要读写HDFS，因此Spark能更好地适用于数据挖掘与机器学习等需要迭代的map reduce的算法。</p>
 <p>&emsp;&emsp;<strong>C、Storm：</strong>MapReduce也不适合进行流式计算、实时分析，比如广告点击计算等。Storm是一个免费开源、分布式、高容错的实时计算系统。Storm令持续不断的流计算变得容易，弥补了Hadoop批处理所不能满足的实时要求。Storm经常用于在实时分析、在线机器学习、持续计算、分布式远程调用和ETL等领域。</p>
 <p>&emsp;&emsp;<strong>D、Tez：</strong>是基于Hadoop Yarn之上的DAG（有向无环图Directed Acyclic Graph）计算框架。它把Map/Reduce过程拆分成若干个子过程，同时可以把多个Ｍap/Reduce任务组合成一个较大的DAG任务，减少了Ｍap/Reduce之间的文件存储。同时合理组合其子过程，也可以减少任务的运行时间。</p>
-<h2 id="Hive操作函数"><a href="#Hive操作函数" class="headerlink" title="Hive操作函数"></a>Hive操作函数</h2><p><font size="5"><strong>时间函数</strong></font></p>
-<p><strong>A、datediff()：</strong> 日期比较函数，datediff语法：<code>datediff(string enddate,string startdate)</code> </p>
+<h2 id="Hive操作函数"><a href="#Hive操作函数" class="headerlink" title="Hive操作函数"></a>Hive操作函数</h2><h3 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h3><p><strong>A、datediff()：</strong> 日期比较函数，datediff语法：<code>datediff(string enddate,string startdate)</code> </p>
 <p>返回值：int  </p>
 <p>说明：返回结束日期减去开始日期的天数。</p>
 <p>举例：</p>
@@ -517,18 +516,40 @@
 <p>举例：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select weekofyear(’2011-12-08 10:03:01′) from dual;</span><br><span class="line"></span><br><span class="line">49</span><br></pre></td></tr></table></figure>
 
-<p><font size="5"><strong>limit函数</strong></font></p>
-<p>&emsp;在hive表前1000行里，过滤出不重复的refid,imsi。 </p>
+<p><font color="#dd0000"><strong>H、$TX_DATE</strong></font></p>
+<p>自定义变量，准确获取当日日期，格式为”yyyy-MM-dd”。</p>
+<p><code>my $TX_DATE = substr(${CONRTROL_FILE},length(${CONTROL_FILE})-12,4).&#39;-&#39;.substr(${
+CONRTROL_FILE},length(${CONTROL_FILE})-8,2).&#39;-&#39;.substr(${CONRTROL_FILE},length(${</code><br><code>CONTROL_FILE})-6,2);</code></p>
+<h3 id="limit函数"><a href="#limit函数" class="headerlink" title="limit函数"></a>limit函数</h3><p>在hive表前1000行里，过滤出不重复的refid,imsi。 </p>
 <p><strong>A、错误的写法：</strong></p>
 <p><code>select distinct refid,imsi from HIVE_D_MT_UU_H_SPARK limit 1000;</code> </p>
-<p>&emsp;&emsp;会去读取全表，把0~1000行的不重复refid，imsi显示出来。</p>
+<p>会去读取全表，把0~1000行的不重复refid，imsi显示出来。</p>
 <p><strong>B、正确的写法：</strong> </p>
 <p><code>select distinct refid,imsi from (select * from HIVE_D_MT_UU_H_SPARK limit 1000);</code> </p>
 <p><strong>C、调优的写法：</strong></p>
 <p><code>CREATE TABLE TEMP_HIVE_D_MT_UU_H_SPARK AS</code></p>
 <p><code>select * from HIVE_D_MT_UU_H_SPARK limit 1000;</code></p>
 <p><code>select distinct refid,imsi from TEMP_HIVE_D_MT_UU_H_SPARK;</code></p>
-<p>&emsp;&emsp;Hive最快的执行就是不走MapReduce。简单的select的是最快的，嵌套啥的都比较忙。与关系型数据库不同，调优的写法执行更快。</p>
+<p>Hive最快的执行就是不走MapReduce。简单的select的是最快的，嵌套啥的都比较忙。与关系型数据库不同，调优的写法执行更快。</p>
+<h3 id="Count函数"><a href="#Count函数" class="headerlink" title="Count函数"></a>Count函数</h3><p><strong>A、执行效果上：</strong></p>
+<p>&emsp;&emsp;<strong>1）</strong>count(*)包括了所有的列，相当于行数，在统计结果的时候，不会忽略列值为NULL  </p>
+<p>&emsp;&emsp;<strong>2）</strong>count(1)包括了所有列，用1代表代码行，在统计结果的时候，不会忽略列值为NULL  </p>
+<p>&emsp;&emsp;<strong>3）</strong>count(列名)只包括列名那一列，在统计结果的时候，会忽略列值为空（这里的空不是只空字符串或者0，而是表示null）的计数，即某个字段值为NULL时，不统计  </p>
+<p><strong>B、执行效率上：</strong></p>
+<p>&emsp;&emsp;列名为主键，count(列名)会比count(1)快                            列名不为主键，count(1)会比count(列名)快  </p>
+<p>&emsp;&emsp;如果表多个列并且没有主键，则count(1)的执行效率优于count(*) </p>
+<p>&emsp;&emsp;如果有主键，则 select count（主键）的执行效率是最优的  </p>
+<p>&emsp;&emsp;如果表只有一个字段，则 select count(*) 最优</p>
+<p>&emsp;&emsp;当表的数据量大些时，对表作分析之后，使用count(1)还要比使用count(*)用时多了！ 执行计划上：</p>
+<p>&emsp;&emsp;count(1)和count(<em>)的效果是一样的。 但是在表做过分析之后，count(1)会比count(</em>)的用时少些（1w以内数据量），不过差不了多少。  如果count(1)是聚索引,id,那肯定是count(1)快。但是差的很小的。因为count(*)自动会优化指定到那一个字段。所以没必要去count(1)，用sql会帮你完成优化的。</p>
+<p>&emsp;&emsp;因此：count(1)和count(*)在sql调优功能基本上是没有差别！ </p>
+<p><strong>C、应用</strong></p>
+<p><code>select t.tag_value(某一字段), count(1) from (table) t;</code></p>
+<p><font color="#dd0000"><strong>查看各字段数量级的方式！！！</strong></font></p>
+<h3 id="Group-By函数"><a href="#Group-By函数" class="headerlink" title="Group By函数"></a>Group By函数</h3><p>&emsp;&emsp;group by 一般和聚合函数一起使用才有意义,比如count、sum、avg等，使用group by的两个要素：</p>
+<p>&emsp;&emsp;出现在select后面的字段 要么是是聚合函数中的，要么就是group by 中的。要筛选结果可以先使用where，再用group by 或者先用group by，再用having。</p>
+<p>&emsp;&emsp;<code>group by textA, textB, textC;</code>依次判断textA、textB、textC字段是否相同，对不同字段进行区域性保留，建成一个区域表，起到<strong>去重</strong>的作用。<font color="#dd0000"><strong>重要！！！！！</strong></font></p>
+<p>参考：<a href="https://www.jianshu.com/p/8b135d373df1" target="_blank" rel="noopener">groupby的用法</a></p>
 
       
     </div>
@@ -777,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本原理"><span class="nav-number">1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于分区"><span class="nav-number">2.1.</span> <span class="nav-text">关于分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于JOIN"><span class="nav-number">2.2.</span> <span class="nav-text">关于JOIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于union-all"><span class="nav-number">2.3.</span> <span class="nav-text">关于union all</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于数据倾斜"><span class="nav-number">2.4.</span> <span class="nav-text">关于数据倾斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果上了资源占用榜-执行时间超长-etl任务超时"><span class="nav-number">2.5.</span> <span class="nav-text">如果上了资源占用榜 / 执行时间超长 / etl任务超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实用技巧"><span class="nav-number">2.6.</span> <span class="nav-text">实用技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive计算引擎——Tez-amp-MapReduce"><span class="nav-number">3.</span> <span class="nav-text">Hive计算引擎——Tez &amp; MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive操作函数"><span class="nav-number">4.</span> <span class="nav-text">Hive操作函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本原理"><span class="nav-number">1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于分区"><span class="nav-number">2.1.</span> <span class="nav-text">关于分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于JOIN"><span class="nav-number">2.2.</span> <span class="nav-text">关于JOIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于union-all"><span class="nav-number">2.3.</span> <span class="nav-text">关于union all</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于数据倾斜"><span class="nav-number">2.4.</span> <span class="nav-text">关于数据倾斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果上了资源占用榜-执行时间超长-etl任务超时"><span class="nav-number">2.5.</span> <span class="nav-text">如果上了资源占用榜 / 执行时间超长 / etl任务超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实用技巧"><span class="nav-number">2.6.</span> <span class="nav-text">实用技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive计算引擎——Tez-amp-MapReduce"><span class="nav-number">3.</span> <span class="nav-text">Hive计算引擎——Tez &amp; MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive操作函数"><span class="nav-number">4.</span> <span class="nav-text">Hive操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间函数"><span class="nav-number">4.1.</span> <span class="nav-text">时间函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit函数"><span class="nav-number">4.2.</span> <span class="nav-text">limit函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Count函数"><span class="nav-number">4.3.</span> <span class="nav-text">Count函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Group-By函数"><span class="nav-number">4.4.</span> <span class="nav-text">Group By函数</span></a></li></ol></li></ol></div>
             
 
           </div>
