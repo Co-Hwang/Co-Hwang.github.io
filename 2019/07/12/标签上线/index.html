@@ -85,14 +85,14 @@
 <meta name="description" content="标签加工 标签上线流程&amp;emsp;&amp;emsp;这周开始，算是真正开始在银河+系统的支持下，根据业务方的需求对标签进行加工并上线，整个流程一点点清晰起来了。就争取在思维清晰的情况下，对标签的上线流程做一些回忆总结吧。 &amp;emsp;&amp;emsp;根据需求建立新的标签。">
 <meta name="keywords" content="标签">
 <meta property="og:type" content="article">
-<meta property="og:title" content="上线标签">
+<meta property="og:title" content="标签上线">
 <meta property="og:url" content="http://yoursite.com/2019/07/12/标签上线/index.html">
 <meta property="og:site_name" content="这個人好蠢、">
 <meta property="og:description" content="标签加工 标签上线流程&amp;emsp;&amp;emsp;这周开始，算是真正开始在银河+系统的支持下，根据业务方的需求对标签进行加工并上线，整个流程一点点清晰起来了。就争取在思维清晰的情况下，对标签的上线流程做一些回忆总结吧。 &amp;emsp;&amp;emsp;根据需求建立新的标签。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-12T14:56:53.697Z">
+<meta property="og:updated_time" content="2019-07-12T15:05:48.679Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="上线标签">
+<meta name="twitter:title" content="标签上线">
 <meta name="twitter:description" content="标签加工 标签上线流程&amp;emsp;&amp;emsp;这周开始，算是真正开始在银河+系统的支持下，根据业务方的需求对标签进行加工并上线，整个流程一点点清晰起来了。就争取在思维清晰的情况下，对标签的上线流程做一些回忆总结吧。 &amp;emsp;&amp;emsp;根据需求建立新的标签。">
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <title>上线标签 | 这個人好蠢、</title>
+  <title>标签上线 | 这個人好蠢、</title>
   
 
 
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">上线标签</h1>
+          <h1 class="post-title" itemprop="name headline">标签上线</h1>
         
 
         <div class="post-meta">
@@ -412,7 +412,7 @@
 <a id="more"></a>
 
 <p>&emsp;&emsp;<strong>A、</strong>老系统下，先生成窄表（如，DMT_UPF_NARROW_S_D_0000780），该表的字段规定为（常规字段 elt_dt，user_id，tag_cd；分区字段 dt，tag_value），后续步骤中生成宽表，进而为标签系统中的两个功能提供数据支持，（功能一，计算人群数量，数据推到clickhouse进行操作；功能二，生成用户画像，进行圈人的操作，对每一个标签产生一个bitmap的数据结构以提升操作速度，bitmap的大小由用户pin的个数决定）。</p>
-<p>&emsp;&emsp;<strong>B、</strong>新系统下，通过perl脚本的配置，直接构建<strong>小宽表</strong>（如，保险过保 -dmxupf_biz_jd_usr_pin_insu_bxpd_<br>ordr_vaild_status_s_d；保险核保 - dmxupf_biz_jd_usr_pin_insu_bxpd_chk_ordr_s_d），每个小宽表紧接着都会和全量京东用户pin唯一编码表 - dmxbc_offset_jdpin_i_d进行撞击找出相应的pin。<strong>小宽表再构成中宽表</strong>（如保险用户标签聚合表（核保&amp;过保）- dmxupf_width_biz_jd_usr_pin_insu_s_d；消费金融标签宽表-dmxupf_width_<br>biz_jd_usr_pin_csf_s_d；理财用户标签聚合宽表-dmxupf_width_biz_jd_usr_pin_fin_s_d），<strong>所有中宽表再构成大宽表</strong>（京东用户pin全量标签表 -dmxupf_width_jd_usr_pin_all_tags_s_d）。其上中宽表和大宽表均放在模型（<strong>5K_实体标签汇总(width)</strong>）下。值得注意的是，中宽表和大宽表在进行作业配置时，需在表结构中添加相应的字段（新引入的标签编号），同时，大、中宽表的表结构中引入了对于pin的offset值，将string转换成唯一数字编码。</p>
+<p>&emsp;&emsp;<strong>B、</strong>新系统下，通过perl脚本的配置，直接构建<strong>小宽表</strong>（如，保险过保 -dmxupf_biz_jd_usr_pin_insu_bxpd_ordr_vaild_status_s_d；保险核保 - dmxupf_biz_jd_usr_pin_insu_bxpd_chk_ordr_s_d），每个小宽表紧接着都会和全量京东用户pin唯一编码表 - dmxbc_offset_jdpin_i_d进行撞击找出相应的pin。<strong>小宽表再构成中宽表</strong>（如保险用户标签聚合表（核保&amp;过保）- dmxupf_width_biz_jd_usr_pin_insu_s_d；消费金融标签宽表-dmxupf_width_biz_jd_usr_pin_csf_s_d；理财用户标签聚合宽表-dmxupf_width_biz_jd_usr_pin_fin_s_d），<strong>所有中宽表再构成大宽表</strong>（京东用户pin全量标签表 -dmxupf_width_jd_usr_pin_all_tags_s_d）。其上中宽表和大宽表均放在模型（<strong>5K_实体标签汇总(width)</strong>）下。值得注意的是，中宽表和大宽表在进行作业配置时，需在表结构中添加相应的字段（新引入的标签编号），同时，大、中宽表的表结构中引入了对于pin的offset值，将string转换成唯一数字编码。</p>
 <p>&emsp;&emsp;<strong>窄表</strong></p>
 <table>
 <thead>
@@ -528,7 +528,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2019/07/12/标签上线/" title="上线标签">http://yoursite.com/2019/07/12/标签上线/</a>
+    <a href="http://yoursite.com/2019/07/12/标签上线/" title="标签上线">http://yoursite.com/2019/07/12/标签上线/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
