@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g50l4ccl3aj31320noabr.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g50n64yge1j312u0rywhh.jpg">
-<meta property="og:updated_time" content="2019-07-15T09:43:40.776Z">
+<meta property="og:updated_time" content="2019-07-15T13:35:50.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive总结及优化">
 <meta name="twitter:description" content="Hive总结 &amp;emsp;&amp;emsp;官网地址：Hive Wiki         参考博客：爆发的小宇宙   &amp;emsp;&amp;emsp;Hive是一个构建在Hadoop之上的数据仓库软件,它可以使已经存储的数据结构化，它提供类似sql的查询语句HiveQL对数据进行分析处理。 Hive将HiveQL语句转换成一系列成MapReduce作业并执行（SQL转化为MapReduce的过程）。用户可以很方">
@@ -434,7 +434,7 @@
 <p>&emsp;&emsp;<strong>B、</strong>数据压缩比例上ORC最优，相比textfile节省了50倍磁盘空间，parquet压缩性能也较好。</p>
 <p>&emsp;&emsp;<strong>C、</strong>SQL查询速度而言，ORC与parquet性能较好，远超其余存储格式。</p>
 <p>&emsp;&emsp;综合上述各种性能指标，建议工作中原始日志写入hive的存储格式都采用ORC或者parquet格式，这和目前主流的做法一致。</p>
-<p>&emsp;&emsp;当然Hive还可以通过用户来自定义自己的存储格式，基本上前面说的到的几种格式完全够了。Hive旨在最大限度地提高可伸缩性（通过向Hadoop集群动态添加更多机器扩展），性能，可扩展性，<br>容错性以及与其输入格式的松散耦合。</p>
+<p>&emsp;&emsp;当然Hive还可以通过用户来自定义自己的存储格式，基本上前面说的到的几种格式完全够了。Hive旨在最大限度地提高可伸缩性（通过向Hadoop集群动态添加更多机器扩展），性能，可扩展性，容错性以及与其输入格式的松散耦合。</p>
 <h3 id="Hive基本语法"><a href="#Hive基本语法" class="headerlink" title="Hive基本语法"></a>Hive基本语法</h3><p>&emsp;&emsp;可以参考之前的博客总结。<a href="https://co-hwang.github.io/2019/07/04/HiveSQL语法/" target="_blank" rel="noopener">HiveSQL语法&lt;基本原理、操作函数&gt;</a></p>
 <p>&emsp;&emsp;<strong>Hive的存储结构如下：</strong></p>
 <p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g50l4ccl3aj31320noabr.jpg" alt="Hive的数据存储结构"></p>
@@ -502,7 +502,7 @@
 <p>&emsp;&emsp;Partition：分区，每张表中可以加入一个分区或者多个，方便查询，提高效率；并且HDFS上会有对应的分区目录：</p>
 <p>&emsp;&emsp;<strong>C、语法</strong></p>
 <p>&emsp;&emsp;Hive分区是在创建表的时候用Partitioned by 关键字定义的，但要注意，Partitioned by子句中定义的列是表中正式的列，但是Hive下的数据文件中并不包含这些列，因为它们是目录名，真正的数据在分区目录下。</p>
-<p>&emsp;<strong>&emsp;D、静态分区和 动态分区的区别</strong></p>
+<p>&emsp;<strong>&emsp;D、静态分区 和 动态分区的区别</strong></p>
 <p>&emsp;&emsp;创建表的语法都一样</p>
 <p>&emsp;&emsp;静态分区：加载数据的时候要指定分区的值（key=value），比较麻烦的是每次插入数据都要指定分区的值，创建多个分区多分区一样，以逗号分隔。</p>
 <p>&emsp;&emsp;动态分区：如果用上述的静态分区，插入的时候必须首先要知道有什么分区类型，而且每个分区写一个load data，太烦人。使用动态分区可解决以上问题，其可以根据查询得到的数据动态分配到分区里。其实动态分区与静态分区区别就是不指定分区目录，由系统自己选择。</p>
@@ -757,6 +757,10 @@ b) 假设input目录下有3个文件a,b,c,大小分别为10m，20m，130m，那�
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/25/Spark学习之路（一）Spark初识/" rel="prev" title="Spark学习之路（一）Spark初识">
+                Spark学习之路（一）Spark初识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -834,7 +838,7 @@ b) 假设input目录下有3个文件a,b,c,大小分别为10m，20m，130m，那�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -845,7 +849,7 @@ b) 假设input目录下有3个文件a,b,c,大小分别为10m，20m，130m，那�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -856,7 +860,7 @@ b) 假设input目录下有3个文件a,b,c,大小分别为10m，20m，130m，那�
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
