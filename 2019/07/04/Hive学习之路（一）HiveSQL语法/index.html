@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HiveSQL语法">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive学习之路（一）HiveSQL语法">
+<meta property="og:url" content="http://yoursite.com/2019/07/04/Hive学习之路（一）HiveSQL语法/index.html">
+<meta property="og:site_name" content="这個人好蠢、">
+<meta property="og:description" content="HiveSQL语法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v479fprzj30fy087t8s.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4dt3udsj319q0mi7a0.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4dv8vi4j312i0jmwjz.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v4dx4txuj311k0k0wkk.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4f124j3j312w0jgahc.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4g5ibs7j31360jc44g.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g4v4hvyrtej314s0l411q.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v5oz5disj30zq0hk45w.jpg">
+<meta property="og:updated_time" content="2019-07-26T12:24:42.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive学习之路（一）HiveSQL语法">
+<meta name="twitter:description" content="HiveSQL语法">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g4v479fprzj30fy087t8s.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/04/Hive学习之路（一）HiveSQL语法/">
+
+
+
+
+
+  <title>Hive学习之路（一）HiveSQL语法 | 这個人好蠢、</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/Co-Hwang"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">这個人好蠢、</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪懂坚持 | 全靠死撑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+<script>
+  
+  window.onload = function(){
+    var path = 'https://Co-Hwang.github.io'; //
+    var localhostItem = String(window.location).split(path)[1];
+    var LiNode = document.querySelectorAll('#menu > li > a')
+    
+    for(var i = 0; i< LiNode.length;i++){
+      var item = String(LiNode[i].href).split(path)[1];
+      if(item == localhostItem && item != undefined){
+        LiNode[i].setAttribute('style','border-bottom:1px solid black');
+      }
+    }
+  };
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/Hive学习之路（一）HiveSQL语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="想当校长的老王">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这個人好蠢、">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hive学习之路（一）HiveSQL语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-04T18:54:25+08:00">
+                2019-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.9k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font size="5"><strong>HiveSQL语法</strong></font></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v479fprzj30fy087t8s.jpg" alt="Hive"></p>
+<a id="more"></a>
+
+<h2 id="一、基本原理"><a href="#一、基本原理" class="headerlink" title="一、基本原理"></a>一、基本原理</h2><p><strong>A、Mammoth背后</strong></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4dt3udsj319q0mi7a0.jpg" alt></p>
+<p><strong>B、数据的尺度</strong></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4dv8vi4j312i0jmwjz.jpg" alt></p>
+<p><strong>C、空间复杂度</strong></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v4dx4txuj311k0k0wkk.jpg" alt></p>
+<p><strong>D、Map-Reduce</strong></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4f124j3j312w0jgahc.jpg" alt></p>
+<p><strong>E、工作流</strong></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v4g5ibs7j31360jc44g.jpg" alt></p>
+<p><strong>F、复杂度分析</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v4hvyrtej314s0l411q.jpg" alt></p>
+<h2 id="二、注意事项"><a href="#二、注意事项" class="headerlink" title="二、注意事项"></a>二、注意事项</h2><h3 id="1、关于分区"><a href="#1、关于分区" class="headerlink" title="1、关于分区"></a>1、关于分区</h3><p>&emsp;&emsp;Hive表的分区字段是一个特殊字段，代表数据文件在服务器上的存储路径（文件夹），因此限制分区范围能有效的减小查询时的数据读取资源消耗。使用时需注意：</p>
+<p>&emsp;&emsp;<strong>1）</strong>使用大表（如流量日志，订单明细，支付单明细，各种快照（<em>s</em>d结尾）等）时，一定要搞清楚表的分区方法，预估所需的数据范围，写好分区条件。</p>
+<p>&emsp;&emsp;<strong>2）</strong>当where条件中有or时，or的作用范围一定要用括号，否则分区条件将不起作用，例如<code>where dt=&#39;x&#39; and pin=&#39;y&#39; or pin is null&#39;</code>，必须读取全部分区才能判断是否满足<code>pin is null</code>，正确写法是<code>where dt=&#39;x&#39; and (pin=&#39;y&#39; or pin is null)</code>。</p>
+<p>&emsp;&emsp;<strong>3）</strong>有时分区条件与业务时间不完全一致，例如某订单表<code>dt=20170102</code>分区中可能有少量0101日的订单，这种情况应该先分析一下<code>dt</code>与业务日期的错位分布，然后适当放松<code>dt</code>条件，而不是完全删掉<code>dt</code>条件。</p>
+<p>&emsp;&emsp;<strong>4）</strong>由于分区字段代表文件夹名称，过滤分区是在真正读取数据之前发生的，所以分区条件中不能使用其他字段作为判断条件，例如<code>where dt=date_add(ord_dt,1) ... and ord_dt&gt;xxx</code>，应该把<code>dt</code>条件转化为常量，直接写成<code>where dt&gt;date_add(xxx,1)</code>。</p>
+<p>&emsp;&emsp;<strong>5）</strong>由于分区过滤发生在hive执行之前，所以有些函数无法起作用，例如<br><code>dt =from_unixtime(unix_timestamp(),&#39;yyyy-MM-dd&#39;)</code>，这可能是由于<code>timestamp</code>在Hive执行时才取值。</p>
+<p>&emsp;&emsp;<strong>6）</strong>尽量少建立多重分区的表，一方面多重分区很容易造成数据严重倾斜（例如按日期和业务类型分区，那么小金库的分区数据量会显著多于基金业务，人为造成数据不均衡，查询性能会明显下降），另一方面多重分区意味着文件系统里会生成多层文件夹和碎文件块，导致读写速度降低。</p>
+<p>&emsp;&emsp;<strong>7）</strong>在做外关联的时候<code>（left right full outer join）</code>，分区条件要放在子查询中才能起到过滤分区的作用。</p>
+<h3 id="2、关于JOIN"><a href="#2、关于JOIN" class="headerlink" title="2、关于JOIN"></a>2、关于JOIN</h3><p><strong>A、</strong>正确理解关联运算的计算顺序，<code>a join b join c join d</code>相当于<code>((a join b) join c) join d</code>，即上一步关联的结果集整体作为一个中间表再与下一个表进行关联。</p>
+<p><strong>B、</strong>一般情况下，左右表至少要有一个的key是唯一的，即<code>a join b on a.k1=b.k2</code>，k1（或k2）在a（或b）表中是唯一的，否则将产生多对多关联，严重占用计算资源，极端情况下可能造成集群磁盘写满。</p>
+<p><strong>C、</strong>只有在明确数据量较小不会威胁集群安全的情况下才可以使用多对多关联。</p>
+<p><strong>D、</strong>在做外关联的时候<code>（left right full outer join）</code>，过滤条件放在子查询中，放在<code>on</code>中和放在外部<code>where</code>中产生的结果可能不一样，放在on后的单表条件和where后面的条件会在<code>join</code>之后执行（包括分区条件），导致很多无用的数据占用<code>join</code>的资源，因此一定要想清楚哪些条件要在<code>join</code>之前做的（例如分区条件），这些条件必须放在子查询中，不要放在<code>on</code>或外部<code>where</code>后面。</p>
+<p>&emsp;&emsp;<strong>1）</strong>规范写法：<code>select ... from (select * from tableA where dt=&#39;xxx&#39;) a left join (select * from tableB where dt=&#39;xxx&#39;) b on a.id=b.id</code>，无论Hive如何升级，这种写法总是对的</p>
+<p>&emsp;&emsp;<strong>2）</strong>不规范写法：<code>select ... from tableA a left join tableB b on a.id=b.id and a.dt=&#39;xxx&#39; and b.dt=&#39;xxx&#39;</code>，程序的具体执行逻辑取决于hive解释器版本，不一定与用户的想法一致，而且会占用额外资源</p>
+<p>&emsp;&emsp;<strong>3）</strong>不规范写法：<code>select ... from tableA a left join tableB b on [a.id](http://a.id/)=[b.id](http://b.id/) where a.dt=&#39;xxx&#39; and b.dt=&#39;xxx&#39;</code>，除非确信需要在<code>join</code>后过滤，否则这么写结果是错的，而且会占用额外资源，本例会造成笛卡尔积，并且<code>b.dt</code>条件导致<code>left join</code>白做了</p>
+<p><strong>E、</strong>少用<code>left join</code>，只有在保留左表数据有意义的时候才使用<code>left join</code>，需注意<code>left join</code>外面的<code>where</code>条件里不应该有右表的条件（右表为null除外），否则<code>left join</code>就无意义了</p>
+<h3 id="3、关于union-all"><a href="#3、关于union-all" class="headerlink" title="3、关于union all"></a>3、关于union all</h3><p>Tez模式下<code>unionall</code>是并行计算的，因此涉及很多个大表<code>union all</code>在TEZ模式下执行将占用过多资源，可以考虑改成mapreduce或者改成分区表，一个分区一个分区的插入数据。</p>
+<h3 id="4、关于数据倾斜"><a href="#4、关于数据倾斜" class="headerlink" title="4、关于数据倾斜"></a>4、关于数据倾斜</h3><p><strong>A、</strong>数据倾斜指数据中少数key对应的记录数非常多的情况，例如日志表中<code>pin=null</code>的情况，订单表中品类=话费充值的情况等。</p>
+<p><strong>B、</strong>数据倾斜会严重影响reduce阶段的执行时间，包括<code>groupby</code>，<code>join</code>以及窗口函数等情况，因为同一个key的所有记录都会发送到特定的一个reduce节点上，所以个别节点的计算量会远大于平均水平，具体参见Hive计算复杂度分析。</p>
+<p><strong>C、</strong>对全表做复杂汇总计算如<code>count(distinct)</code>，排<code>orderby</code>序，或者窗口函数的时候，由于只能使用1个reduce节点，所以也会导致运算时间超长。</p>
+<h3 id="5、如果上了资源占用榜-执行时间超长-etl任务超时"><a href="#5、如果上了资源占用榜-执行时间超长-etl任务超时" class="headerlink" title="5、如果上了资源占用榜 / 执行时间超长 / etl任务超时"></a>5、如果上了资源占用榜 / 执行时间超长 / etl任务超时</h3><p><strong>A、</strong>如果集群没出异常状况，请仔细检查脚本</p>
+<p><strong>B、</strong>占用资源过多通常是由于分区条件<code>join</code>或者<code>union all</code>使用不当，少数情况是因为整个计算逻辑都不合理</p>
+<p><strong>C、</strong>执行时间过长是因为某些reduce压力太大，如果参与计算的总数据量不是非常巨大的话，那就要重点考虑检查数据倾斜，多对多关联，以及优化查询逻辑。</p>
+<h3 id="6、实用技巧"><a href="#6、实用技巧" class="headerlink" title="6、实用技巧"></a>6、实用技巧</h3><p><strong>A、字符串的比较</strong></p>
+<p>&emsp;&emsp;字符串变量的大小比较是按照字典序进行的，即“逐位比对，第n位相同则比对第n+1位”，具体排位参考utf8编码顺序（空值最小），例如：<code>&#39;2014&#39;&lt;&#39;2014-01&#39;&lt;&#39;2014-01-01&#39;&lt;&#39;2014-01-01 09:00:00&#39;</code>。</p>
+<p>&emsp;&emsp;日常使用中很多时候没必要截断或者补全之后再作比较，例如：<code>dt&gt;=concat(year(tx_date),&#39;-01-01&#39;)</code> 可直接写成 <code>dt&gt;year(tx_date)</code> 或<code>dt&gt; substr(tx_date,1,4)</code> ，取整年的分区可直接写<code>dt&gt;&#39;2014&#39; and dt&lt;&#39;2015&#39;</code> 。</p>
+<p><strong>B、测试语句和函数</strong></p>
+<p>&emsp;&emsp;如果要测试一个函数或者一种写法是否正确，可以不带<code>from</code>，比如直接写<code>select regexp_replace(&#39;1233ascv&#39;,&#39;a&#39;,&#39;A&#39;);</code>，结果会只返回一行；如果要测试在数据集上的表现正确性，可以基于已有的表构造一个小表<code>create table dev.my_test as select * from sometable limit 100;</code> 。</p>
+<p><strong>C、并行去重</strong>    <strong>D、消灭row_number=1</strong>    <strong>E、转置</strong>    <strong>F、调用外部命令</strong>    <strong>G、剔除无效字符</strong>   <strong>H、json解析</strong></p>
+<h2 id="三、Hive计算引擎——Tez-amp-MapReduce"><a href="#三、Hive计算引擎——Tez-amp-MapReduce" class="headerlink" title="三、Hive计算引擎——Tez &amp; MapReduce"></a>三、Hive计算引擎——Tez &amp; MapReduce</h2><p>&emsp;&emsp;<strong>MapReduce</strong>是一种编程模型，用于大规模数据集（大于1TB）的并行运算。概念”Map（映射）”和”Reduce（归约）”。</p>
+<p>&emsp;&emsp;<strong>Tez</strong>是Apache开源的支持DAG作业的计算框架，它直接源于MapReduce框架，核心思想是将Map和Reduce两个操作进一步拆分，即Map被拆分成Input、Processor、Sort、Merge和Output， Reduce被拆分成Input、Shuffle、Sort、Merge、Processor和Output等，这样，这些分解后的元操作可以任意灵活组合，产生新的操作，这些操作经过一些控制程序组装后，可形成一个大的DAG作业。总结起来，Tez有以下特点：</p>
+<p>&emsp;&emsp;<strong>1）</strong>Apache二级开源项目（源代码今天发布的）；</p>
+<p>&emsp;&emsp;<strong>2）</strong>运行在YARN之上；</p>
+<p>&emsp;&emsp;<strong>3）</strong>适用于DAG（有向图）应用（同Impala、Dremel和Drill一样，可用于替换Hive/Pig等）</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v5oz5disj30zq0hk45w.jpg" alt></p>
+<p>&emsp;&emsp;传统的MR（包括Hive，Pig和直接编写MR程序）。假设有四个有依赖关系的MR作业（1个较为复杂的Hive SQL语句或者Pig脚本可能被翻译成4个有依赖关系的MR作业）或者用Oozie描述的4个有依赖关系的作业，运行过程如下（其中，绿色是Reduce Task，需要写HDFS）：<br>&emsp;&emsp;云状表示写屏蔽（write barrier，一种内核机制，持久写），Tez可以将多个有依赖的作业转换为一个作业（这样只需写一次HDFS，且中间节点较少），从而大大提升DAG作业的性能Hadoop是基础，其中的HDFS提供文件存储，Yarn进行资源管理。在这上面可以运行MapReduce、Spark、Tez等计算框架。</p>
+<p>&emsp;&emsp;<strong>A、MapReduce：</strong>是一种离线计算框架，将一个算法抽象成Map和Reduce两个阶段进行处理，非常适合数据密集型计算。</p>
+<p>&emsp;&emsp;<strong>B、Spark：</strong>Spark是UC Berkeley AMP lab所开源的类Hadoop MapReduce的通用的并行计算框架，Spark基于map reduce算法实现的分布式计算，拥有Hadoop MapReduce所具有的优点；但不同于MapReduce的是Job中间输出和结果可以保存在内存中，从而不再需要读写HDFS，因此Spark能更好地适用于数据挖掘与机器学习等需要迭代的map reduce的算法。</p>
+<p>&emsp;&emsp;<strong>C、Storm：</strong>MapReduce也不适合进行流式计算、实时分析，比如广告点击计算等。Storm是一个免费开源、分布式、高容错的实时计算系统。Storm令持续不断的流计算变得容易，弥补了Hadoop批处理所不能满足的实时要求。Storm经常用于在实时分析、在线机器学习、持续计算、分布式远程调用和ETL等领域。</p>
+<p>&emsp;&emsp;<strong>D、Tez：</strong>是基于Hadoop Yarn之上的DAG（有向无环图Directed Acyclic Graph）计算框架。它把Map/Reduce过程拆分成若干个子过程，同时可以把多个Ｍap/Reduce任务组合成一个较大的DAG任务，减少了Ｍap/Reduce之间的文件存储。同时合理组合其子过程，也可以减少任务的运行时间。</p>
+<h2 id="四、Hive操作函数"><a href="#四、Hive操作函数" class="headerlink" title="四、Hive操作函数"></a>四、Hive操作函数</h2><h3 id="1、时间函数"><a href="#1、时间函数" class="headerlink" title="1、时间函数"></a>1、时间函数</h3><p><strong>A、datediff()：</strong> 日期比较函数，datediff语法：<code>datediff(string enddate,string startdate)</code> </p>
+<p>返回值：int  </p>
+<p>说明：返回结束日期减去开始日期的天数。</p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select datediff('2016-12-30','2016-12-29');</span><br><span class="line"></span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p><strong>B、date_add()：</strong> 日期增加函数，date_add 语法： <code>date_add(string startdate, intdays)</code> </p>
+<p>返回值：string </p>
+<p>说明：返回开始日期startdate增加days天后的日期。 </p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select date_add('2016-12-29',10);</span><br><span class="line"></span><br><span class="line">2017-01-08</span><br></pre></td></tr></table></figure>
+
+<p><strong>C、date_sub()：</strong> 日期减少函数，date_sub语法：<code>date_sub (string startdate,int days)</code> </p>
+<p>返回值：string </p>
+<p>说明：返回开始日期startdate减少days天后的日期。 </p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select date_sub('2016-12-29',10);</span><br><span class="line"></span><br><span class="line">2016-12-19</span><br></pre></td></tr></table></figure>
+
+<p><strong>D、查询近30天的数据</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span>  <span class="keyword">datediff</span>(<span class="keyword">current_timestamp</span>,create_time)&lt;=<span class="number">30</span>；</span><br><span class="line"></span><br><span class="line"><span class="comment">## create_time 为table里的字段，current_timestamp 返回当前时间 2018-06-01 11:00:00</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>E、from_unixtime()：</strong> 日期函数UNIX时间戳转日期函数，from_unixtime语法：<code>from_unixtime(bigint unixtime[, string format])</code> </p>
+<p>返回值：string</p>
+<p>说明：转化UNIX时间戳（从1970-01-01 00:00:00 UTC到指定时间的秒数）到当前时区的时间格式</p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select from_unixtime(1323308943,’yyyyMMdd’) from dual;</span><br><span class="line"></span><br><span class="line">20111208</span><br></pre></td></tr></table></figure>
+
+<p><strong>F、unix_timestamp()：</strong>指定格式日期转UNIX时间戳函数,unix_timestamp语法: <code>unix_timestamp(string date, string pattern)</code>  </p>
+<p>返回值： bigint</p>
+<p>说明：转换pattern格式的日期到UNIX时间戳。如果转化失败，则返回0。</p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select unix_timestamp(’20111207 13:01:03′,’yyyyMMdd HH:mm:ss’) from dual;</span><br><span class="line"></span><br><span class="line">1323234063</span><br></pre></td></tr></table></figure>
+
+<p><strong>G、to_date()：</strong>日期时间转日期函数，to_date语法：<code>to_date(string timestamp)</code>  </p>
+<p>返回值：string</p>
+<p>说明：返回日期时间字段中的日期部分。</p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select to_date(’2011-12-08 10:03:01′) from dual;</span><br><span class="line"></span><br><span class="line">2011-12-08</span><br></pre></td></tr></table></figure>
+
+<p><strong>H、weekofyear ()：</strong>日期转周函数，weekofyear语法：<code>weekofyear (string date)</code> </p>
+<p>返回值：int</p>
+<p>说明：返回日期在当前的周数。</p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hive&gt; select weekofyear(’2011-12-08 10:03:01′) from dual;</span><br><span class="line"></span><br><span class="line">49</span><br></pre></td></tr></table></figure>
+
+<p><font color="#dd0000"><strong>H、$TX_DATE</strong></font></p>
+<p>自定义变量，准确获取当日日期，格式为”yyyy-MM-dd”。</p>
+<p><code>my $TX_DATE = substr(${CONRTROL_FILE},length(${CONTROL_FILE})-12,4).&#39;-&#39;.substr(${
+CONRTROL_FILE},length(${CONTROL_FILE})-8,2).&#39;-&#39;.substr(${CONRTROL_FILE},length(${</code><br><code>CONTROL_FILE})-6,2);</code></p>
+<h3 id="2、limit函数"><a href="#2、limit函数" class="headerlink" title="2、limit函数"></a>2、limit函数</h3><p>在hive表前1000行里，过滤出不重复的refid,imsi。 </p>
+<p><strong>A、错误的写法：</strong></p>
+<p><code>select distinct refid,imsi from HIVE_D_MT_UU_H_SPARK limit 1000;</code> </p>
+<p>会去读取全表，把0~1000行的不重复refid，imsi显示出来。</p>
+<p><strong>B、正确的写法：</strong> </p>
+<p><code>select distinct refid,imsi from (select * from HIVE_D_MT_UU_H_SPARK limit 1000);</code> </p>
+<p><strong>C、调优的写法：</strong></p>
+<p><code>CREATE TABLE TEMP_HIVE_D_MT_UU_H_SPARK AS</code></p>
+<p><code>select * from HIVE_D_MT_UU_H_SPARK limit 1000;</code></p>
+<p><code>select distinct refid,imsi from TEMP_HIVE_D_MT_UU_H_SPARK;</code></p>
+<p>Hive最快的执行就是不走MapReduce。简单的select的是最快的，嵌套啥的都比较忙。与关系型数据库不同，调优的写法执行更快。</p>
+<h3 id="3、Count函数"><a href="#3、Count函数" class="headerlink" title="3、Count函数"></a>3、Count函数</h3><p><strong>A、执行效果上：</strong></p>
+<p>&emsp;&emsp;<strong>1）</strong>count(*)包括了所有的列，相当于行数，在统计结果的时候，不会忽略列值为NULL  </p>
+<p>&emsp;&emsp;<strong>2）</strong>count(1)包括了所有列，用1代表代码行，在统计结果的时候，不会忽略列值为NULL  </p>
+<p>&emsp;&emsp;<strong>3）</strong>count(列名)只包括列名那一列，在统计结果的时候，会忽略列值为空（这里的空不是只空字符串或者0，而是表示null）的计数，即某个字段值为NULL时，不统计  </p>
+<p><strong>B、执行效率上：</strong></p>
+<p>&emsp;&emsp;列名为主键，count(列名)会比count(1)快                            列名不为主键，count(1)会比count(列名)快  </p>
+<p>&emsp;&emsp;如果表多个列并且没有主键，则count(1)的执行效率优于count(*) </p>
+<p>&emsp;&emsp;如果有主键，则 select count（主键）的执行效率是最优的  </p>
+<p>&emsp;&emsp;如果表只有一个字段，则 select count(*) 最优</p>
+<p>&emsp;&emsp;当表的数据量大些时，对表作分析之后，使用count(1)还要比使用count(*)用时多了！ 执行计划上：</p>
+<p>&emsp;&emsp;count(1)和count(<em>)的效果是一样的。 但是在表做过分析之后，count(1)会比count(</em>)的用时少些（1w以内数据量），不过差不了多少。  如果count(1)是聚索引,id,那肯定是count(1)快。但是差的很小的。因为count(*)自动会优化指定到那一个字段。所以没必要去count(1)，用sql会帮你完成优化的。</p>
+<p>&emsp;&emsp;因此：count(1)和count(*)在sql调优功能基本上是没有差别！ </p>
+<p><strong>C、应用</strong></p>
+<p><code>select t.tag_value(某一字段), count(1) from (table) t;</code></p>
+<p><font color="#dd0000"><strong>查看各字段数量级的方式！！！</strong></font></p>
+<h3 id="4、Group-By函数"><a href="#4、Group-By函数" class="headerlink" title="4、Group By函数"></a>4、Group By函数</h3><p>&emsp;&emsp;group by 一般和聚合函数一起使用才有意义,比如count、sum、avg等，使用group by的两个要素：</p>
+<p>&emsp;&emsp;出现在select后面的字段 要么是是聚合函数中的，要么就是group by 中的。要筛选结果可以先使用where，再用group by 或者先用group by，再用having。</p>
+<p>&emsp;&emsp;<code>group by textA, textB, textC;</code>依次判断textA、textB、textC字段是否相同，对不同字段进行区域性保留，建成一个区域表，起到<strong>去重</strong>的作用。<font color="#dd0000"><strong>重要！！！！！</strong></font></p>
+<p>参考：<a href="https://www.jianshu.com/p/8b135d373df1" target="_blank" rel="noopener">groupby的用法</a></p>
+<h3 id="5、开窗函数"><a href="#5、开窗函数" class="headerlink" title="5、开窗函数"></a>5、开窗函数</h3><p>参考：<a href="https://www.cnblogs.com/lihaoyang/p/6756956.html" target="_blank" rel="noopener">SQL开窗函数</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+    
+        
+    
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大 吉 大 利！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="想当校长的老王 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    想当校长的老王
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/07/04/Hive学习之路（一）HiveSQL语法/" title="Hive学习之路（一）HiveSQL语法">http://yoursite.com/2019/07/04/Hive学习之路（一）HiveSQL语法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag"><i class="fa fa-tag"></i> SQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/04/作业管理与说明/" rel="next" title="数据基础学习—作业管理规范与说明">
+                <i class="fa fa-chevron-left"></i> 数据基础学习—作业管理规范与说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/12/标签上线/" rel="prev" title="标签上线">
+                标签上线 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="想当校长的老王">
+            
+              <p class="site-author-name" itemprop="name">想当校长的老王</p>
+              <p class="site-description motion-element" itemprop="description">愿能阅尽天下事，洗手仍能做羹汤</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Co-Hwang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.163.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本原理"><span class="nav-number">1.</span> <span class="nav-text">一、基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、注意事项"><span class="nav-number">2.</span> <span class="nav-text">二、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、关于分区"><span class="nav-number">2.1.</span> <span class="nav-text">1、关于分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、关于JOIN"><span class="nav-number">2.2.</span> <span class="nav-text">2、关于JOIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、关于union-all"><span class="nav-number">2.3.</span> <span class="nav-text">3、关于union all</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、关于数据倾斜"><span class="nav-number">2.4.</span> <span class="nav-text">4、关于数据倾斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、如果上了资源占用榜-执行时间超长-etl任务超时"><span class="nav-number">2.5.</span> <span class="nav-text">5、如果上了资源占用榜 / 执行时间超长 / etl任务超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、实用技巧"><span class="nav-number">2.6.</span> <span class="nav-text">6、实用技巧</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Hive计算引擎——Tez-amp-MapReduce"><span class="nav-number">3.</span> <span class="nav-text">三、Hive计算引擎——Tez &amp; MapReduce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Hive操作函数"><span class="nav-number">4.</span> <span class="nav-text">四、Hive操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、时间函数"><span class="nav-number">4.1.</span> <span class="nav-text">1、时间函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、limit函数"><span class="nav-number">4.2.</span> <span class="nav-text">2、limit函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、Count函数"><span class="nav-number">4.3.</span> <span class="nav-text">3、Count函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Group-By函数"><span class="nav-number">4.4.</span> <span class="nav-text">4、Group By函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、开窗函数"><span class="nav-number">4.5.</span> <span class="nav-text">5、开窗函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">这個人好蠢、</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 浏览量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

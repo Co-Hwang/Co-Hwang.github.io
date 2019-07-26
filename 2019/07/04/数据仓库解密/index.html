@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v3wf2v1sj30la0jodhz.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v2pi42hdj30ko0igjxi.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g4v3vxr5k8j30yq0lmq7c.jpg">
-<meta property="og:updated_time" content="2019-07-10T16:01:45.961Z">
+<meta property="og:updated_time" content="2019-07-26T12:27:56.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据仓库架构解析&lt;详细！！！！&gt;">
 <meta name="twitter:description" content="数据仓库 概念&amp;emsp;&amp;emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。">
@@ -423,14 +423,14 @@
 <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>&emsp;&emsp;数据仓库，英文名称为Data Warehouse，可简写为DW或DWH。数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它出于分析性报告和决策支持目的而创建。为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
 <a id="more"></a>
 
-<h2 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h2><p>数据仓库的发展大致经历了这样的三个过程：</p>
+<h2 id="一、发展历程"><a href="#一、发展历程" class="headerlink" title="一、发展历程"></a>一、发展历程</h2><p>数据仓库的发展大致经历了这样的三个过程：</p>
 <p><strong>A、简单报表阶段</strong></p>
 <p>&emsp;&emsp;这个阶段，系统的主要目标是解决一些日常的工作中业务人员需要的报表，以及生成一些简单的能够帮助领导进行决策所需要的汇总数据。这个阶段的大部分表现形式为数据库和前端报表工具。</p>
 <p><strong>B、数据集市阶段</strong></p>
 <p>&emsp;&emsp;这个阶段，主要是根据某个业务部门的需要，进行一定的数据的采集，整理，按照业务人员的需要，进行多维报表的展现，能够提供对特定业务指导的数据，并且能够提供特定的领导决策数据。</p>
 <p><strong>C、数据仓库阶段</strong></p>
 <p>  这个阶段，主要是按照一定的数据模型，对整个企业的数据进行采集，整理，并且能够按照各个业务部门的需要，提供跨部门的，完全一致的业务报表数据，能够通过数据仓库生成对对业务具有指导性的数据，同时，为领导决策提供全面的数据支持。<br>&emsp;&emsp;通过数据仓库建设的发展阶段，我们能够看出，数据仓库的建设和数据集市的建设的重要区别就在于数据模型的支持。因此，数据模型的建设，对于我们数据仓库的建设，有着决定性的意义。</p>
-<h2 id="数据仓库与数据库的区别"><a href="#数据仓库与数据库的区别" class="headerlink" title="数据仓库与数据库的区别"></a>数据仓库与数据库的区别</h2><p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1s07wdfj311i0m6wqp.jpg" alt></p>
+<h2 id="二、数据仓库与数据库的区别"><a href="#二、数据仓库与数据库的区别" class="headerlink" title="二、数据仓库与数据库的区别"></a>二、数据仓库与数据库的区别</h2><p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1s07wdfj311i0m6wqp.jpg" alt></p>
 <p>&emsp;&emsp;数据仓库只是BI有机组成的一个部分。BI包括底层的数据仓库和建立在其之上背后的决策报表、数据分析、数据挖掘及深度运算等基于数据的能力。BI是一种方案，包含了数据仓库的构建技术、报表技术、挖掘技术等等。</p>
 <p>&emsp;&emsp;<font color="#dd0000">数据仓库：面向主题的，集成的，时变的，易失的。（核心概念）</font></p>
 <p>&emsp;&emsp;数据库：</p>
@@ -445,14 +445,14 @@
 <li><input checked disabled type="checkbox"> 很难获得用户的需求到底是什么，使用人群十分广泛，设计人员了解到仓库里有哪些数据、主题、模型，在此基础再去布局能完成的任务。是一个逐渐迭代的过程。</li>
 <li><input checked disabled type="checkbox"> 为了做分析决策，建立起企业内全局的数据环境，元数据进入到数据仓库后不会再发生更新，对于数据的响应时间不敏感。设计时更多的考虑数据的组织，如何实现主题划分。</li>
 </ul>
-<h2 id="数据仓库的主题"><a href="#数据仓库的主题" class="headerlink" title="数据仓库的主题"></a>数据仓库的主题</h2><p><strong>数据仓库的主题：</strong></p>
+<h2 id="三、数据仓库的主题"><a href="#三、数据仓库的主题" class="headerlink" title="三、数据仓库的主题"></a>三、数据仓库的主题</h2><p><strong>数据仓库的主题：</strong></p>
 <p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v2s38iwjj310w0nq17u.jpg" alt="数据仓库的主题"></p>
 <p><strong>数据仓库的基本数据类型：</strong></p>
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v2u6tlt3j30yq0m079e.jpg" alt="数据仓库基本数据类型"></p>
-<h2 id="大数据平台架构"><a href="#大数据平台架构" class="headerlink" title="大数据平台架构"></a>大数据平台架构</h2><p>如下图所示：</p>
+<h2 id="四、大数据平台架构"><a href="#四、大数据平台架构" class="headerlink" title="四、大数据平台架构"></a>四、大数据平台架构</h2><p>如下图所示：</p>
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v2ene53yj31380jcqcs.jpg" alt="大数据平台架构"></p>
 <p>&emsp;&emsp;例：男性、40岁左右、爱抽烟、有车的。<strong>BitMap</strong> 这种引擎可以快速得到响应的结果。</p>
-<h2 id="架构分层-重要"><a href="#架构分层-重要" class="headerlink" title="架构分层  重要"></a>架构分层  <font color="#dd0000">重要</font></h2><p>如下图所示：</p>
+<h2 id="五、架构分层-重要"><a href="#五、架构分层-重要" class="headerlink" title="五、架构分层  重要"></a>五、架构分层  <font color="#dd0000">重要</font></h2><p>如下图所示：</p>
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1jd2dbvj31hy0n6n3v.jpg" alt="数据仓库分层"></p>
 <p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1jeh15bj30r60oo77o.jpg" alt="数据仓库分层类比"></p>
 <p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4v1k3aw7sj31hu0qaqd9.jpg" alt="数据仓库分层细节"></p>
@@ -475,7 +475,7 @@
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4v1lgxc6vj31gi0eqwnm.jpg" alt="数据补录层"></p>
 <p><strong>H、数据集市层</strong></p>
 <p>&emsp;&emsp;某部门或某些特定用户因特定应用目的而设计创建的数据集，集市分为共享集市和非共享集市；共享集市可对非共享集市提供服务，共享集市间不允许直接共享数据； 非共享集市间不允许直接共享数据，须通过下沉“共性加工层”方式进行数据共享。<br>&emsp;&emsp;每个集市逻辑上分为基础层和应用层。基础层由数据资产部与业务团队共建；应用层由业务团队依据应用目的自建；<br>&emsp;&emsp;各部门业务需求通过各自集市提供服务，原则上不允许直接使用仓库层数据。<br>&emsp;&emsp;功能定义：即 <strong>DataMart</strong>，这里的 X指代变量，用于某部门或些特定户因应目的而建数据。<br><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4v1mfpigfj31dg0u0k51.jpg" alt="数据集市层"></p>
-<h2 id="全量表，增量表，拉链表，流水表，快照表"><a href="#全量表，增量表，拉链表，流水表，快照表" class="headerlink" title="全量表，增量表，拉链表，流水表，快照表"></a>全量表，增量表，拉链表，流水表，快照表</h2><p><strong>A、全量表</strong></p>
+<h2 id="六、全量表，增量表，拉链表，流水表，快照表"><a href="#六、全量表，增量表，拉链表，流水表，快照表" class="headerlink" title="六、全量表，增量表，拉链表，流水表，快照表"></a>六、全量表，增量表，拉链表，流水表，快照表</h2><p><strong>A、全量表</strong></p>
 <p>&emsp;&emsp;大部分美团侧的同步方式采用全量表，全量表<strong>无分区</strong>，每天凌晨流程执行完后，表中数据是截止到前一天的mysql数据。</p>
 <p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v3wf2v1sj30la0jodhz.jpg" alt></p>
 <p><strong>B、增量表</strong></p>
@@ -492,11 +492,11 @@
 <li><input checked disabled type="checkbox"> 拉链表通常是对账户信息的历史变动进行处理保留的结果；拉链表用于统计账户及客户的情况。</li>
 <li><input checked disabled type="checkbox"> 流水表是每天的交易形成的历史；流水表用于统计业务相关情况。</li>
 </ul>
-<h2 id="存储策略"><a href="#存储策略" class="headerlink" title="存储策略"></a>存储策略</h2><ul>
+<h2 id="七、存储策略"><a href="#七、存储策略" class="headerlink" title="七、存储策略"></a>七、存储策略</h2><ul>
 <li>I （增量）：每日一个增量数据分区、适用于日志及交易流水等信息。</li>
 <li>A（全量）：保留最新一份儿全量数据、适用于无变化的维度或者不关注变化的数据存储。</li>
 <li>S（快照）：是“A”的扩展、每日一个全量数据分区、适用于台账表等业务系统的汇总信息等。</li>
-<li>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。<h2 id="字段类型"><a href="#字段类型" class="headerlink" title="字段类型"></a>字段类型</h2></li>
+<li>H（拉链）：适用于缓慢变化维如用户账户信息等需要保存轨迹变化类的数据。<h2 id="八、字段类型"><a href="#八、字段类型" class="headerlink" title="八、字段类型"></a>八、字段类型</h2></li>
 </ul>
 <p>&emsp;&emsp;STAGE、ODM、IDM字段类型原则上只允许使用以下3种：bigint、decmail、string。SDM及各集市字段类型可以使用HIVE支持的任何类型。</p>
 <p>&emsp;&emsp;<strong>1、bigint</strong>：数量、次数、人数等整数字段。<br>&emsp;&emsp;<strong>2、decmail(30,6)</strong>：金额、比率等小数字段。一般情况下使用所示精度，入仓调研时的特殊情况视具体而定。<br>&emsp;&emsp;<strong>3、string</strong>：订单编号、SKU编号、描述类信息等字符字段 注:流量等特殊情况下可以使用MAP等复合类型，但需要事先知会数据仓库组。 </p>
@@ -831,7 +831,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发展历程"><span class="nav-number">2.</span> <span class="nav-text">发展历程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库与数据库的区别"><span class="nav-number">3.</span> <span class="nav-text">数据仓库与数据库的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库的主题"><span class="nav-number">4.</span> <span class="nav-text">数据仓库的主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据平台架构"><span class="nav-number">5.</span> <span class="nav-text">大数据平台架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构分层-重要"><span class="nav-number">6.</span> <span class="nav-text">架构分层  重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全量表，增量表，拉链表，流水表，快照表"><span class="nav-number">7.</span> <span class="nav-text">全量表，增量表，拉链表，流水表，快照表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储策略"><span class="nav-number">8.</span> <span class="nav-text">存储策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段类型"><span class="nav-number">9.</span> <span class="nav-text">字段类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高频词根术语表"><span class="nav-number">10.</span> <span class="nav-text">高频词根术语表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、发展历程"><span class="nav-number">2.</span> <span class="nav-text">一、发展历程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、数据仓库与数据库的区别"><span class="nav-number">3.</span> <span class="nav-text">二、数据仓库与数据库的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、数据仓库的主题"><span class="nav-number">4.</span> <span class="nav-text">三、数据仓库的主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、大数据平台架构"><span class="nav-number">5.</span> <span class="nav-text">四、大数据平台架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、架构分层-重要"><span class="nav-number">6.</span> <span class="nav-text">五、架构分层  重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、全量表，增量表，拉链表，流水表，快照表"><span class="nav-number">7.</span> <span class="nav-text">六、全量表，增量表，拉链表，流水表，快照表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、存储策略"><span class="nav-number">8.</span> <span class="nav-text">七、存储策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、字段类型"><span class="nav-number">9.</span> <span class="nav-text">八、字段类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高频词根术语表"><span class="nav-number">10.</span> <span class="nav-text">高频词根术语表</span></a></li></ol></div>
             
 
           </div>

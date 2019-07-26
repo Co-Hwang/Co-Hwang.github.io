@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5chhg53a1j310j0u0div.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5chkiow63j30pm0gy0uu.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5chlnynazj30ya0ladiw.jpg">
-<meta property="og:updated_time" content="2019-07-25T15:10:54.185Z">
+<meta property="og:updated_time" content="2019-07-26T12:27:07.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习之路（二）Spark之RDD">
 <meta name="twitter:description" content="Spark之RDD RDD（Resilient Distributed Dataset）叫做弹性分布式数据集，是Spark中最基本的数据抽象，它代表一个不可变、可分区、里面的元素可并行计算的集合。RDD具有数据流模型的特点：自动容错、位置感知性调度和可伸缩性。RDD允许用户在执行多个查询时显式地将工作集缓存在内存中，后续的查询能够重用工作集，这极大地提升了查询速度。">
@@ -380,7 +380,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.7k 字
+                  3.8k 字
                 </span>
               
 
@@ -422,7 +422,7 @@
 <a id="more"></a>
 
 <p>本文参考：<a href="https://www.cnblogs.com/qingyunzong/p/8899715.html" target="_blank" rel="noopener">扎心了,老铁</a></p>
-<h2 id="RDD概述"><a href="#RDD概述" class="headerlink" title="RDD概述"></a>RDD概述</h2><p><strong>A、RDD的属性</strong></p>
+<h2 id="一、RDD概述"><a href="#一、RDD概述" class="headerlink" title="一、RDD概述"></a>一、RDD概述</h2><p><strong>A、RDD的属性</strong></p>
 <p>（1）一组分片（Partition），即数据集的基本组成单位。对于RDD来说，每个分片都会被一个计算任务处理，并决定并行计算的粒度。用户可以在创建RDD时指定RDD的分片个数，如果没有指定，那么就会采用默认值。默认值就是程序所分配到的CPU Core的数目。</p>
 <p>（2）一个计算每个分区的函数。Spark中RDD的计算是以分片为单位的，每个RDD都会实现compute函数以达到这个目的。compute函数会对迭代器进行复合，不需要保存每次计算的结果。</p>
 <p>（3）RDD之间的依赖关系。RDD的每次转换都会生成一个新的RDD，所以RDD之间就会形成类似于流水线一样的前后依赖关系。在部分分区数据丢失时，Spark可以通过这个依赖关系重新计算丢失的分区数据，而不是对RDD的所有分区进行重新计算。</p>
@@ -431,7 +431,7 @@
 <p><strong>B、WordCount粗图解RDD</strong></p>
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5cgirdxbij319q0gsq7i.jpg" alt="WordCount-RDD"></p>
 <p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5cgjgurnuj319g0sugpf.jpg" alt="hello-RDD"></p>
-<h2 id="RDD创建方式"><a href="#RDD创建方式" class="headerlink" title="RDD创建方式"></a>RDD创建方式</h2><p><strong>A、通过读取文件生成的</strong></p>
+<h2 id="二、RDD创建方式"><a href="#二、RDD创建方式" class="headerlink" title="二、RDD创建方式"></a>二、RDD创建方式</h2><p><strong>A、通过读取文件生成的</strong></p>
 <p>由外部存储系统的数据集创建，包括本地的文件系统，还有所有Hadoop支持的数据集，比如HDFS、Cassandra、HBase等</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> file = sc.textFile(<span class="string">"/spark/hello.txt"</span>)</span><br></pre></td></tr></table></figure>
 
@@ -441,12 +441,12 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; <span class="keyword">val</span> array = <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">array: <span class="type">Array</span>[<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">scala&gt; <span class="keyword">val</span> rdd = sc.parallelize(array)</span><br><span class="line">rdd: org.apache.spark.rdd.<span class="type">RDD</span>[<span class="type">Int</span>] = <span class="type">ParallelCollectionRDD</span>[<span class="number">27</span>] at parallelize at &lt;console&gt;:<span class="number">26</span></span><br><span class="line"></span><br><span class="line">scala&gt;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5cgpwikfhj319606wt9s.jpg" alt="Tmp2"></p>
-<p>C、其他方式**</p>
+<p><strong>C、其他方式</strong></p>
 <p>读取数据库等等其他的操作。也可以生成RDD。</p>
 <p>RDD可以通过其他的RDD转换而来的。</p>
-<h2 id="RDD编程API"><a href="#RDD编程API" class="headerlink" title="RDD编程API"></a>RDD编程API</h2><p>Spark支持两个类型（算子）操作：Transformation和Action</p>
+<h2 id="三、RDD编程API"><a href="#三、RDD编程API" class="headerlink" title="三、RDD编程API"></a>三、RDD编程API</h2><p>Spark支持两个类型（算子）操作：Transformation和Action</p>
 <p><strong>A、Transformation</strong></p>
-<p>主要做的是就是将一个已有的RDD生成另外一个RDD。Transformation具有<strong>lazy**</strong>特性(延迟加载)**。Transformation算子的代码不会真正被执行。只有当我们的程序里面遇到一个action算子的时候，代码才会真正的被执行。这种设计让Spark更加有效率地运行。</p>
+<p>主要做的是就是将一个已有的RDD生成另外一个RDD。Transformation具有<strong>lazy特性(延迟加载)</strong>。Transformation算子的代码不会真正被执行。只有当我们的程序里面遇到一个action算子的时候，代码才会真正的被执行。这种设计让Spark更加有效率地运行。</p>
 <p><font color="#dd0000"><strong>常用的Transformation：</strong></font></p>
 <table>
 <thead>
@@ -661,7 +661,7 @@
 <p><strong>D、WordCount执行过程图</strong></p>
 <p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5chggq4anj30xa0u00xq.jpg" alt="Tmp5"></p>
 <p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5chhg53a1j310j0u0div.jpg" alt="Tmp6"></p>
-<h2 id="RDD的宽依赖和窄依赖"><a href="#RDD的宽依赖和窄依赖" class="headerlink" title="RDD的宽依赖和窄依赖"></a>RDD的宽依赖和窄依赖</h2><p><strong>A、RDD依赖关系的本质内幕</strong></p>
+<h2 id="四、RDD的宽依赖和窄依赖"><a href="#四、RDD的宽依赖和窄依赖" class="headerlink" title="四、RDD的宽依赖和窄依赖"></a>四、RDD的宽依赖和窄依赖</h2><p><strong>A、RDD依赖关系的本质内幕</strong></p>
 <p>由于RDD是粗粒度的操作数据集，每个Transformation操作都会生成一个新的RDD，所以RDD之间就会形成类似流水线的前后依赖关系；RDD和它依赖的父RDD（s）的关系有两种不同的类型，即窄依赖（narrow dependency）和宽依赖（wide dependency）。如图所示显示了RDD之间的依赖关系。</p>
 <p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5chkiow63j30pm0gy0uu.jpg" alt="Tmp8"></p>
 <p>从图中可知：</p>
@@ -930,7 +930,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD概述"><span class="nav-number">1.</span> <span class="nav-text">RDD概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD创建方式"><span class="nav-number">2.</span> <span class="nav-text">RDD创建方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD编程API"><span class="nav-number">3.</span> <span class="nav-text">RDD编程API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD的宽依赖和窄依赖"><span class="nav-number">4.</span> <span class="nav-text">RDD的宽依赖和窄依赖</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、RDD概述"><span class="nav-number">1.</span> <span class="nav-text">一、RDD概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、RDD创建方式"><span class="nav-number">2.</span> <span class="nav-text">二、RDD创建方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、RDD编程API"><span class="nav-number">3.</span> <span class="nav-text">三、RDD编程API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、RDD的宽依赖和窄依赖"><span class="nav-number">4.</span> <span class="nav-text">四、RDD的宽依赖和窄依赖</span></a></li></ol></div>
             
 
           </div>

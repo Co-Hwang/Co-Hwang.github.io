@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v394vme0j30m00m2q5g.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g4v39mqottj30mg0mcgof.jpg">
-<meta property="og:updated_time" content="2019-07-10T16:01:16.321Z">
+<meta property="og:updated_time" content="2019-07-26T12:30:40.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据基础学习—作业管理规范与说明">
 <meta name="twitter:description" content="作业管理 术语解释抽取作业：指将数据从数据源接入在到数据仓库的作业。  计算作业：指通过脚本逻辑实现对数据进行加工处理的作业。 推送作业：指将源端的数据推送目标系统的作业。 质量作业：指通过配置质量检查规则对数据质量进行监测的作业。 作业负责人：指负责创建作业管理作业的人员 下游作业负责人：指负责创建下游作业管理下游作业的人员 数据平台维护人员：指负责维护平台管控数据的人员">
@@ -419,12 +419,12 @@
 <p><strong>数据平台维护人员</strong>：指负责维护平台管控数据的人员</p>
 <a id="more"></a>
 
-<h2 id="作业生命周期管理-重要"><a href="#作业生命周期管理-重要" class="headerlink" title="作业生命周期管理   重要"></a>作业生命周期管理   <font color="#dd0000"><strong>重要</strong></font></h2><p><strong>A、作业线上管理</strong></p>
+<h2 id="一、作业生命周期管理-重要"><a href="#一、作业生命周期管理-重要" class="headerlink" title="一、作业生命周期管理   重要"></a>一、作业生命周期管理   <font color="#dd0000"><strong>重要</strong></font></h2><p><strong>A、作业线上管理</strong></p>
 <p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v394vme0j30m00m2q5g.jpg" alt></p>
 <p><strong>B、作业线下管理</strong></p>
 <p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4v39mqottj30mg0mcgof.jpg" alt></p>
 <p><strong>C、数据平台对于连续失败15天的作业进行强制下线处理</strong></p>
-<h2 id="作业脚本开发规范"><a href="#作业脚本开发规范" class="headerlink" title="作业脚本开发规范"></a>作业脚本开发规范</h2><p><strong>A、脚本命名</strong></p>
+<h2 id="二、作业脚本开发规范"><a href="#二、作业脚本开发规范" class="headerlink" title="二、作业脚本开发规范"></a>二、作业脚本开发规范</h2><p><strong>A、脚本命名</strong></p>
 <ul>
 <li>脚本名称仅由小写字母，数字及下划线组成，且与该脚本生成的Hive目标表名一致。</li>
 <li>脚本名称最大长度30位，对于超长内容尽量以JD缩写代替，可参考《京东数科数据仓库高频词根术语表》文档命名。</li>
@@ -454,14 +454,14 @@
 <li>max(struct())替代rownumber()=1</li>
 <li>muti-insert（一次查询结果插入多个表/分区）</li>
 </ul>
-<h2 id="如何作业部署规范"><a href="#如何作业部署规范" class="headerlink" title="如何作业部署规范"></a>如何作业部署规范</h2><p>&emsp;&emsp;<strong>规范一</strong>：同层级间作业不准互相依</p>
+<h2 id="三、如何作业部署规范"><a href="#三、如何作业部署规范" class="headerlink" title="三、如何作业部署规范"></a>三、如何作业部署规范</h2><p>&emsp;&emsp;<strong>规范一</strong>：同层级间作业不准互相依</p>
 <p>&emsp;&emsp;<strong>规范二</strong>：普通接入作业优先级为80，普通计算作业优先级为149，普通推送作业优先级为150，质量作业优先级170，重点作业优先级小于30</p>
 <ul>
 <li><input checked disabled type="checkbox"> 注明任务名称       <code>set mapreduce.job.name=jobname_cusname_seq;   use xxdb;</code></li>
 <li><input checked disabled type="checkbox"> 不允许CREATE/DROP非临时表，不允许TRUNCATE/RENAME</li>
 <li><input checked disabled type="checkbox"> 不允许INSERT临时表和目标表以外的表</li>
 </ul>
-<h2 id="常用UDF函数"><a href="#常用UDF函数" class="headerlink" title="常用UDF函数"></a>常用UDF函数</h2><p>&emsp;&emsp;<strong>UDF的全称为user-defined function，用户定义函数</strong>，为什么有它的存在呢？有的时候 你要写的查询无法轻松地使用Hive提供的内置函数来表示，通过写UDF，Hive就可以方便地插入用户写的处理代码并在查询中使用它们，相当于在HQL（Hive SQL）中自定义一些函数。</p>
+<h2 id="四、常用UDF函数"><a href="#四、常用UDF函数" class="headerlink" title="四、常用UDF函数"></a>四、常用UDF函数</h2><p>&emsp;&emsp;<strong>UDF的全称为user-defined function，用户定义函数</strong>，为什么有它的存在呢？有的时候 你要写的查询无法轻松地使用Hive提供的内置函数来表示，通过写UDF，Hive就可以方便地插入用户写的处理代码并在查询中使用它们，相当于在HQL（Hive SQL）中自定义一些函数。</p>
 <p>&emsp;&emsp;Hive中有三种UDF:(普通)UDF、用户定义聚集函数（user-defined aggregate function，UDAF）、用户定义表生成函数（user-defined table-generating function，UDTF）。</p>
 <p>&emsp;&emsp;A、UDF操作作用于单个数据行，并且产生一个数据行作为输出。大多数函数都属于这一类（比如数学函数和字符串函数）。</p>
 <p>&emsp;&emsp;B、UDAF 接受多个输入数据行，并产生一个输出数据行。想COUNT和MAX这样的函数就是聚集函数。</p>
@@ -507,7 +507,7 @@
 <td align="center">过滤特殊字符</td>
 </tr>
 </tbody></table>
-<h2 id="SQL编写注意事项"><a href="#SQL编写注意事项" class="headerlink" title="SQL编写注意事项"></a>SQL编写注意事项</h2><p>&emsp;&emsp;sql编写区，多个sql用分号分隔即可 在sql中可以使用大量的日期变量，例如： <code>select * from {table1} where dt=&#39;{tx_date}&#39;</code></p>
+<h2 id="五、SQL编写注意事项"><a href="#五、SQL编写注意事项" class="headerlink" title="五、SQL编写注意事项"></a>五、SQL编写注意事项</h2><p>&emsp;&emsp;sql编写区，多个sql用分号分隔即可 在sql中可以使用大量的日期变量，例如： <code>select * from {table1} where dt=&#39;{tx_date}&#39;</code></p>
 <p>&emsp;&emsp;变量和别名一样，需要用{}括起来，日期变量的所有日期都是根据当前任务数据日期计算而来，如果当前的数据日期为：2017-10-09，则上述语句程序解析后，实际运行语句为： <code>select * from tmp.tmp_a_payment_1 where dt=&#39;2017-10-09&#39;</code> </p>
 <p><font color="#dd0000"><strong>注意事项</strong></font></p>
 <ol>
@@ -624,9 +624,9 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/04/HiveSQL语法/" rel="prev" title="HiveSQL语法<基本原理、操作函数...>">
-                HiveSQL语法<基本原理、操作函数...> <i class="fa fa-chevron-right"></i>
-              </基本原理、操作函数...></a>
+              <a href="/2019/07/04/Hive学习之路（一）HiveSQL语法/" rel="prev" title="Hive学习之路（一）HiveSQL语法">
+                Hive学习之路（一）HiveSQL语法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -776,7 +776,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#术语解释"><span class="nav-number">1.</span> <span class="nav-text">术语解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业生命周期管理-重要"><span class="nav-number">2.</span> <span class="nav-text">作业生命周期管理   重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业脚本开发规范"><span class="nav-number">3.</span> <span class="nav-text">作业脚本开发规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何作业部署规范"><span class="nav-number">4.</span> <span class="nav-text">如何作业部署规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用UDF函数"><span class="nav-number">5.</span> <span class="nav-text">常用UDF函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL编写注意事项"><span class="nav-number">6.</span> <span class="nav-text">SQL编写注意事项</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#术语解释"><span class="nav-number">1.</span> <span class="nav-text">术语解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、作业生命周期管理-重要"><span class="nav-number">2.</span> <span class="nav-text">一、作业生命周期管理   重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、作业脚本开发规范"><span class="nav-number">3.</span> <span class="nav-text">二、作业脚本开发规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、如何作业部署规范"><span class="nav-number">4.</span> <span class="nav-text">三、如何作业部署规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、常用UDF函数"><span class="nav-number">5.</span> <span class="nav-text">四、常用UDF函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、SQL编写注意事项"><span class="nav-number">6.</span> <span class="nav-text">五、SQL编写注意事项</span></a></li></ol></div>
             
 
           </div>
