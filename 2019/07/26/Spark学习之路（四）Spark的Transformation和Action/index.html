@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="操作算子,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spark算子  Transformation | Action">
+<meta name="keywords" content="操作算子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark学习之路（四）Spark的Transformation和Action">
+<meta property="og:url" content="http://yoursite.com/2019/07/26/Spark学习之路（四）Spark的Transformation和Action/index.html">
+<meta property="og:site_name" content="这個人好蠢、">
+<meta property="og:description" content="Spark算子  Transformation | Action">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5djahdvkmj31b607yq3c.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5djch0zzhj31be0d0wfl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5djhvbkhpj31bw0kw0ui.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5djjekrz0j31cc0re0vq.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5djln44zsj31bm0degn3.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5djmohmpwj31ca0cgjso.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5djr2drnjj31ba0rgai9.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5djtrqknxj31bq0e840p.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5djswapi5j31bq0acjsw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5dktdaw93j31by09sta6.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5dku94jipj31bc0gk0tl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5dkw7uin6j31bc08w0tj.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5dkx9rhgpj31bw0jq764.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5dkymx1fwj31c209ut99.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl2cbzk7j31bq07maav.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5dl40c715j31c80rc785.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl528ot0j31ae0b2jsu.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl8e1fstj31as07egn5.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5dl957yqsj31bc0acaan.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl9yeqxpj31ba092dg9.jpg">
+<meta property="og:updated_time" content="2019-07-26T14:02:48.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spark学习之路（四）Spark的Transformation和Action">
+<meta name="twitter:description" content="Spark算子  Transformation | Action">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5djahdvkmj31b607yq3c.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/26/Spark学习之路（四）Spark的Transformation和Action/">
+
+
+
+
+
+  <title>Spark学习之路（四）Spark的Transformation和Action | 这個人好蠢、</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/Co-Hwang"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">这個人好蠢、</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪懂坚持 | 全靠死撑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+<script>
+  
+  window.onload = function(){
+    var path = 'https://Co-Hwang.github.io'; //
+    var localhostItem = String(window.location).split(path)[1];
+    var LiNode = document.querySelectorAll('#menu > li > a')
+    
+    for(var i = 0; i< LiNode.length;i++){
+      var item = String(LiNode[i].href).split(path)[1];
+      if(item == localhostItem && item != undefined){
+        LiNode[i].setAttribute('style','border-bottom:1px solid black');
+      }
+    }
+  };
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/Spark学习之路（四）Spark的Transformation和Action/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="想当校长的老王">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这個人好蠢、">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spark学习之路（四）Spark的Transformation和Action</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T20:50:39+08:00">
+                2019-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spark/" itemprop="url" rel="index">
+                    <span itemprop="name">Spark</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font size="5"><strong>Spark算子  Transformation | Action</strong></font></p>
+<a id="more"></a>
+
+<p>本文参考：<a href="https://www.cnblogs.com/qingyunzong/p/8922135.html" target="_blank" rel="noopener">扎心了,老铁</a></p>
+<h2 id="一、Transformation算子"><a href="#一、Transformation算子" class="headerlink" title="一、Transformation算子"></a>一、Transformation算子</h2><h3 id="1、map、flatMap、mapParations、mapPartitionsWithIndex"><a href="#1、map、flatMap、mapParations、mapPartitionsWithIndex" class="headerlink" title="1、map、flatMap、mapParations、mapPartitionsWithIndex"></a>1、map、flatMap、mapParations、mapPartitionsWithIndex</h3><p><strong>A、map</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">map</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"张无忌"</span>, <span class="string">"赵敏"</span>, <span class="string">"周芷若"</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line">    <span class="keyword">val</span> nameRDD = listRDD.map(name =&gt; <span class="string">"Hello "</span> + name)</span><br><span class="line">    nameRDD.foreach(name =&gt; println(name))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5djahdvkmj31b607yq3c.jpg" alt="1"></p>
+<p>（3）总结</p>
+<p>可以看出，对于map算子，源JavaRDD的每个元素都会进行计算，由于是依次进行传参，所以他是有序的，新RDD的元素顺序与源RDD是相同的。而由有序又引出接下来的flatMap。</p>
+<p><strong>B、flatMap</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"张无忌 赵敏"</span>,<span class="string">"宋青书 周芷若"</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> nameRDD = listRDD.flatMap(line =&gt; line.split(<span class="string">" "</span>)).map(name =&gt; <span class="string">"Hello "</span> + name)</span><br><span class="line">    nameRDD.foreach(name =&gt; println(name))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5djch0zzhj31be0d0wfl.jpg" alt="2"></p>
+<p>（3）总结</p>
+<p>flatMap的特性决定了这个算子在对需要随时增加元素的时候十分好用，比如在对源RDD查漏补缺时。</p>
+<p>map和flatMap都是依次进行参数传递的，但有时候需要RDD中的两个元素进行相应操作时（例如：算存款所得时，下一个月所得的利息是要原本金加上上一个月所得的本金的），这两个算子便无法达到目的了，这是便需要mapPartitions算子，他传参的方式是将整个RDD传入，然后将一个迭代器传出生成一个新的RDD，由于整个RDD都传入了，所以便能完成前面说的业务。</p>
+<p><strong>C、mapPartitions</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mapParations</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    listRDD.mapPartitions(iterator =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> newList: <span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="type">ListBuffer</span>()</span><br><span class="line">      <span class="keyword">while</span> (iterator.hasNext)&#123;</span><br><span class="line">        newList.append(<span class="string">"hello "</span> + iterator.next())</span><br><span class="line">      &#125;</span><br><span class="line">      newList.toIterator</span><br><span class="line">    &#125;).foreach(name =&gt; println(name))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5djhvbkhpj31bw0kw0ui.jpg" alt="3"></p>
+<p><strong>D、mapPartitionsWithIndex</strong></p>
+<p>每次获取和处理的就是一个分区的数据,并且知道处理的分区号。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mapPartitionsWithIndex</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)</span><br><span class="line">    sc.parallelize(list).mapPartitionsWithIndex((index,iterator) =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> listBuffer:<span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="keyword">new</span> <span class="type">ListBuffer</span></span><br><span class="line">      <span class="keyword">while</span> (iterator.hasNext)&#123;</span><br><span class="line">        listBuffer.append(index+<span class="string">"_"</span>+iterator.next())</span><br><span class="line">      &#125;</span><br><span class="line">      listBuffer.iterator</span><br><span class="line">    &#125;,<span class="literal">true</span>)</span><br><span class="line">      .foreach(println(_))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5djjekrz0j31cc0re0vq.jpg" alt="4"></p>
+<h3 id="2、reduce、reduceByKey"><a href="#2、reduce、reduceByKey" class="headerlink" title="2、reduce、reduceByKey"></a>2、reduce、reduceByKey</h3><p><strong>A、reduce</strong></p>
+<p>reduce其实是讲RDD中的所有元素进行合并，当运行call方法时，会传入两个参数，在call方法中将两个参数合并后返回，而这个返回值回合一个新的RDD中的元素再次传入call方法中，继续合并，直到合并到只剩下一个元素时。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduce</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">val</span> result = listRDD.reduce((x,y) =&gt; x+y)</span><br><span class="line">    println(result)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5djln44zsj31bm0degn3.jpg" alt="5"></p>
+<p><strong>B、reduceByKey</strong></p>
+<p>reduceByKey仅将RDD中所有K,V对中K值相同的V进行合并。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reduceByKey</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>((<span class="string">"武当"</span>, <span class="number">99</span>), (<span class="string">"少林"</span>, <span class="number">97</span>), (<span class="string">"武当"</span>, <span class="number">89</span>), (<span class="string">"少林"</span>, <span class="number">77</span>))</span><br><span class="line">    <span class="keyword">val</span> mapRDD = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> resultRDD = mapRDD.reduceByKey(_+_)</span><br><span class="line">    resultRDD.foreach(tuple =&gt; println(<span class="string">"门派: "</span> + tuple._1 + <span class="string">"-&gt;"</span> + tuple._2))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5djmohmpwj31ca0cgjso.jpg" alt="6"></p>
+<h3 id="3、union，join和groupByKey"><a href="#3、union，join和groupByKey" class="headerlink" title="3、union，join和groupByKey"></a>3、union，join和groupByKey</h3><p><strong>A、union</strong></p>
+<p>当要将两个RDD合并时，便要用到union和join，其中union只是简单的将两个RDD累加起来，可以看做List的addAll方法。就想List中一样，当使用union及join时，必须保证两个RDD的泛型是一致的。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">union</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="type">List</span>(<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">val</span> rdd1 = sc.parallelize(list1)</span><br><span class="line">    <span class="keyword">val</span> rdd2 = sc.parallelize(list2)</span><br><span class="line">    rdd1.union(rdd2).foreach(println(_))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5djr2drnjj31ba0rgai9.jpg" alt></p>
+<p><strong>B、join</strong></p>
+<p>join是将两个PairRDD合并，并将有相同key的元素分为一组，可以理解为groupByKey和Union的结合</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">join</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">List</span>((<span class="number">1</span>, <span class="string">"东方不败"</span>), (<span class="number">2</span>, <span class="string">"令狐冲"</span>), (<span class="number">3</span>, <span class="string">"林平之"</span>))</span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="type">List</span>((<span class="number">1</span>, <span class="number">99</span>), (<span class="number">2</span>, <span class="number">98</span>), (<span class="number">3</span>, <span class="number">97</span>))</span><br><span class="line">    <span class="keyword">val</span> list1RDD = sc.parallelize(list1)</span><br><span class="line">    <span class="keyword">val</span> list2RDD = sc.parallelize(list2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> joinRDD = list1RDD.join(list2RDD)</span><br><span class="line">    joinRDD.foreach(t =&gt; println(<span class="string">"学号:"</span> + t._1 + <span class="string">" 姓名:"</span> + t._2._1 + <span class="string">" 成绩:"</span> + t._2._2))</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5djtrqknxj31bq0e840p.jpg" alt="8"></p>
+<p><strong>C、groupByKey</strong></p>
+<p>union只是将两个RDD简单的累加在一起，而join则不一样，join类似于hadoop中的combin操作，只是少了排序这一段，再说join之前说说groupByKey，因为join可以理解为union与groupByKey的结合：groupBy是将RDD中的元素进行分组，组名是call方法中的返回值，而顾名思义groupByKey是将PairRDD中拥有相同key值得元素归为一组。即：</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">groupByKey</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>((<span class="string">"武当"</span>, <span class="string">"张三丰"</span>), (<span class="string">"峨眉"</span>, <span class="string">"灭绝师太"</span>), (<span class="string">"武当"</span>, <span class="string">"宋青书"</span>), (<span class="string">"峨眉"</span>, <span class="string">"周芷若"</span>))</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line">    <span class="keyword">val</span> groupByKeyRDD = listRDD.groupByKey()</span><br><span class="line">    groupByKeyRDD.foreach(t =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> menpai = t._1</span><br><span class="line">      <span class="keyword">val</span> iterator = t._2.iterator</span><br><span class="line">      <span class="keyword">var</span> people = <span class="string">""</span></span><br><span class="line">      <span class="keyword">while</span> (iterator.hasNext) people = people + iterator.next + <span class="string">" "</span></span><br><span class="line">      println(<span class="string">"门派:"</span> + menpai + <span class="string">"人员:"</span> + people)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5djswapi5j31bq0acjsw.jpg" alt="9"></p>
+<h3 id="4、sample、cartesian"><a href="#4、sample、cartesian" class="headerlink" title="4、sample、cartesian"></a>4、sample、cartesian</h3><p><strong>A、sample</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">  <span class="keyword">val</span> list = <span class="number">1</span> to <span class="number">100</span></span><br><span class="line">  <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line">  listRDD.sample(<span class="literal">false</span>,<span class="number">0.1</span>,<span class="number">0</span>).foreach(num =&gt; print(num + <span class="string">" "</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5dktdaw93j31by09sta6.jpg" alt="10"></p>
+<p><strong>B、cartesian</strong></p>
+<p>cartesian是用于求笛卡尔积的</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cartesian</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">List</span>(<span class="string">"A"</span>,<span class="string">"B"</span>)</span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="keyword">val</span> list1RDD = sc.parallelize(list1)</span><br><span class="line">    <span class="keyword">val</span> list2RDD = sc.parallelize(list2)</span><br><span class="line">    list1RDD.cartesian(list2RDD).foreach(t =&gt; println(t._1 +<span class="string">"-&gt;"</span>+t._2))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5dku94jipj31bc0gk0tl.jpg" alt="11"></p>
+<h3 id="5、filter、distinct、intersection"><a href="#5、filter、distinct、intersection" class="headerlink" title="5、filter、distinct、intersection"></a>5、filter、distinct、intersection</h3><p><strong>A、filter</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">  <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>)</span><br><span class="line">  <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line">  listRDD.filter(num =&gt; num % <span class="number">2</span> ==<span class="number">0</span>).foreach(print(_))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5dkw7uin6j31bc08w0tj.jpg" alt="12"></p>
+<p><strong>B、distinct</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distinct</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">   <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line">   sc.parallelize(list).distinct().foreach(println(_))</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5dkx9rhgpj31bw0jq764.jpg" alt="13"></p>
+<p><strong>C、intersection</strong></p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">intersection</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="type">List</span>(<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line">    <span class="keyword">val</span> list1RDD = sc.parallelize(list1)</span><br><span class="line">    <span class="keyword">val</span> list2RDD = sc.parallelize(list2)</span><br><span class="line">    list1RDD.intersection(list2RDD).foreach(println(_))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5dkymx1fwj31c209ut99.jpg" alt="14"></p>
+<h3 id="6、coalesce、replication、repartitionAndSortWithinPartitions"><a href="#6、coalesce、replication、repartitionAndSortWithinPartitions" class="headerlink" title="6、coalesce、replication、repartitionAndSortWithinPartitions"></a>6、coalesce、replication、repartitionAndSortWithinPartitions</h3><p><strong>A、coalesce</strong></p>
+<p>分区数由多 -&gt; 变少</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">coalesce</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>)</span><br><span class="line">    sc.parallelize(list,<span class="number">3</span>).coalesce(<span class="number">1</span>).foreach(println(_))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl2cbzk7j31bq07maav.jpg" alt="15"></p>
+<p><strong>B、replication</strong></p>
+<p> 进行重分区，解决的问题：本来分区数少 -&gt; 增加分区数</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replication</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list,<span class="number">1</span>)</span><br><span class="line">    listRDD.repartition(<span class="number">2</span>).foreach(println(_))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5dl40c715j31c80rc785.jpg" alt="16"></p>
+<p><strong>C、repartitionAndSortWithinPartitions</strong></p>
+<p>repartitionAndSortWithinPartitions函数是repartition函数的变种，与repartition函数不同的是，repartitionAndSortWithinPartitions在给定的partitioner内部进行排序，性能比repartition要高。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">repartitionAndSortWithinPartitions</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="number">1</span>, <span class="number">4</span>, <span class="number">55</span>, <span class="number">66</span>, <span class="number">33</span>, <span class="number">48</span>, <span class="number">23</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list,<span class="number">1</span>)</span><br><span class="line">    listRDD.map(num =&gt; (num,num))</span><br><span class="line">      .repartitionAndSortWithinPartitions(<span class="keyword">new</span> <span class="type">HashPartitioner</span>(<span class="number">2</span>))</span><br><span class="line">      .mapPartitionsWithIndex((index,iterator) =&gt; &#123;</span><br><span class="line">        <span class="keyword">val</span> listBuffer: <span class="type">ListBuffer</span>[<span class="type">String</span>] = <span class="keyword">new</span> <span class="type">ListBuffer</span></span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext) &#123;</span><br><span class="line">          listBuffer.append(index + <span class="string">"_"</span> + iterator.next())</span><br><span class="line">        &#125;</span><br><span class="line">        listBuffer.iterator</span><br><span class="line">      &#125;,<span class="literal">false</span>)</span><br><span class="line">      .foreach(println(_))</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl528ot0j31ae0b2jsu.jpg" alt="17"></p>
+<h3 id="7、cogroup、sortBykey、aggregateByKey"><a href="#7、cogroup、sortBykey、aggregateByKey" class="headerlink" title="7、cogroup、sortBykey、aggregateByKey"></a>7、cogroup、sortBykey、aggregateByKey</h3><p><strong>A、cogroup</strong></p>
+<p>对两个RDD中的KV元素，每个RDD中相同key中的元素分别聚合成一个集合。与reduceByKey不同的是针对两个RDD中相同的key的元素进行合并。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cogroup</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">List</span>((<span class="number">1</span>, <span class="string">"www"</span>), (<span class="number">2</span>, <span class="string">"bbs"</span>))</span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="type">List</span>((<span class="number">1</span>, <span class="string">"cnblog"</span>), (<span class="number">2</span>, <span class="string">"cnblog"</span>), (<span class="number">3</span>, <span class="string">"very"</span>))</span><br><span class="line">    <span class="keyword">val</span> list3 = <span class="type">List</span>((<span class="number">1</span>, <span class="string">"com"</span>), (<span class="number">2</span>, <span class="string">"com"</span>), (<span class="number">3</span>, <span class="string">"good"</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> list1RDD = sc.parallelize(list1)</span><br><span class="line">    <span class="keyword">val</span> list2RDD = sc.parallelize(list2)</span><br><span class="line">    <span class="keyword">val</span> list3RDD = sc.parallelize(list3)</span><br><span class="line"></span><br><span class="line">    list1RDD.cogroup(list2RDD,list3RDD).foreach(tuple =&gt;</span><br><span class="line">      println(tuple._1 + <span class="string">" "</span> + tuple._2._1 + <span class="string">" "</span> + tuple._2._2 + <span class="string">" "</span> + tuple._2._3))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl8e1fstj31as07egn5.jpg" alt="18"></p>
+<p><strong>B、sortByKey</strong></p>
+<p>sortByKey函数作用于Key-Value形式的RDD，并对Key进行排序。从函数的实现可以看出，它主要接受两个函数，含义和sortBy一样，这里就不进行解释了。该函数返回的RDD一定是ShuffledRDD类型的，因为对源RDD进行排序，必须进行Shuffle操作，而Shuffle操作的结果RDD就是ShuffledRDD。其实这个函数的实现很优雅，里面用到了RangePartitioner，它可以使得相应的范围Key数据分到同一个partition中，然后内部用到了mapPartitions对每个partition中的数据进行排序，而每个partition中数据的排序用到了标准的sort机制，避免了大量数据的shuffle。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sortByKey</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>((<span class="number">99</span>, <span class="string">"张三丰"</span>), (<span class="number">96</span>, <span class="string">"东方不败"</span>), (<span class="number">66</span>, <span class="string">"林平之"</span>), (<span class="number">98</span>, <span class="string">"聂风"</span>))</span><br><span class="line">    sc.parallelize(list).sortByKey(<span class="literal">false</span>).foreach(tuple =&gt; println(tuple._2 + <span class="string">"-&gt;"</span> + tuple._1))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5dl957yqsj31bc0acaan.jpg" alt="19"></p>
+<p><strong>C、aggregateByKey</strong></p>
+<p>aggregateByKey函数对PairRDD中相同Key的值进行聚合操作，在聚合过程中同样使用了一个中立的初始值。和aggregate函数类似，aggregateByKey返回值的类型不需要和RDD中value的类型一致。因为aggregateByKey是对相同Key中的值进行聚合操作，所以aggregateByKey函数最终返回的类型还是Pair RDD，对应的结果是Key和聚合好的值；而aggregate函数直接是返回非RDD的结果，这点需要注意。在实现过程中，定义了三个aggregateByKey函数原型，但最终调用的aggregateByKey函数都一致。</p>
+<p>（1）使用scala进行编写</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">aggregateByKey</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"you,jump"</span>, <span class="string">"i,jump"</span>)</span><br><span class="line">    sc.parallelize(list)</span><br><span class="line">      .flatMap(_.split(<span class="string">","</span>))</span><br><span class="line">      .map((_, <span class="number">1</span>))</span><br><span class="line">      .aggregateByKey(<span class="number">0</span>)(_+_,_+_)</span><br><span class="line">      .foreach(tuple =&gt;println(tuple._1+<span class="string">"-&gt;"</span>+tuple._2))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl9yeqxpj31ba092dg9.jpg" alt="20"></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+    
+        
+    
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大 吉 大 利！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="想当校长的老王 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    想当校长的老王
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/07/26/Spark学习之路（四）Spark的Transformation和Action/" title="Spark学习之路（四）Spark的Transformation和Action">http://yoursite.com/2019/07/26/Spark学习之路（四）Spark的Transformation和Action/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作算子/" rel="tag"><i class="fa fa-tag"></i> 操作算子</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/26/Spark学习之路（三）Spark的广播变量和累加器/" rel="next" title="Spark学习之路（三）Spark的广播变量和累加器">
+                <i class="fa fa-chevron-left"></i> Spark学习之路（三）Spark的广播变量和累加器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="想当校长的老王">
+            
+              <p class="site-author-name" itemprop="name">想当校长的老王</p>
+              <p class="site-description motion-element" itemprop="description">愿能阅尽天下事，洗手仍能做羹汤</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Co-Hwang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.163.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Transformation算子"><span class="nav-number">1.</span> <span class="nav-text">一、Transformation算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、map、flatMap、mapParations、mapPartitionsWithIndex"><span class="nav-number">1.1.</span> <span class="nav-text">1、map、flatMap、mapParations、mapPartitionsWithIndex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、reduce、reduceByKey"><span class="nav-number">1.2.</span> <span class="nav-text">2、reduce、reduceByKey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、union，join和groupByKey"><span class="nav-number">1.3.</span> <span class="nav-text">3、union，join和groupByKey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、sample、cartesian"><span class="nav-number">1.4.</span> <span class="nav-text">4、sample、cartesian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、filter、distinct、intersection"><span class="nav-number">1.5.</span> <span class="nav-text">5、filter、distinct、intersection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、coalesce、replication、repartitionAndSortWithinPartitions"><span class="nav-number">1.6.</span> <span class="nav-text">6、coalesce、replication、repartitionAndSortWithinPartitions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、cogroup、sortBykey、aggregateByKey"><span class="nav-number">1.7.</span> <span class="nav-text">7、cogroup、sortBykey、aggregateByKey</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">这個人好蠢、</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 浏览量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
