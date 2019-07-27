@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Scala的数据结构">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala学习之路（二）Scala的数组、映射、元组、集合">
+<meta property="og:url" content="http://yoursite.com/2019/07/26/Scala学习之路（二）Scala的数组、映射、元组、集合/index.html">
+<meta property="og:site_name" content="这個人好蠢、">
+<meta property="og:description" content="Scala的数据结构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dp33dxcjj30kp08nglv.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5e7i09b49j31by0fcgnn.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e7j8mtolj31bc03cjrq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5e7rpoufnj31c80b0gml.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e7t1zmf2j31bi0dudnj.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e7uzytyzj31c00ag3zs.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5e7wbj6smj31c40oo48k.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5e81j7b37j31bg074wgk.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e823kq60j31bu08a403.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5e84htgilj31c406u0to.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e852hnl3j31c80cytbf.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5e8chbgnfj31by0a4766.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8cz870nj31bs0letbp.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8dow7u8j31bg07iwft.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8eebqdoj318j0u0wkl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5e8fyclrgj31ag0k8my2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5e8gud46rj31850u00yv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5e8hw3q3wj31b40rcdm7.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8o7pt85j31c60rs0vw.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8p59vg2j31bo0bgabp.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8q5t339j31bg0ii0ui.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5e8rdx3i0j31bi0h0dhf.jpg">
+<meta property="og:updated_time" content="2019-07-27T03:35:21.131Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala学习之路（二）Scala的数组、映射、元组、集合">
+<meta name="twitter:description" content="Scala的数据结构">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dp33dxcjj30kp08nglv.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/26/Scala学习之路（二）Scala的数组、映射、元组、集合/">
+
+
+
+
+
+  <title>Scala学习之路（二）Scala的数组、映射、元组、集合 | 这個人好蠢、</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/Co-Hwang"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">这個人好蠢、</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪懂坚持 | 全靠死撑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+<script>
+  
+  window.onload = function(){
+    var path = 'https://Co-Hwang.github.io'; //
+    var localhostItem = String(window.location).split(path)[1];
+    var LiNode = document.querySelectorAll('#menu > li > a')
+    
+    for(var i = 0; i< LiNode.length;i++){
+      var item = String(LiNode[i].href).split(path)[1];
+      if(item == localhostItem && item != undefined){
+        LiNode[i].setAttribute('style','border-bottom:1px solid black');
+      }
+    }
+  };
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/26/Scala学习之路（二）Scala的数组、映射、元组、集合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="想当校长的老王">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这個人好蠢、">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Scala学习之路（二）Scala的数组、映射、元组、集合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T23:52:03+08:00">
+                2019-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font size="5"><strong>Scala的数据结构</strong></font></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5dp33dxcjj30kp08nglv.jpg" alt="scala"></p>
+<a id="more"></a>
+
+<p>本文参考：<a href="https://www.cnblogs.com/qingyunzong/p/8858465.html" target="_blank" rel="noopener">扎心了,老铁</a></p>
+<h2 id="一、数组"><a href="#一、数组" class="headerlink" title="一、数组"></a>一、数组</h2><p><strong>A、定长数组和变长数组</strong></p>
+<p>（1）Scala代码</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.collection.mutable.<span class="type">ArrayBuffer</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">TestScala</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="comment">//初始化一个长度为8的定长数组，其所有元素均为0</span></span><br><span class="line">    <span class="keyword">val</span> arr1 = <span class="keyword">new</span> <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">8</span>)</span><br><span class="line">    <span class="comment">//直接打印定长数组，内容为数组的hashcode值</span></span><br><span class="line">    println(<span class="string">"arr1="</span>+arr1)</span><br><span class="line">    <span class="comment">//将数组转换成数组缓冲，就可以看到原数组中的内容了</span></span><br><span class="line">    <span class="comment">//toBuffer会将数组转换长数组缓冲</span></span><br><span class="line">    println(<span class="string">"arr1.toBuffer="</span>+arr1.toBuffer)</span><br><span class="line">    <span class="comment">//注意：如果new，相当于调用了数组的apply方法，直接为数组赋值</span></span><br><span class="line">    <span class="comment">//初始化一个长度为1的定长数组</span></span><br><span class="line">    <span class="keyword">val</span> arr2 = <span class="type">Array</span>[<span class="type">Int</span>](<span class="number">10</span>)</span><br><span class="line">    println(<span class="string">"arr2.toBuffer="</span>+arr2.toBuffer)</span><br><span class="line">    <span class="comment">//定义一个长度为3的定长数组</span></span><br><span class="line">    <span class="keyword">val</span> arr3 = <span class="type">Array</span>(<span class="string">"hadoop"</span>, <span class="string">"storm"</span>, <span class="string">"spark"</span>)</span><br><span class="line">    <span class="comment">//使用()来访问元素</span></span><br><span class="line">    println(<span class="string">"arr3(2)="</span>+arr3(<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//////////////////////////////////////////////////</span></span><br><span class="line">    <span class="comment">//变长数组（数组缓冲）</span></span><br><span class="line">    <span class="comment">//如果想使用数组缓冲，需要导入import scala.collection.mutable.ArrayBuffer包</span></span><br><span class="line">    <span class="keyword">var</span> ab = <span class="type">ArrayBuffer</span>[<span class="type">Int</span>]()</span><br><span class="line">    <span class="comment">//向数组缓冲的尾部追加一个元素</span></span><br><span class="line">    <span class="comment">//+=尾部追加元素</span></span><br><span class="line">    ab += <span class="number">1</span></span><br><span class="line">    <span class="comment">//追加多个元素</span></span><br><span class="line">    ab += (<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="comment">//追加一个数组++=</span></span><br><span class="line">    ab ++= <span class="type">Array</span>(<span class="number">6</span>, <span class="number">7</span>)</span><br><span class="line">    <span class="comment">//追加一个数组缓冲</span></span><br><span class="line">    ab ++= <span class="type">ArrayBuffer</span>(<span class="number">8</span>,<span class="number">9</span>)</span><br><span class="line">    <span class="comment">//打印数组缓冲ab</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//在数组某个位置插入元素用insert</span></span><br><span class="line">    ab.insert(<span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="comment">//删除数组某个位置的元素用remove</span></span><br><span class="line">    ab.remove(<span class="number">8</span>, <span class="number">2</span>)</span><br><span class="line">    println(<span class="string">"ab="</span>+ab)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5e7i09b49j31by0fcgnn.jpg" alt="30"></p>
+<p><strong>B、遍历数组</strong></p>
+<p>（1）增强for循环</p>
+<p>（2）好用的until会生成脚标，<strong>0 until 10 包含0不包含10</strong></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e7j8mtolj31bc03cjrq.jpg" alt="31"></p>
+<p>（3）Scala代码</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="comment">//初始化一个数组</span></span><br><span class="line">    <span class="keyword">val</span> arr = <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)</span><br><span class="line">    <span class="comment">//增强for循环</span></span><br><span class="line">    <span class="keyword">for</span>(i &lt;- arr)</span><br><span class="line">      print(i+<span class="string">"\t"</span>)</span><br><span class="line"></span><br><span class="line">    println()</span><br><span class="line">    <span class="comment">//好用的until会生成一个Range</span></span><br><span class="line">    <span class="comment">//reverse是将前面生成的Range反转</span></span><br><span class="line">    <span class="keyword">for</span>(i &lt;- (<span class="number">0</span> until arr.length).reverse)</span><br><span class="line">      print(arr(i))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）运行结果</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5e7rpoufnj31c80b0gml.jpg" alt="32"></p>
+<p><strong>C、数组转换</strong></p>
+<p><strong>yield</strong>关键字将原始的数组进行转换会产生一个新的数组，原始的数组不变</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e7t1zmf2j31bi0dudnj.jpg" alt="33"></p>
+<p>（1）Scala代码</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line">    <span class="comment">//定义一个数组</span></span><br><span class="line">    <span class="keyword">val</span> arr = <span class="type">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)</span><br><span class="line">    <span class="comment">//将偶数取出乘以10后再生成一个新的数组</span></span><br><span class="line">    <span class="keyword">val</span> res = <span class="keyword">for</span> (e &lt;- arr <span class="keyword">if</span> e % <span class="number">2</span> == <span class="number">0</span>) <span class="keyword">yield</span> e * <span class="number">10</span></span><br><span class="line">    println(res.toBuffer)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//更高级的写法,用着更爽</span></span><br><span class="line">    <span class="comment">//filter是过滤，接收一个返回值为boolean的函数</span></span><br><span class="line">    <span class="comment">//map相当于将数组中的每一个元素取出来，应用传进去的函数</span></span><br><span class="line">    <span class="keyword">val</span> r = arr.filter(_ % <span class="number">2</span> == <span class="number">0</span>).map(_ * <span class="number">10</span>)</span><br><span class="line">    println(r.toBuffer)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）运行结果</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e7uzytyzj31c00ag3zs.jpg" alt="34"></p>
+<p><strong>D、常用数组的算法</strong></p>
+<p>在Scala中，数组上的某些方法对数组进行相应的操作非常方便！</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5e7wbj6smj31c40oo48k.jpg" alt="35"></p>
+<h2 id="二、映射（Map）"><a href="#二、映射（Map）" class="headerlink" title="二、映射（Map）"></a>二、映射（Map）</h2><p>在Scala中，把哈希表这种数据结构叫做映射</p>
+<p><strong>A、构建映射</strong></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5e81j7b37j31bg074wgk.jpg" alt="36"></p>
+<p><strong>B、获取映射中的值</strong></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e823kq60j31bu08a403.jpg" alt="37"></p>
+<p><strong>getOrElse：有就返回对应的值，没有就返回默认值</strong></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5e84htgilj31c406u0to.jpg" alt="38"></p>
+<p>注意：在Scala中，有两种Map，</p>
+<p><font color="#dd0000">一个是immutable包下的Map，<strong>该Map中的内容不可变</strong>；</font></p>
+<p><font color="#dd0000">另一个是mutable包下的Map，该Map中的内容可变 （val var）</font></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e852hnl3j31c80cytbf.jpg" alt="39"></p>
+<p>注意：通常我们在创建一个集合是会用val这个关键字修饰一个变量（相当于java中的final），那么就意味着<strong>该变量的引用不可变</strong>，该引用中的内容是不是可变，取决于这个引用指向的集合的类型</p>
+<p><strong>1：是否可以修改值     Mutable  可以修改map里面的值     Immutable 不可以修改里面的值</strong></p>
+<p><strong>2：是否可以追加元素      Mutable var/val 都可以追加元素       Imtable var 可以追加，val不可以追加</strong></p>
+<h2 id="三、元组"><a href="#三、元组" class="headerlink" title="三、元组"></a>三、元组</h2><p>映射是K/V对偶的集合，对偶是元组的最简单形式，元组可以装着多个不同类型的值。</p>
+<p><strong>A、创建元组</strong></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5e8chbgnfj31by0a4766.jpg" alt="40"></p>
+<p><strong>B、获取元组中的值</strong></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8cz870nj31bs0letbp.jpg" alt="41"></p>
+<p><strong>C、将对偶的元组转换成映射</strong></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8dow7u8j31bg07iwft.jpg" alt="42"></p>
+<p><strong>D、拉链操作</strong></p>
+<p><strong>zip</strong>命令可以将多个值绑定在一起</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8eebqdoj318j0u0wkl.jpg" alt="43"></p>
+<p><font color="#dd0000"><strong>注意：如果两个数组的元素个数不一致，拉链操作后生成的数组的长度为较小的那个数组的元素个数</strong></font></p>
+<h2 id="四、集合"><a href="#四、集合" class="headerlink" title="四、集合"></a>四、集合</h2><p>Scala 集合类系统地区分了可变的和不可变的集合。可变集合可以在适当的地方被更新或扩展。这意味着你可以修改，添加，移除一个集合的元素。而不可变集合类，相比之下，永远不会改变。不过，你仍然可以模拟添加，移除或更新操作。但是这些操作将在每一种情况下都返回一个新的集合，同时使原来的集合不发生改变。</p>
+<p>所有的集合类都可以在包<code>scala.collection</code> 或<code>scala.collection.mutable</code>，<code>scala.collection.immutable</code>，<code>scala.collection.generic</code>中找到。客户端代码需要的大部分集合类都独立地存在于3种变体中，它们位于<code>scala.collection</code>, <code>scala.collection.immutable</code>, <code>scala.collection.mutable</code>包。每一种变体在可变性方面都有不同的特征。</p>
+<blockquote>
+<p><code>**scala.collection.immutable**：</code>包是的集合类确保不被任何对象改变。例如一个集合创建之后将不会改变。因此，你可以相信一个事实，在不同的点访问同一个集合的值，你将总是得到相同的元素。</p>
+<p><code>**scala.collection.mutable**：</code>包的集合类则有一些操作可以修改集合。所以处理可变集合意味着你需要去理解哪些代码的修改会导致集合同时改变。</p>
+<p><code>**scala.collection**：</code>包中的集合，既可以是可变的，也可以是不可变的。例如：<a href="http://www.scala-lang.org/api/current/scala/collection/IndexedSeq.html" target="_blank" rel="noopener">collection.IndexedSeq</a> 就是 <a href="http://www.scala-lang.org/api/current/scala/collection/immutable/IndexedSeq.html" target="_blank" rel="noopener">collection.immutable.IndexedSeq</a> 和<a href="http://www.scala-lang.org/api/current/scala/collection/mutable/IndexedSeq.html" target="_blank" rel="noopener">collection.mutable.IndexedSeq</a>这两类的超类。<code>scala.collection</code>包中的根集合类中定义了相同的接口作为不可变集合类，同时，<code>scala.collection.mutable</code>包中的可变集合类代表性的添加了一些有辅助作用的修改操作到这个immutable 接口。</p>
+</blockquote>
+<p>根集合类与不可变集合类之间的区别是不可变集合类的客户端可以确保没有人可以修改集合。然而，根集合类的客户端仅保证不修改集合本身。即使这个集合类没有提供修改集合的静态操作，它仍然可能在运行时作为可变集合被其它客户端所修改。</p>
+<p>默认情况下，Scala 一直采用不可变集合类。例如，如果你仅写了<code>Set</code> 而没有任何加前缀也没有从其它地方导入<code>Set</code>，你会得到一个不可变的<code>set</code>，另外如果你写迭代，你也会得到一个不可变的迭代集合类，这是由于这些类在从scala中导入的时候都是默认绑定的。为了得到可变的默认版本，你需要显式的声明<code>collection.mutable.Set</code>或<code>collection.mutable.Iterable</code>.</p>
+<p>一个有用的约定，如果你想要同时使用可变和不可变集合类，只导入collection.mutable包即可。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.collection.mutable  <span class="comment">//导入包scala.collection.mutable</span></span><br></pre></td></tr></table></figure>
+
+<p>然而，像没有前缀的Set这样的关键字， 仍然指的是一个不可变集合，然而<code>mutable.Set</code>指的是可变的副本（可变集合）。</p>
+<p>集合树的最后一个包是<code>collection.generic</code>。这个包包含了集合的构建块。集合类延迟了<code>collection.generic</code>类中的部分操作实现，另一方面集合框架的用户需要引用<code>collection.generic</code>中类在异常情况中。</p>
+<p>为了方便和向后兼容性，一些导入类型在包scala中有别名，所以你能通过简单的名字使用它们而不需要import。这有一个例子是List 类型，它可以用以下两种方法使用，如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scala.collection.immutable.<span class="type">List</span> <span class="comment">// 这是它的定义位置</span></span><br><span class="line">scala.<span class="type">List</span> <span class="comment">//通过scala 包中的别名</span></span><br><span class="line"><span class="type">List</span> <span class="comment">// 因为scala._ // 总是是被自动导入。</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的图表显示了<code>scala.collection</code>包中所有的集合类。这些都是高级抽象类或特性，它们通常具备和不可变实现一样的可变实现。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5e8fyclrgj31ag0k8my2.jpg" alt="44"></p>
+<p>下面的图表显示scala.collection.immutable中的所有集合类。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5e8gud46rj31850u00yv.jpg" alt="45"></p>
+<p>下面的图表显示scala.collection.mutable中的所有集合类。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5e8hw3q3wj31b40rcdm7.jpg" alt="46"></p>
+<p><strong>A、Seq</strong></p>
+<p>（1）不可变的序列 import scala.collection.immutable._</p>
+<p>在Scala中列表要么为空（<strong>Nil表示空列表</strong>）要么是一个head元素加上一个tail列表。</p>
+<p><strong>9 :: List(5, 2)  :: 操作符是将给定的头和尾创建一个新的列表</strong></p>
+<p><strong>注意：:: 操作符是右结合的，如9 :: 5 :: 2 :: Nil相当于 9 :: (5 :: (2 :: Nil))</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//创建一个不可变集合</span></span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">List</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="comment">//将0插入到集合list1的前面生成一个新的list</span></span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="number">0</span> :: list1</span><br><span class="line">    <span class="keyword">val</span> list3 = list1.:: (<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">val</span> list4 = <span class="number">0</span> +: list1</span><br><span class="line">    <span class="keyword">val</span> list5 = list1. +: (<span class="number">0</span>)</span><br><span class="line">    println(<span class="string">"list2="</span> + list2)</span><br><span class="line">    println(<span class="string">"list3="</span> + list3)</span><br><span class="line">    println(<span class="string">"list4="</span> + list4)</span><br><span class="line">    println(<span class="string">"list5="</span> + list5)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将3插入到集合list1的后面生成一个新的list</span></span><br><span class="line">    <span class="keyword">val</span> list6 = list1 :+ <span class="number">3</span></span><br><span class="line">    println(<span class="string">"list6="</span>+list6)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将2个list集合合并成一个新的list集合</span></span><br><span class="line">    <span class="keyword">val</span> list0 = <span class="type">List</span>(<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>)</span><br><span class="line">    println(<span class="string">"list0="</span>+list0)</span><br><span class="line">    <span class="keyword">val</span> list7 = list1 ++ list0</span><br><span class="line">    println(<span class="string">"list7="</span>+list7)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将list0插入到list1前面生成一个新的集合</span></span><br><span class="line">    <span class="keyword">val</span> list8 = list0 ++: list1</span><br><span class="line">    println(<span class="string">"list8="</span>+list8)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将list1插入到list0前面生成一个新的集合</span></span><br><span class="line">    <span class="keyword">val</span> list9 = list1 ++: list0</span><br><span class="line">    println(<span class="string">"list9="</span>+list9)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8o7pt85j31c60rs0vw.jpg" alt="47"></p>
+<p>（2）可变的序列 import scala.collection.mutable._</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//构建一个可变序列</span></span><br><span class="line">    <span class="keyword">val</span> list1 = <span class="type">ListBuffer</span>[<span class="type">Int</span>](<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">    <span class="comment">//创建一个空的可变序列</span></span><br><span class="line">    <span class="keyword">val</span> list2 = <span class="keyword">new</span> <span class="type">ListBuffer</span>[<span class="type">Int</span>]</span><br><span class="line">    <span class="comment">//向list2中追加元素，注意：没有生成新的集合</span></span><br><span class="line">    list2 += <span class="number">6</span></span><br><span class="line">    list2.append(<span class="number">7</span>)</span><br><span class="line">    println(<span class="string">"list2="</span> + list2)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将list2中的元素追加到list1中，注意：没有生成新的集合</span></span><br><span class="line">    list1 ++= list2</span><br><span class="line">    print(<span class="string">"list1="</span> + list1)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将list1和list2合并成一个新的list集合，注意：生成新的集合</span></span><br><span class="line">    <span class="keyword">val</span> list3 = list1 ++ list2</span><br><span class="line">    println(<span class="string">"list3="</span> + list3)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将元素追加到list1后面生成一个新的集合</span></span><br><span class="line">    <span class="keyword">val</span> list4 = list1 :+ <span class="number">9</span></span><br><span class="line">    print(<span class="string">"list4="</span> + list4)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8p59vg2j31bo0bgabp.jpg" alt="48"></p>
+<p><strong>B、Set</strong></p>
+<p>（1）不可变的Set</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//创建一个空的set</span></span><br><span class="line">    <span class="keyword">val</span> set1 = <span class="keyword">new</span> <span class="type">HashSet</span>[<span class="type">Int</span>]()</span><br><span class="line">    println(<span class="string">"set1="</span> + set1)</span><br><span class="line">    <span class="comment">//将元素和set合并生成一个新的set，原有set不变</span></span><br><span class="line">    <span class="keyword">val</span> set2 = set1 + <span class="number">4</span></span><br><span class="line">    println(<span class="string">"set2="</span> + set2)</span><br><span class="line">    <span class="comment">//set中元素不能重复</span></span><br><span class="line">    <span class="keyword">val</span> set3 = set1 ++ <span class="type">Set</span>(<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>)</span><br><span class="line">    println(<span class="string">"set3="</span> + set3)</span><br><span class="line">    <span class="keyword">val</span> set4 = <span class="type">Set</span>(<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>) ++ set2</span><br><span class="line">    println(<span class="string">"set4="</span> + set4)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5e8q5t339j31bg0ii0ui.jpg" alt="49"></p>
+<p>（2）可变的Set</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">//创建一个可变的set</span></span><br><span class="line">    <span class="keyword">val</span> set1 = <span class="keyword">new</span> mutable.<span class="type">HashSet</span>[<span class="type">Int</span>]()</span><br><span class="line">    println(<span class="string">"list1="</span> + set1)</span><br><span class="line">    <span class="comment">//向set1中添加元素</span></span><br><span class="line">    set1 += <span class="number">4</span></span><br><span class="line">    <span class="comment">//add等价于+=</span></span><br><span class="line">    set1.add(<span class="number">5</span>)</span><br><span class="line">    set1 ++= <span class="type">Set</span>(<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>)</span><br><span class="line">    println(<span class="string">"set1="</span>+set1)</span><br><span class="line">    <span class="comment">//删除一个元素</span></span><br><span class="line">    set1 -= <span class="number">8</span></span><br><span class="line">    set1.remove(<span class="number">7</span>)</span><br><span class="line">    println(<span class="string">"set1="</span> + set1)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g5e8rdx3i0j31bi0h0dhf.jpg" alt="50"></p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+    
+        
+    
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大 吉 大 利！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="想当校长的老王 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    想当校长的老王
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/07/26/Scala学习之路（二）Scala的数组、映射、元组、集合/" title="Scala学习之路（二）Scala的数组、映射、元组、集合">http://yoursite.com/2019/07/26/Scala学习之路（二）Scala的数组、映射、元组、集合/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/26/Scala学习之路（一）Scala的基本使用/" rel="next" title="Scala学习之路（一）Scala的基本使用">
+                <i class="fa fa-chevron-left"></i> Scala学习之路（一）Scala的基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/27/Scala学习之路（三）Scala的关键字Lazy/" rel="prev" title="Scala学习之路（三）Scala的关键字Lazy">
+                Scala学习之路（三）Scala的关键字Lazy <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="想当校长的老王">
+            
+              <p class="site-author-name" itemprop="name">想当校长的老王</p>
+              <p class="site-description motion-element" itemprop="description">愿能阅尽天下事，洗手仍能做羹汤</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Co-Hwang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.163.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、数组"><span class="nav-number">1.</span> <span class="nav-text">一、数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、映射（Map）"><span class="nav-number">2.</span> <span class="nav-text">二、映射（Map）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、元组"><span class="nav-number">3.</span> <span class="nav-text">三、元组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、集合"><span class="nav-number">4.</span> <span class="nav-text">四、集合</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">这個人好蠢、</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 浏览量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

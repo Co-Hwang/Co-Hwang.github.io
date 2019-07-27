@@ -82,13 +82,13 @@
 
 
 
-<meta name="description" content="Spark算子  Transformation | Action">
+<meta name="description" content="Spark算子  Transformation | Action 本文参考：扎心了,老铁 一、Transformation算子1、map、flatMap、mapParations、mapPartitionsWithIndexA、map （1）使用scala进行编写 123456def map(): Unit =&amp;#123;    val list = List(&quot;张无忌&quot;, &quot;赵敏&quot;, &quot;周芷若&quot;">
 <meta name="keywords" content="操作算子">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark学习之路（四）Spark的Transformation和Action">
 <meta property="og:url" content="http://yoursite.com/2019/07/26/Spark学习之路（四）Spark的Transformation和Action/index.html">
 <meta property="og:site_name" content="这個人好蠢、">
-<meta property="og:description" content="Spark算子  Transformation | Action">
+<meta property="og:description" content="Spark算子  Transformation | Action 本文参考：扎心了,老铁 一、Transformation算子1、map、flatMap、mapParations、mapPartitionsWithIndexA、map （1）使用scala进行编写 123456def map(): Unit =&amp;#123;    val list = List(&quot;张无忌&quot;, &quot;赵敏&quot;, &quot;周芷若&quot;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5djahdvkmj31b607yq3c.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/006tNc79ly1g5djch0zzhj31be0d0wfl.jpg">
@@ -110,10 +110,10 @@
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl8e1fstj31as07egn5.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/large/006tNc79ly1g5dl957yqsj31bc0acaan.jpg">
 <meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79ly1g5dl9yeqxpj31ba092dg9.jpg">
-<meta property="og:updated_time" content="2019-07-26T14:02:48.368Z">
+<meta property="og:updated_time" content="2019-07-27T02:45:27.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark学习之路（四）Spark的Transformation和Action">
-<meta name="twitter:description" content="Spark算子  Transformation | Action">
+<meta name="twitter:description" content="Spark算子  Transformation | Action 本文参考：扎心了,老铁 一、Transformation算子1、map、flatMap、mapParations、mapPartitionsWithIndexA、map （1）使用scala进行编写 123456def map(): Unit =&amp;#123;    val list = List(&quot;张无忌&quot;, &quot;赵敏&quot;, &quot;周芷若&quot;">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006tNc79ly1g5djahdvkmj31b607yq3c.jpg">
 
 
@@ -428,8 +428,6 @@
 
       
         <p><font size="5"><strong>Spark算子  Transformation | Action</strong></font></p>
-<a id="more"></a>
-
 <p>本文参考：<a href="https://www.cnblogs.com/qingyunzong/p/8922135.html" target="_blank" rel="noopener">扎心了,老铁</a></p>
 <h2 id="一、Transformation算子"><a href="#一、Transformation算子" class="headerlink" title="一、Transformation算子"></a>一、Transformation算子</h2><h3 id="1、map、flatMap、mapParations、mapPartitionsWithIndex"><a href="#1、map、flatMap、mapParations、mapPartitionsWithIndex" class="headerlink" title="1、map、flatMap、mapParations、mapPartitionsWithIndex"></a>1、map、flatMap、mapParations、mapPartitionsWithIndex</h3><p><strong>A、map</strong></p>
 <p>（1）使用scala进行编写</p>
@@ -439,6 +437,8 @@
 <p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5djahdvkmj31b607yq3c.jpg" alt="1"></p>
 <p>（3）总结</p>
 <p>可以看出，对于map算子，源JavaRDD的每个元素都会进行计算，由于是依次进行传参，所以他是有序的，新RDD的元素顺序与源RDD是相同的。而由有序又引出接下来的flatMap。</p>
+<a id="more"></a>
+
 <p><strong>B、flatMap</strong></p>
 <p>（1）使用scala进行编写</p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>(): <span class="type">Unit</span> =&#123;</span><br><span class="line">    <span class="keyword">val</span> list = <span class="type">List</span>(<span class="string">"张无忌 赵敏"</span>,<span class="string">"宋青书 周芷若"</span>)</span><br><span class="line">    <span class="keyword">val</span> listRDD = sc.parallelize(list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> nameRDD = listRDD.flatMap(line =&gt; line.split(<span class="string">" "</span>)).map(name =&gt; <span class="string">"Hello "</span> + name)</span><br><span class="line">    nameRDD.foreach(name =&gt; println(name))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
@@ -669,6 +669,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/26/Scala学习之路（一）Scala的基本使用/" rel="prev" title="Scala学习之路（一）Scala的基本使用">
+                Scala学习之路（一）Scala的基本使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -746,7 +750,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -757,7 +761,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -768,7 +772,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
