@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="这個人好蠢、">
 <meta property="og:description" content="标签加工 标签上线流程&amp;emsp;&amp;emsp;这周开始，算是真正开始在银河+系统的支持下，根据业务方的需求对标签进行加工并上线，整个流程一点点清晰起来了。就争取在思维清晰的情况下，对标签的上线流程做一些回忆总结吧。 &amp;emsp;&amp;emsp;根据需求建立新的标签。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-27T04:01:03.614Z">
+<meta property="og:updated_time" content="2019-08-09T02:52:54.277Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="标签（二）标签上线">
 <meta name="twitter:description" content="标签加工 标签上线流程&amp;emsp;&amp;emsp;这周开始，算是真正开始在银河+系统的支持下，根据业务方的需求对标签进行加工并上线，整个流程一点点清晰起来了。就争取在思维清晰的情况下，对标签的上线流程做一些回忆总结吧。 &amp;emsp;&amp;emsp;根据需求建立新的标签。">
@@ -369,7 +369,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  549 字
+                  839 字
                 </span>
               
 
@@ -385,7 +385,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -467,7 +467,22 @@
 <td align="center">x</td>
 </tr>
 </tbody></table>
-<h2 id="作业perl脚本"><a href="#作业perl脚本" class="headerlink" title="作业perl脚本"></a>作业perl脚本</h2>
+<h2 id="标签加工流程"><a href="#标签加工流程" class="headerlink" title="标签加工流程"></a>标签加工流程</h2><p>画像系统下，标签需求的加工流程： <font color="#dd0000"><strong>重点</strong></font></p>
+<blockquote>
+<ul>
+<li><p>根据标签需求建立相应的perl脚本作业，通过指定buf[x]实现对相应标签需求的实现，作业线上布置时，需要根据标签字段定义实体表（pin，tag1，tag2，tag3…），所在表层为：<strong>biz业务实体表</strong>。</p>
+</li>
+<li><p>对于同一需求，单个作业无法在规定时间内跑完，可以将大作业拆成多个小作业并行执行，注意将各小作业生成的表提前合成小窄表（根据业务方所提需求-标签进行第一次自主归类）如，商城Alpha18个标签</p>
+</li>
+<li><p>每次需求合并的小窄表根据所属业务线依次并入各业务线的小宽表DMX_UPF_WIDTH_JD_USER_PIN_CRD_S_D  众筹DMX_UPF_WIDTH_JD_USER_PIN_JDMALL_ALL_ALPHA_ADD_S_D  商城<br>DMX_UPF_WIDTH_JD_USER_PIN_INSU_S_D  保险</p>
+<p>注意，新加标签所在小窄表，需要LEFT JOIN 所在业务线的小宽表；同时，对应小宽表作业的实体表中需要添加相应新标签字段（新需求）</p>
+</li>
+<li><p>得到各业务线的小宽表之后，整理并入画像系统的大宽表</p>
+<p>DMXUPF_WIDTH_JD_USER_PIN_ALL_TAGS_S_D  用户标签全量表</p>
+</li>
+</ul>
+</blockquote>
+
       
     </div>
     
@@ -648,7 +663,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -670,7 +685,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -719,7 +734,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签上线流程"><span class="nav-number">1.</span> <span class="nav-text">标签上线流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作业perl脚本"><span class="nav-number">2.</span> <span class="nav-text">作业perl脚本</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签上线流程"><span class="nav-number">1.</span> <span class="nav-text">标签上线流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签加工流程"><span class="nav-number">2.</span> <span class="nav-text">标签加工流程</span></a></li></ol></div>
             
 
           </div>
