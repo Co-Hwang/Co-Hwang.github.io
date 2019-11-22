@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="人群,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="系统人群生成部分运行指令总结">
+<meta name="keywords" content="人群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人群（一）系统人群生成上线总结">
+<meta property="og:url" content="http://yoursite.com/2019/11/22/人群（一）系统人群生成上线总结/index.html">
+<meta property="og:site_name" content="这個人好蠢、">
+<meta property="og:description" content="系统人群生成部分运行指令总结">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g96pcp3u9mj30zk0qo767.jpg">
+<meta property="og:updated_time" content="2019-11-22T06:49:58.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="人群（一）系统人群生成上线总结">
+<meta name="twitter:description" content="系统人群生成部分运行指令总结">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g96pcp3u9mj30zk0qo767.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/22/人群（一）系统人群生成上线总结/">
+
+
+
+
+
+  <title>人群（一）系统人群生成上线总结 | 这個人好蠢、</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/Co-Hwang"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">这個人好蠢、</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪懂坚持 | 全靠死撑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+<script>
+  
+  window.onload = function(){
+    var path = 'https://Co-Hwang.github.io'; //
+    var localhostItem = String(window.location).split(path)[1];
+    var LiNode = document.querySelectorAll('#menu > li > a')
+    
+    for(var i = 0; i< LiNode.length;i++){
+      var item = String(LiNode[i].href).split(path)[1];
+      if(item == localhostItem && item != undefined){
+        LiNode[i].setAttribute('style','border-bottom:1px solid black');
+      }
+    }
+  };
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/22/人群（一）系统人群生成上线总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="想当校长的老王">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这個人好蠢、">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">人群（一）系统人群生成上线总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-22T13:08:19+08:00">
+                2019-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data/" itemprop="url" rel="index">
+                    <span itemprop="name">Data</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font size="5"><strong>系统人群生成部分运行指令总结</strong></font></p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g96pcp3u9mj30zk0qo767.jpg" alt="IMG_0833"></p>
+<a id="more"></a>
+
+
+
+<h2 id="一、基本配置信息"><a href="#一、基本配置信息" class="headerlink" title="一、基本配置信息"></a>一、基本配置信息</h2><p><strong>底表重复数据查询</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">    (<span class="keyword">SELECT</span></span><br><span class="line">    jdpin_offset,</span><br><span class="line">    <span class="keyword">COUNT</span>(<span class="number">1</span>) <span class="keyword">AS</span> cnt</span><br><span class="line">    <span class="keyword">FROM</span> dmx_upf.dmxupf_width_jd_usr_pin_crd_s_d</span><br><span class="line">    <span class="keyword">WHERE</span> dt = <span class="string">'2019-11-07'</span></span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> jdpin_offset) a1</span><br><span class="line"><span class="keyword">WHERE</span> a1.cnt &gt; <span class="number">1</span></span><br><span class="line"><span class="keyword">limit</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>正则匹配 | 整数、小数</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^[\\+\\-]?[\\d]+(\\.[\\d]+)?$</span><br><span class="line">'^-?[0-9]+.?[0-9]*$'</span><br></pre></td></tr></table></figure>
+
+<p><strong>基本底表</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JCW_DMXUPF_WIDTH_JD_USR_PIN_ALL_TAGS_S_D    自动化合并宽表</span><br><span class="line">JCW_DMXUPF_WIDTH_TAG_ENUM_STAT_A_D          标签集市统计计算</span><br><span class="line">JCW_DMXUPF_WIDTH_AUTO_PUSH_CK_PROC_S_D      标签宽表推送CK</span><br><span class="line">JCW_DMXUPF_WIDTH_BITMAP_PUSH_I_D            标签宽表bitmap计算与云推送</span><br><span class="line">JCW_DMXUPF_WIDTH_TAG_VALUE_HBASE_A_D        标签宽表推送Hbase</span><br></pre></td></tr></table></figure>
+
+<p><strong>堡垒机</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Azkaban： 10.220.38.154 / 10.220.38.155</span><br><span class="line"></span><br><span class="line">HDFS：10.220.43.11</span><br><span class="line"></span><br><span class="line">BigData_Test： 10.222.97.1 /  10.222.97.2 / 10.222.97.17 / 10.222.97.24</span><br><span class="line"></span><br><span class="line">CK_Test：172.25.61.20 / 172.25.61.25</span><br><span class="line"></span><br><span class="line">CK 生产：accessgw-yz2.cbpmgt.com</span><br></pre></td></tr></table></figure>
+
+<p><strong>R2M</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">用户人群队列 / 日志：deviceBM-temp</span><br><span class="line"></span><br><span class="line">企业人群队列：tag-manage</span><br><span class="line"></span><br><span class="line">offset2pin： TagBM_C2_1</span><br><span class="line"></span><br><span class="line">pin2offset： TagBM_C2_2</span><br><span class="line"></span><br><span class="line">新消费（对外合作项目）：dqp</span><br><span class="line"></span><br><span class="line">大数据作业监控所需key：profile_monitor</span><br><span class="line"></span><br><span class="line">business2offset</span><br><span class="line"></span><br><span class="line">offset2business</span><br></pre></td></tr></table></figure>
+
+<p><strong>人群所属队列</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 企业画像人群创建队列</span></span><br><span class="line"><span class="keyword">val</span> companyAsk_create = <span class="string">"QUEUE_CK2BITMAP_BUSI"</span></span><br><span class="line"><span class="comment">// 企业画像人群更新队列</span></span><br><span class="line"><span class="keyword">val</span> companyAsk_update = <span class="string">""</span></span><br><span class="line"><span class="comment">// 待创建人群请求队列</span></span><br><span class="line"><span class="keyword">val</span> crowdCreateSqlKey = <span class="string">"hive_sql2bitmap_queue_todo"</span></span><br><span class="line"><span class="comment">// 待更新人群请求队列</span></span><br><span class="line"><span class="keyword">val</span> crowdUpdateSqlKey = <span class="string">"hive_sql2bitmap_batch_update_queue_todo"</span></span><br><span class="line"><span class="comment">// 上传人群请求队列</span></span><br><span class="line"><span class="keyword">val</span> crowdFromFileQueue = <span class="string">"user_bitmap_rule_load_queue_todo"</span></span><br><span class="line"><span class="comment">// 自定义人群请求队列</span></span><br><span class="line"><span class="keyword">val</span> customAsk=<span class="string">"user_bitmap_rule_custom_queue_todo"</span></span><br><span class="line"><span class="keyword">val</span> customUpt=<span class="string">"user_bitmap_rule_custom_batch_update_queue_todo"</span></span><br><span class="line"><span class="comment">// 传媒人群请求响应队列</span></span><br><span class="line"><span class="keyword">val</span> mediaAsk_file=<span class="string">"media_user_bitmap_rule_load_queue_todo"</span></span><br><span class="line"><span class="keyword">val</span> mediaAsk_sql=<span class="string">"media_hive_sql2bitmap_queue_todo"</span></span><br><span class="line"><span class="comment">// 人群二次筛选</span></span><br><span class="line"><span class="keyword">val</span> crowdFilterQueue=<span class="string">"user_bitmap_rule_once_calculate_queue_todo"</span></span><br><span class="line"><span class="comment">// 智慧足迹文件人群请求和响应队列</span></span><br><span class="line"><span class="keyword">val</span> unicomAsk_portrait = <span class="string">"wisdom-queue-portrait-task-message"</span></span><br><span class="line"><span class="keyword">val</span> unicomAsk_crowd=<span class="string">"wisdom-queue-crowd-task-message"</span></span><br><span class="line"><span class="keyword">val</span> unicomAskResponse = <span class="string">"wisdom-queue-task-result"</span></span><br><span class="line"><span class="comment">// 智慧足迹SQL人群请求和响应队列</span></span><br><span class="line"><span class="keyword">val</span> unicomSupply_portrait = <span class="string">"smartsteps-queue-task-message"</span></span><br><span class="line"><span class="keyword">val</span> unicomSupplyResponse_portrait = <span class="string">"smartsteps-queue-task-result"</span></span><br><span class="line"><span class="comment">// 智慧足迹回流人群存储</span></span><br><span class="line"><span class="keyword">val</span> unicomSupply_crowd = <span class="string">"daas-queue-task-message"</span></span><br><span class="line"><span class="keyword">val</span> unicomSupplyResponse_crowd = <span class="string">"daas-queue-task-result"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 需要推送到CK的明细表清单（表名）</span></span><br><span class="line"><span class="keyword">val</span> pushCkUserDtlList=<span class="string">"push_ck_user_table_list"</span></span><br><span class="line"><span class="comment">// 当前需要推送到CK的明细表队列</span></span><br><span class="line"><span class="keyword">val</span> pushCkUserDtlQueue=<span class="string">"push_ck_user_table_queue"</span></span><br><span class="line"><span class="comment">// 要推送CK的列Key前缀</span></span><br><span class="line"><span class="keyword">val</span> pushCkSchemaPrefix=<span class="string">"push_schema_"</span></span><br><span class="line"><span class="keyword">val</span> pushCkDtPrefix=<span class="string">"push_dt_"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="二、spark-shell基本执行语句"><a href="#二、spark-shell基本执行语句" class="headerlink" title="二、spark-shell基本执行语句"></a>二、spark-shell基本执行语句</h2><p><strong>Sparksql查询命令</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dmx_upf.dmxupf_width_jd_usr_pin_all_tags_s_d      标签大宽表</span><br><span class="line">1.spark-shell --num-executors 300</span><br><span class="line">2.val data = spark.read.table(&quot;dmx_upf.dmxupf_width_jd_usr_pin_all_tags_s_d&quot;).filter(&quot;dt = &apos;2019-11-22&apos;&quot;).select(&quot;pin004003001003&quot;,&quot;pin004002002039&quot;)</span><br><span class="line">4.data.cache</span><br><span class="line">5.data.filter(&quot;pin004003001003 &gt; &apos;2019-11-22&apos;&quot;).count</span><br><span class="line">6.data.select(&quot;pin004003001003&quot;).distinct.show</span><br><span class="line">7.yarn application -list|grep wanghe143           模糊匹配</span><br><span class="line">8.yarn application -kill application_id           杀掉应用</span><br><span class="line">9.yarn application -status application_id         查询应用状态</span><br><span class="line"></span><br><span class="line">spark.read.table(&quot;dmx_upf.dmxupf_width_jd_usr_pin_all_tags_s_d&quot;).filter(&quot;dt = &apos;2019-11-04&apos;&quot;).filter(&quot;pin004003001003 &gt; &apos;2019-11-22&apos;&quot;).count</span><br><span class="line"></span><br><span class="line">spark.read.table(&quot;dmx_upf.dmxupf_width_jd_usr_pin_all_tags_s_d&quot;).filter(&quot;dt = &apos;2019-11-05&apos;&quot;).select(&quot;pin010000001&quot;).filter(&quot;pin010000001 = 16&quot;).limit(1).show</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、人群上线指令操作"><a href="#三、人群上线指令操作" class="headerlink" title="三、人群上线指令操作"></a>三、人群上线指令操作</h2><p><strong>Linux操作命令</strong>                  <font color="#dd0000"><strong>重要</strong></font></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">mvn clean <span class="keyword">package</span>  打包操作                    -<span class="type">P</span> profile</span><br><span class="line"></span><br><span class="line">sudo su - hadoop                              切换到hadoop，并将hadoop环境变量也一起带过去</span><br><span class="line"></span><br><span class="line">rz -y                                         从windows上下载文件并且文件存在时覆盖</span><br><span class="line"></span><br><span class="line"><span class="type">TAB</span>                                           linux指令自动补全</span><br><span class="line"></span><br><span class="line">mkdir file                                    创建文件夹</span><br><span class="line"></span><br><span class="line">rm(rmdir) file                                删除文件夹</span><br><span class="line"></span><br><span class="line">mv ../tag_crowd_former<span class="number">-1.0</span>-<span class="type">SNAPSHOT</span>.jar .     将本层文件移动至父层</span><br><span class="line"></span><br><span class="line">ctrl + a                                      移动到段首</span><br><span class="line"></span><br><span class="line">ctrl + w                                      删除行（以空格分割）</span><br><span class="line"></span><br><span class="line">ctrl + d                                      断开ssh连接</span><br><span class="line"></span><br><span class="line">ctrl + r <span class="type">C</span>                                    查询历史执行记录</span><br><span class="line"></span><br><span class="line">llen queue 																		查询队列内容</span><br><span class="line"></span><br><span class="line"><span class="type">Hgetall</span> queue                                 命令用于返回哈希表中，所有的字段和值。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">其中，crowd_former 和 vop_submitter 代码上线过程指令如下：</span><br><span class="line">crowd_former：通过小集群ssh到<span class="number">5</span>k大集群</span><br><span class="line"><span class="number">1.</span> 登陆<span class="type">Azakaban</span>（<span class="number">10.220</span><span class="number">.38</span><span class="number">.154</span>）</span><br><span class="line"><span class="number">2.</span> 进到hwang目录下</span><br><span class="line"><span class="number">3.</span> rz -y                                                       将本地包上传至生产小集群（<span class="number">11</span>台）</span><br><span class="line"><span class="number">4.</span> scp tag_crowd_former<span class="number">-1.0</span>-<span class="type">SNAPSHOT</span>.jar lvfulong@<span class="number">10.220</span><span class="number">.48</span><span class="number">.57</span>:/export/home/hwang/tmp_job</span><br><span class="line">                                                               将包通过scp方式上传至<span class="number">5</span>k大集群</span><br><span class="line"><span class="number">5.</span> ssh xxxx@<span class="number">10.220</span><span class="number">.48</span><span class="number">.57</span>(账号) xxx@<span class="number">0118</span>（密码）                  获得<span class="number">5</span>k大集群操作权限</span><br><span class="line"><span class="number">6.</span> hdfs dfs -put -f tag_crowd_former<span class="number">-1.0</span>-<span class="type">SNAPSHOT</span>.jar job/jars 将包上传至<span class="number">5</span>k大集群hdfs</span><br><span class="line"><span class="number">7.</span> hdfs dfs -ls job/jars                                       确认包的上传时间</span><br><span class="line"></span><br><span class="line">特殊流程：手动执行人群生成spark指令     入参为（人群<span class="type">ID</span> + 人群所属队列）</span><br><span class="line">spark-submit</span><br><span class="line">--master yarn --driver-memory <span class="number">4</span>G --num-executors <span class="number">60</span> --executor-memory <span class="number">8</span>G --executor-cores <span class="number">2</span> </span><br><span class="line">--jars guava<span class="number">-20.0</span>.jar,<span class="type">RoaringBitmap</span><span class="number">-0.6</span><span class="number">.66</span>.jar </span><br><span class="line">--conf spark.executor.extraClassPath=guava<span class="number">-20.0</span>.jar:<span class="type">RoaringBitmap</span><span class="number">-0.6</span><span class="number">.66</span>.jar </span><br><span class="line">--conf spark.driver.extraClassPath=guava<span class="number">-20.0</span>.jar:<span class="type">RoaringBitmap</span><span class="number">-0.6</span><span class="number">.66</span>.jar </span><br><span class="line">--<span class="class"><span class="keyword">class</span> <span class="title">com</span>.<span class="title">jdd</span>.<span class="title">data_asset</span>.<span class="title">CrowdGeneMain</span> <span class="title">tag_crowd_former-1</span>.0<span class="title">-SNAPSHOT</span>.<span class="title">jar</span> </span></span><br><span class="line"><span class="class">921<span class="title">d68ca-3c17-478c-9f27-36d9aff826cf</span> <span class="title">hive_sql2bitmap_queue_todo</span></span></span><br><span class="line"><span class="class">                                    </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">vop_submitter：通过etl账户控制人群生成代码提交到大集群的调度任务</span></span></span><br><span class="line"><span class="class">1. <span class="title">sudo</span> <span class="title">su</span> <span class="title">-</span> <span class="title">dwetl</span>                                               <span class="title">登陆etl账户</span></span></span><br><span class="line"><span class="class">2. <span class="title">rz</span> <span class="title">-y</span>                                                         <span class="title">将本地包上传至生产集群</span></span></span><br><span class="line"><span class="class">3. <span class="title">mv</span> <span class="title">tag_vop_submitter-1</span>.0<span class="title">-SNAPSHOT</span>.<span class="title">jar</span> <span class="title">tag_crowd_submitter</span>.<span class="title">jar</span> <span class="title">对包进行重命名</span></span></span><br><span class="line"><span class="class">4. <span class="title">mv</span> <span class="title">tag_crowd_submitter</span>.<span class="title">jar</span> <span class="title">job/run_jar/</span>                       <span class="title">将包移动至job/run_jar目录下</span></span></span><br><span class="line"><span class="class">	 <span class="title">vop_submitter代码中，submitCmd脚本为从hdfs中拉取人群生成代码提交到大集群运行</span></span></span><br><span class="line"><span class="class">5. <span class="title">hdfs</span> <span class="title">dfs</span> <span class="title">-put</span> <span class="title">-f</span> <span class="title">tag_crowd_submitter</span>.<span class="title">jar</span> <span class="title">job/jars</span>             <span class="title">将包上传至5k大集群hdfs</span></span></span><br><span class="line"><span class="class">6. <span class="title">hdfs</span> <span class="title">dfs</span> <span class="title">-ls</span> <span class="title">job/jars</span>                                         <span class="title">确认包的上传时间</span></span></span><br><span class="line"><span class="class">7. <span class="title">azkaban上传脚本，并设置调度时间</span></span></span><br><span class="line"><span class="class"><span class="title">su</span> <span class="title">-</span> <span class="title">dwetl</span> <span class="title">-c</span> "<span class="title">sh</span> <span class="title">/home/dwetl/job/shell/run_from_hadoop</span>.<span class="title">sh</span> <span class="title">tag_crowd_submitter</span>.<span class="title">jar</span> '<span class="title">scala</span> <span class="title">-cp</span> <span class="title">tag_crowd_submitter</span>.<span class="title">jar</span> <span class="title">com</span>.<span class="title">jdd</span>.<span class="title">data_asset</span>.<span class="title">service_center</span>.<span class="title">crowd_service</span>.<span class="title">GeneRemoteCrowd</span> <span class="title">SYS_SQL</span>'"</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">特殊流程：手动执行某一人群的调度任务</span></span></span><br><span class="line"><span class="class"><span class="title">scala</span> <span class="title">-cp</span> <span class="title">tag_crowd_submitter</span>.<span class="title">jar</span> <span class="title">com</span>.<span class="title">jdd</span>.<span class="title">data_asset</span>.<span class="title">service_center</span>.<span class="title">crowd_service</span>.<span class="title">GeneRemoteCrowd</span> <span class="title">SYS_SQL</span>  <span class="title">系统人群生成</span></span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+    
+        
+    
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大 吉 大 利！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="想当校长的老王 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    想当校长的老王
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/11/22/人群（一）系统人群生成上线总结/" title="人群（一）系统人群生成上线总结">http://yoursite.com/2019/11/22/人群（一）系统人群生成上线总结/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/人群/" rel="tag"><i class="fa fa-tag"></i> 人群</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/14/Spark学习之路（十二）SparkCore的调优之JVM的GC垃圾收集器/" rel="next" title="Spark学习之路（十二）SparkCore的调优之JVM的GC垃圾收集器">
+                <i class="fa fa-chevron-left"></i> Spark学习之路（十二）SparkCore的调优之JVM的GC垃圾收集器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="想当校长的老王">
+            
+              <p class="site-author-name" itemprop="name">想当校长的老王</p>
+              <p class="site-description motion-element" itemprop="description">愿能阅尽天下事，洗手仍能做羹汤</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Co-Hwang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.163.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、基本配置信息"><span class="nav-number">1.</span> <span class="nav-text">一、基本配置信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、spark-shell基本执行语句"><span class="nav-number">2.</span> <span class="nav-text">二、spark-shell基本执行语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、人群上线指令操作"><span class="nav-number">3.</span> <span class="nav-text">三、人群上线指令操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">这個人好蠢、</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 浏览量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
