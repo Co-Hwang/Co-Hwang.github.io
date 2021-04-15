@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ClickHouse,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="高版本ClickHouse管道服务实战及集群调优">
+<meta name="keywords" content="ClickHouse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ClickHouse推送实战及集群部署">
+<meta property="og:url" content="http://yoursite.com/2021/04/15/ClickHouse推送实战及集群部署/index.html">
+<meta property="og:site_name" content="这個人好蠢、">
+<meta property="og:description" content="高版本ClickHouse管道服务实战及集群调优">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/008eGmZEly1gpkb81x7tgj30u00u00v0.jpg">
+<meta property="og:updated_time" content="2021-04-15T04:20:36.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ClickHouse推送实战及集群部署">
+<meta name="twitter:description" content="高版本ClickHouse管道服务实战及集群调优">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/008eGmZEly1gpkb81x7tgj30u00u00v0.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/15/ClickHouse推送实战及集群部署/">
+
+
+
+
+
+  <title>ClickHouse推送实战及集群部署 | 这個人好蠢、</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/Co-Hwang"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">这個人好蠢、</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">哪懂坚持 | 全靠死撑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+
+<script>
+  
+  window.onload = function(){
+    var path = 'https://Co-Hwang.github.io'; //
+    var localhostItem = String(window.location).split(path)[1];
+    var LiNode = document.querySelectorAll('#menu > li > a')
+    
+    for(var i = 0; i< LiNode.length;i++){
+      var item = String(LiNode[i].href).split(path)[1];
+      if(item == localhostItem && item != undefined){
+        LiNode[i].setAttribute('style','border-bottom:1px solid black');
+      }
+    }
+  };
+
+</script>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/15/ClickHouse推送实战及集群部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yiiiiis、">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="这個人好蠢、">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ClickHouse推送实战及集群部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-15T11:44:25+08:00">
+                2021-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Storage/" itemprop="url" rel="index">
+                    <span itemprop="name">Storage</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  31 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><font size="5"><strong>高版本ClickHouse管道服务实战及集群调优</strong></font></p>
+<p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gpkb81x7tgj30u00u00v0.jpg" alt="11584362890_.pic"></p>
+<a id="more"></a>
+
+
+
+<h2 id="一、ZK集群优化：【ZK日志压力不再成为推送瓶颈】"><a href="#一、ZK集群优化：【ZK日志压力不再成为推送瓶颈】" class="headerlink" title="一、ZK集群优化：【ZK日志压力不再成为推送瓶颈】"></a>一、<strong>ZK集群优化：</strong>【<strong>ZK日志压力不再成为推送瓶颈</strong>】</h2><p><strong>1、ZK集群与CK集群隔离，不参与混布，现阶段节点个数为5，后期可切换成标准3节点ZK</strong></p>
+<p><strong>2、ZK集群配置信息调整</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">A、事务日志和快照日志进行分盘存储，同时调整日志挂载盘所在位置，由原先的/export路径下的200G空间调整为/export/grid下的5.5T</span><br><span class="line">	事务日志存储路径：/export/grid/01/zookeeper/data</span><br><span class="line">	快照日志存储路径：/export/grid/02/zookeeper/log</span><br><span class="line">	12天运行事务日志信息存储量为60G、快照日志信息存储量为5.3G</span><br><span class="line"></span><br><span class="line">B、针对日志目录下的数据文件，配置crontab定时清理任务，默认保留30天的日志信息记录。            </span><br><span class="line">0 0 * * * sudo find /export/grid/01/zookeeper/data/version-2 -mtime +30 -name "log.*" -exec rm -Rf &#123;&#125; \;</span><br><span class="line">0 0 * * * sudo find /export/grid/02/zookeeper/log/version-2 -mtime +30 -name "snapshot.*" -exec rm -Rf &#123;&#125; \;</span><br><span class="line"></span><br><span class="line">C、快照日志保留数量由5调整为2，日志过期策略时间由24H调整为1H</span><br><span class="line">	autopurge.snapRetainCount=2</span><br><span class="line">	autopurge.purgeInterval=1</span><br><span class="line"></span><br><span class="line">D、其它配置项参考官方文档及社区经验，针对CK集群下的ZK使用进行数值调整</span><br><span class="line">tickTime=2000 initLimit=300 syncLimit=10 maxClientCnxns=2000 maxSessionTimeout=60000000 snapCount=3000000 preAllocSize=131072 forceSync=no leaderServes=yes standaloneEnabled=false</span><br><span class="line">clientPort=2181</span><br><span class="line"><span class="comment"># Zookeeper Cluster</span></span><br><span class="line">server.1=10.220.232.170:2888:3888</span><br><span class="line">server.2=10.220.232.156:2888:3888</span><br><span class="line">server.3=10.220.232.158:2888:3888</span><br><span class="line">server.4=10.220.232.164:2888:3888</span><br><span class="line">server.5=10.220.232.157:2888:3888</span><br><span class="line"></span><br><span class="line">E、针对zoo.cfg，zoo_sample.cfg，log4j.properties三个配置文件进行统一的日志存储路径调整</span><br><span class="line"></span><br><span class="line">F、CK删除数据目录后，谨记ZCli下进行相应ZK数据目录及文件的删除</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、测试过程中的坑</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">日志目录的手动创建、myid文件的缺失（根据 Zookeeper Cluster的对应关系进行节点myid文件配置）、version-2文件缺失创建、zookpeer-server.pid文件赋权操作</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、ZK 配置项调整内容 【采用三台标N机器 - 10.220.45.72、10.220.45.73、10.220.45.74】</strong></p>
+<p>*<em>log4j.properties *</em></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">zookeeper.root.logger=INFO, ROLLINGFILE </span><br><span class="line">zookeeper.console.threshold=INFO </span><br><span class="line">zookeeper.log.dir=<span class="regexp">/export/zookeeper</span><span class="regexp">/log4j_dir </span></span><br><span class="line"><span class="regexp">zookeeper.log.file=zookeeper.log </span></span><br><span class="line"><span class="regexp">zookeeper.log.threshold=DEBUG </span></span><br><span class="line"><span class="regexp">zookeeper.tracelog.dir=. </span></span><br><span class="line"><span class="regexp">zookeeper.tracelog.file=zookeeper_trace.log</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>zoo_sample.cfg</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span> </span><br><span class="line">initLimit=<span class="number">100</span> </span><br><span class="line">syncLimit=<span class="number">5</span> </span><br><span class="line">dataDir=<span class="regexp">/export/zookeeper</span><span class="regexp">/data_sample</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>zoo.cfg</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">tickTime=<span class="number">2000</span></span><br><span class="line">initLimit=<span class="number">300</span></span><br><span class="line">syncLimit=<span class="number">10</span></span><br><span class="line">maxClientCnxns=<span class="number">2000</span></span><br><span class="line">maxSessionTimeout=<span class="number">60000000</span></span><br><span class="line">snapCount=<span class="number">3000000</span></span><br><span class="line">preAllocSize=<span class="number">131072</span></span><br><span class="line">clientPort=<span class="number">2181</span></span><br><span class="line">dataDir=<span class="regexp">/export/data</span><span class="regexp">/zookeeper/data</span></span><br><span class="line">dataLogDir=<span class="regexp">/export/data</span><span class="regexp">/zookeeper/log</span></span><br><span class="line">autopurge.snapRetainCount=<span class="number">2</span></span><br><span class="line">autopurge.purgeInterval=<span class="number">1</span></span><br><span class="line"><span class="number">4</span>lw.commands.whitelist=*</span><br><span class="line">forceSync=no</span><br><span class="line">leaderServes=yes</span><br><span class="line">standaloneEnabled=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">==================================生产配置=============================================</span><br><span class="line"><span class="comment"># The number of milliseconds of each tick</span></span><br><span class="line">tickTime=<span class="number">2000</span></span><br><span class="line"><span class="comment"># The number of ticks that the initial</span></span><br><span class="line"><span class="comment"># synchronization phase can take</span></span><br><span class="line">initLimit=<span class="number">300</span></span><br><span class="line"><span class="comment"># The number of ticks that can pass between</span></span><br><span class="line"><span class="comment"># sending a request and getting an acknowledgement</span></span><br><span class="line">syncLimit=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The directory where the snapshot is stored.</span></span><br><span class="line">dataDir=<span class="regexp">/export/data</span><span class="regexp">/zookeeper/data</span></span><br><span class="line">dataLogDir=<span class="regexp">/export/data</span><span class="regexp">/zookeeper/log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The number transact log number of a snapshot</span></span><br><span class="line">snapCount=<span class="number">3000000</span></span><br><span class="line"></span><br><span class="line">maxSessionTimeout=<span class="number">60000000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The port at which the clients will connect</span></span><br><span class="line">clientPort=<span class="number">2181</span></span><br><span class="line"><span class="comment"># The maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line">maxClientCnxns=<span class="number">2000</span></span><br><span class="line"></span><br><span class="line">preAllocSize=<span class="number">131072</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line">autopurge.snapRetainCount=<span class="number">2</span></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to "0" to disable auto purge feature</span></span><br><span class="line">autopurge.purgeInterval=<span class="number">1</span></span><br><span class="line"><span class="number">4</span>lw.commands.whitelist=*</span><br><span class="line"></span><br><span class="line">forceSync=no</span><br><span class="line">leaderServes=yes</span><br><span class="line">standaloneEnabled=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Zookeeper Cluster</span></span><br><span class="line">server.<span class="number">1</span>=<span class="number">10.220</span>.<span class="number">45.74</span><span class="symbol">:</span><span class="number">2888</span><span class="symbol">:</span><span class="number">3888</span></span><br><span class="line">server.<span class="number">2</span>=<span class="number">10.220</span>.<span class="number">45.73</span><span class="symbol">:</span><span class="number">2888</span><span class="symbol">:</span><span class="number">3888</span></span><br><span class="line">server.<span class="number">3</span>=<span class="number">10.220</span>.<span class="number">45.72</span><span class="symbol">:</span><span class="number">2888</span><span class="symbol">:</span><span class="number">3888</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider</span></span><br><span class="line"><span class="comment">#requireClientAuthScheme=sasl</span></span><br><span class="line"><span class="comment">#sessionRequireClientSASLAuth=true</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>定时清理日志脚本</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> <span class="number">0</span> * * * sudo find /export/data/zookeeper/data/version-<span class="number">2</span> -mtime +<span class="number">30</span> -name <span class="string">"log.*"</span> -exec rm -Rf &#123;&#125; \;</span><br><span class="line"><span class="number">0</span> <span class="number">0</span> * * * sudo find /export/data/zookeeper/log/version-<span class="number">2</span> -mtime +<span class="number">30</span> -name <span class="string">"snapshot.*"</span> -exec rm -Rf &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、CK集群优化：【标D机器-12块-5-5T磁盘容量，CK推送write平均速率保持在50MB-s-100MB-s，2-6Kw-s-2-9Kw-s】"><a href="#二、CK集群优化：【标D机器-12块-5-5T磁盘容量，CK推送write平均速率保持在50MB-s-100MB-s，2-6Kw-s-2-9Kw-s】" class="headerlink" title="二、CK集群优化：【标D机器-12块*5.5T磁盘容量，CK推送write平均速率保持在50MB/s ~ 100MB/s，2.6Kw/s ~ 2.9Kw/s】"></a><strong>二、CK集群优化：【标D机器-12块*5.5T磁盘容量，CK推送write平均速率保持在50MB/s ~ 100MB/s，2.6Kw/s ~ 2.9Kw/s】</strong></h2><p><strong>1、集群调优内容</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">A、CK单机双实例模式，9000端口和13000端口，01-06为主端口存储盘，07-12为副端口存储盘</span><br><span class="line"></span><br><span class="line">B、CK节点配置crontab自启动脚本 sh /etc/clickhouse-server/restart_clickhouse.sh</span><br><span class="line"></span><br><span class="line">C、CK节点搭载监控Granfana监控，插件部署内容包含clickhouse_exporter_v2、node_exporter-1.0.1.linux-amd64.tar.gz，值得注意：解压、nohup过程采用root用户执行</span><br><span class="line"></span><br><span class="line">D、测试过程中的坑</span><br><span class="line">	a、Drop表删除失败问题：针对复制表模式下的CK表，Dropping readonly replicated table 通过detach命令</span><br><span class="line">  b、删除数据目录CK无法启动问题：通过数据目录权限新建、赋权及启动脚本配置项修改</span><br><span class="line">  c、查询数据量较大，单机Client查询失败问题：修改clickhouse user.xml文件，内存限制调整为max_memory_usage = 40000000000</span><br><span class="line">  d、Clickhouse 配置文件包含 config9000.xml、config13000.xml、metrika9000.xml、metrika13000.xml、users9000.xml、users13000.xml</span><br><span class="line">  e、CK底层数据目录删除后，需要重新创建/clickhouse/data、</span><br><span class="line">/clickhouse/jbod、/clickhouse/log文件，同时针对上述文件夹进行 sudo chown -R clickhouse:clickhouse、sudo chmod -R 775 赋权操作</span><br><span class="line"></span><br><span class="line">E、CK 配置项调整内容 【采用40台标D机器 - 20台主、20台备；单机单实例，单实例采用默认端口9000】</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、生产同步配置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">max_insert_block_size</span>&gt;</span>4194304<span class="tag">&lt;/<span class="name">max_insert_block_size</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">merge_tree</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parts_to_delay_insert</span>&gt;</span>600<span class="tag">&lt;/<span class="name">parts_to_delay_insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parts_to_throw_insert</span>&gt;</span>800<span class="tag">&lt;/<span class="name">parts_to_throw_insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_delay_to_insert</span>&gt;</span>2<span class="tag">&lt;/<span class="name">max_delay_to_insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_suspicious_broken_parts</span>&gt;</span>5<span class="tag">&lt;/<span class="name">max_suspicious_broken_parts</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">merge_tree</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/01/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/01/clickhouse/data/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/01/clickhouse/<span class="built_in">log</span>/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/02/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/02/clickhouse/tmp/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/03/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/04/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/05/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/06/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/07/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/08/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/09/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/10/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/11/clickhouse/jbod/9000/</span><br><span class="line">sudo mkdir -p /<span class="built_in">export</span>/grid/12/clickhouse/jbod/9000/</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/01/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/01/clickhouse/data/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/01/clickhouse/<span class="built_in">log</span>/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/02/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/02/clickhouse/tmp/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/03/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/04/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/05/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/06/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/07/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/08/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/09/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/10/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/11/clickhouse/jbod/9000</span><br><span class="line">sudo chown -R clickhouse:clickhouse /<span class="built_in">export</span>/grid/12/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/01/clickhouse/data/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/01/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/01/clickhouse/<span class="built_in">log</span>/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/02/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/02/clickhouse/tmp/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/03/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/04/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/05/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/06/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/07/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/08/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/09/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/10/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/11/clickhouse/jbod/9000</span><br><span class="line">sudo chmod -R 775 /<span class="built_in">export</span>/grid/12/clickhouse/jbod/9000</span><br><span class="line">sudo cp /etc/rc.d/init.d/clickhouse-server /etc/rc.d/init.d/clickhouse-server-9000</span><br><span class="line">sudo chown clickhouse:clickhouse /etc/rc.d/init.d/clickhouse-server-9000</span><br><span class="line">sudo chmod 775 /etc/rc.d/init.d/clickhouse-server-9000</span><br><span class="line">sudo mv /etc/clickhouse-server/clickhouse-server-9000 /etc/rc.d/init.d/clickhouse-server-9000</span><br><span class="line">sudo service clickhouse-server-9000 start</span><br></pre></td></tr></table></figure>
+
+<p><strong>config.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">logger</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">level</span>&gt;</span>trace<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">log</span>&gt;</span>/export/grid/01/clickhouse/log/9000/clickhouse-server.log<span class="tag">&lt;/<span class="name">log</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">errorlog</span>&gt;</span>/export/grid/01/clickhouse/log/9000/clickhouse-server.err.log<span class="tag">&lt;/<span class="name">errorlog</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">size</span>&gt;</span>1000M<span class="tag">&lt;/<span class="name">size</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">count</span>&gt;</span>10<span class="tag">&lt;/<span class="name">count</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">http_port</span>&gt;</span>8123<span class="tag">&lt;/<span class="name">http_port</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tcp_port</span>&gt;</span>9000<span class="tag">&lt;/<span class="name">tcp_port</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">max_connections</span>&gt;</span>4096<span class="tag">&lt;/<span class="name">max_connections</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">keep_alive_timeout</span>&gt;</span>3<span class="tag">&lt;/<span class="name">keep_alive_timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">max_concurrent_queries</span>&gt;</span>100<span class="tag">&lt;/<span class="name">max_concurrent_queries</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uncompressed_cache_size</span>&gt;</span>8589934592<span class="tag">&lt;/<span class="name">uncompressed_cache_size</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mark_cache_size</span>&gt;</span>5368709120<span class="tag">&lt;/<span class="name">mark_cache_size</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/01/clickhouse/data/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tmp_path</span>&gt;</span>/export/grid/02/clickhouse/tmp/9000/<span class="tag">&lt;/<span class="name">tmp_path</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user_files_path</span>&gt;</span>/var/lib/clickhouse/user_files/<span class="tag">&lt;/<span class="name">user_files_path</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">distributed_ddl</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Path in ZooKeeper to queue with DDL queries --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">path</span>&gt;</span>/clickhouse/task_queue/ddl<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributed_ddl</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">format_schema_path</span>&gt;</span>/var/lib/clickhouse/format_schemas/<span class="tag">&lt;/<span class="name">format_schema_path</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">storage_configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">disks</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_one</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/01/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_one</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_two</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/02/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_two</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_three</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/03/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_three</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_four</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/04/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_four</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_five</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/05/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_five</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_six</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/06/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_six</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_seven</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/07/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_seven</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_eight</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/08/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_eight</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_nine</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/09/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_nine</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_ten</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/10/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_ten</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_eleven</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/11/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_eleven</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">disk_twelve</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/grid/12/clickhouse/jbod/9000/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">disk_twelve</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">disks</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">policies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">policy_jbod</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">volumes</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">volume_one</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_one<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_two<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_three<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_four<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_five<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_six<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_seven<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_eight<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_nine<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_ten<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_eleven<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">disk</span>&gt;</span>disk_twelve<span class="tag">&lt;/<span class="name">disk</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">volume_one</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">volumes</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">move_factor</span>&gt;</span>0.3<span class="tag">&lt;/<span class="name">move_factor</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">policy_jbod</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">policies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">storage_configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">max_insert_block_size</span>&gt;</span>4194304<span class="tag">&lt;/<span class="name">max_insert_block_size</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">merge_tree</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parts_to_delay_insert</span>&gt;</span>600<span class="tag">&lt;/<span class="name">parts_to_delay_insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parts_to_throw_insert</span>&gt;</span>800<span class="tag">&lt;/<span class="name">parts_to_throw_insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_delay_to_insert</span>&gt;</span>2<span class="tag">&lt;/<span class="name">max_delay_to_insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_suspicious_broken_parts</span>&gt;</span>5<span class="tag">&lt;/<span class="name">max_suspicious_broken_parts</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">old_parts_lifetime</span>&gt;</span>120<span class="tag">&lt;/<span class="name">old_parts_lifetime</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">use_minimalistic_part_header_in_zookeeper</span>&gt;</span>1<span class="tag">&lt;/<span class="name">use_minimalistic_part_header_in_zookeeper</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">merge_tree</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">distributed_ddl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span>&gt;</span>/clickhouse/tables/task_queue/ddl<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cleanup_delay_period</span>&gt;</span>60<span class="tag">&lt;/<span class="name">cleanup_delay_period</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">task_max_lifetime</span>&gt;</span>172800<span class="tag">&lt;/<span class="name">task_max_lifetime</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_tasks_in_queue</span>&gt;</span>500<span class="tag">&lt;/<span class="name">max_tasks_in_queue</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributed_ddl</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">max_table_size_to_drop</span>&gt;</span>0<span class="tag">&lt;/<span class="name">max_table_size_to_drop</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">max_partition_size_to_drop</span>&gt;</span>0<span class="tag">&lt;/<span class="name">max_partition_size_to_drop</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">===============================================生产配置=============================================================</span><br><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">yandex</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span>&gt;</span>trace<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">log</span>&gt;</span>/export/servers/data/clickhouse/9000/log/clickhouse-server.log<span class="tag">&lt;/<span class="name">log</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">errorlog</span>&gt;</span>/export/servers/data/clickhouse/9000/log/clickhouse-server.err.log<span class="tag">&lt;/<span class="name">errorlog</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">size</span>&gt;</span>100M<span class="tag">&lt;/<span class="name">size</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">count</span>&gt;</span>10<span class="tag">&lt;/<span class="name">count</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">http_port</span>&gt;</span>8123<span class="tag">&lt;/<span class="name">http_port</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tcp_port</span>&gt;</span>9000<span class="tag">&lt;/<span class="name">tcp_port</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mysql_port</span>&gt;</span>9004<span class="tag">&lt;/<span class="name">mysql_port</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">interserver_http_port</span>&gt;</span>9009<span class="tag">&lt;/<span class="name">interserver_http_port</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">openSSL</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">server</span>&gt;</span> <span class="comment">&lt;!-- Used for https server AND secure tcp port --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">certificateFile</span>&gt;</span>/export/servers/data/clickhouse/9000/run/server.crt<span class="tag">&lt;/<span class="name">certificateFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">privateKeyFile</span>&gt;</span>/export/servers/data/clickhouse/9000/run/server.key<span class="tag">&lt;/<span class="name">privateKeyFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dhParamsFile</span>&gt;</span>/export/servers/data/clickhouse/9000/run/dhparam.pem<span class="tag">&lt;/<span class="name">dhParamsFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">verificationMode</span>&gt;</span>none<span class="tag">&lt;/<span class="name">verificationMode</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">loadDefaultCAFile</span>&gt;</span>true<span class="tag">&lt;/<span class="name">loadDefaultCAFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">cacheSessions</span>&gt;</span>true<span class="tag">&lt;/<span class="name">cacheSessions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">disableProtocols</span>&gt;</span>sslv2,sslv3<span class="tag">&lt;/<span class="name">disableProtocols</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">preferServerCiphers</span>&gt;</span>true<span class="tag">&lt;/<span class="name">preferServerCiphers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">client</span>&gt;</span> <span class="comment">&lt;!-- Used for connecting to https dictionary source --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">loadDefaultCAFile</span>&gt;</span>true<span class="tag">&lt;/<span class="name">loadDefaultCAFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">cacheSessions</span>&gt;</span>true<span class="tag">&lt;/<span class="name">cacheSessions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">disableProtocols</span>&gt;</span>sslv2,sslv3<span class="tag">&lt;/<span class="name">disableProtocols</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">preferServerCiphers</span>&gt;</span>true<span class="tag">&lt;/<span class="name">preferServerCiphers</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">invalidCertificateHandler</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>RejectCertificateHandler<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">invalidCertificateHandler</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">client</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">openSSL</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">listen_host</span>&gt;</span>0.0.0.0<span class="tag">&lt;/<span class="name">listen_host</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Default values - try listen localhost on ipv4 and ipv6: --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">                                        &lt;listen_host&gt;::1&lt;/listen_host&gt;</span></span><br><span class="line"><span class="comment">    &lt;listen_host&gt;127.0.0.1&lt;/listen_host&gt;</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_connections</span>&gt;</span>1024<span class="tag">&lt;/<span class="name">max_connections</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">keep_alive_timeout</span>&gt;</span>60<span class="tag">&lt;/<span class="name">keep_alive_timeout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_concurrent_queries</span>&gt;</span>100<span class="tag">&lt;/<span class="name">max_concurrent_queries</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uncompressed_cache_size</span>&gt;</span>8589934592<span class="tag">&lt;/<span class="name">uncompressed_cache_size</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mark_cache_size</span>&gt;</span>10737418240<span class="tag">&lt;/<span class="name">mark_cache_size</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">access_control_path</span>&gt;</span>/export/servers/data/clickhouse/9000/access/<span class="tag">&lt;/<span class="name">access_control_path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">path</span>&gt;</span>/export/servers/data/clickhouse/9000/data/<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tmp_path</span>&gt;</span>/export/servers/data/clickhouse/9000/tmp/<span class="tag">&lt;/<span class="name">tmp_path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">user_files_path</span>&gt;</span>/export/servers/data/clickhouse/9000/user_files/<span class="tag">&lt;/<span class="name">user_files_path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">format_schema_path</span>&gt;</span>/export/servers/data/clickhouse/9000/format_schemas/<span class="tag">&lt;/<span class="name">format_schema_path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">users_config</span>&gt;</span>users.xml<span class="tag">&lt;/<span class="name">users_config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">default_profile</span>&gt;</span>default<span class="tag">&lt;/<span class="name">default_profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">default_database</span>&gt;</span>default<span class="tag">&lt;/<span class="name">default_database</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">timezone</span>&gt;</span>Asia/Shanghai<span class="tag">&lt;/<span class="name">timezone</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mlock_executable</span>&gt;</span>false<span class="tag">&lt;/<span class="name">mlock_executable</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">remote_servers</span> <span class="attr">incl</span>=<span class="string">"clickhouse_remote_servers"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">include_from</span>&gt;</span>/export/servers/data/clickhouse/9000/metrika.xml<span class="tag">&lt;/<span class="name">include_from</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">zookeeper</span> <span class="attr">incl</span>=<span class="string">"zookeeper-servers"</span> <span class="attr">optional</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">macros</span> <span class="attr">incl</span>=<span class="string">"macros"</span> <span class="attr">optional</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">builtin_dictionaries_reload_interval</span>&gt;</span>30<span class="tag">&lt;/<span class="name">builtin_dictionaries_reload_interval</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_session_timeout</span>&gt;</span>3600<span class="tag">&lt;/<span class="name">max_session_timeout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">default_session_timeout</span>&gt;</span>60<span class="tag">&lt;/<span class="name">default_session_timeout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">query_log</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">database</span>&gt;</span>system<span class="tag">&lt;/<span class="name">database</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span>&gt;</span>query_log<span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">partition_by</span>&gt;</span>toYYYYMM(event_date)<span class="tag">&lt;/<span class="name">partition_by</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">flush_interval_milliseconds</span>&gt;</span>7500<span class="tag">&lt;/<span class="name">flush_interval_milliseconds</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">query_log</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">trace_log</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">database</span>&gt;</span>system<span class="tag">&lt;/<span class="name">database</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span>&gt;</span>trace_log<span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">partition_by</span>&gt;</span>toYYYYMM(event_date)<span class="tag">&lt;/<span class="name">partition_by</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">flush_interval_milliseconds</span>&gt;</span>7500<span class="tag">&lt;/<span class="name">flush_interval_milliseconds</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">trace_log</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">query_thread_log</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">database</span>&gt;</span>system<span class="tag">&lt;/<span class="name">database</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span>&gt;</span>query_thread_log<span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">partition_by</span>&gt;</span>toYYYYMM(event_date)<span class="tag">&lt;/<span class="name">partition_by</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">flush_interval_milliseconds</span>&gt;</span>7500<span class="tag">&lt;/<span class="name">flush_interval_milliseconds</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">query_thread_log</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dictionaries_config</span>&gt;</span>*_dictionary.xml<span class="tag">&lt;/<span class="name">dictionaries_config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">compression</span> <span class="attr">incl</span>=<span class="string">"clickhouse_compression"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">compression</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">merge_tree</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">parts_to_delay_insert</span>&gt;</span>600<span class="tag">&lt;/<span class="name">parts_to_delay_insert</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">parts_to_throw_insert</span>&gt;</span>800<span class="tag">&lt;/<span class="name">parts_to_throw_insert</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">max_delay_to_insert</span>&gt;</span>2<span class="tag">&lt;/<span class="name">max_delay_to_insert</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">max_suspicious_broken_parts</span>&gt;</span>5<span class="tag">&lt;/<span class="name">max_suspicious_broken_parts</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">old_parts_lifetime</span>&gt;</span>120<span class="tag">&lt;/<span class="name">old_parts_lifetime</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">use_minimalistic_part_header_in_zookeeper</span>&gt;</span>1<span class="tag">&lt;/<span class="name">use_minimalistic_part_header_in_zookeeper</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">merge_tree</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">distributed_ddl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">path</span>&gt;</span>/clickhouse/tables/task_queue/ddl<span class="tag">&lt;/<span class="name">path</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">cleanup_delay_period</span>&gt;</span>60<span class="tag">&lt;/<span class="name">cleanup_delay_period</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">task_max_lifetime</span>&gt;</span>172800<span class="tag">&lt;/<span class="name">task_max_lifetime</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">max_tasks_in_queue</span>&gt;</span>500<span class="tag">&lt;/<span class="name">max_tasks_in_queue</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">distributed_ddl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">max_table_size_to_drop</span>&gt;</span>0<span class="tag">&lt;/<span class="name">max_table_size_to_drop</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">max_partition_size_to_drop</span>&gt;</span>0<span class="tag">&lt;/<span class="name">max_partition_size_to_drop</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">yandex</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>metrika.xml</strong> </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">zookeeper-servers</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">node</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">host</span>&gt;</span>10.220.232.170<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">port</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">node</span> <span class="attr">index</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">host</span>&gt;</span>10.220.232.156<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">port</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">node</span> <span class="attr">index</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">host</span>&gt;</span>10.220.232.158<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">port</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">zookeeper-servers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">clickhouse_compression</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">case</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">min_part_size</span>&gt;</span>10000000000<span class="tag">&lt;/<span class="name">min_part_size</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">min_part_size_ratio</span>&gt;</span>0.01<span class="tag">&lt;/<span class="name">min_part_size_ratio</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">method</span>&gt;</span>lz4<span class="tag">&lt;/<span class="name">method</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">case</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">clickhouse_compression</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>users.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">yandex</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">default</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_memory_usage</span>&gt;</span>68719476736<span class="tag">&lt;/<span class="name">max_memory_usage</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_memory_usage_for_user</span>&gt;</span>68719476736<span class="tag">&lt;/<span class="name">max_memory_usage_for_user</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">use_uncompressed_cache</span>&gt;</span>1<span class="tag">&lt;/<span class="name">use_uncompressed_cache</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">load_balancing</span>&gt;</span>random<span class="tag">&lt;/<span class="name">load_balancing</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">log_queries</span>&gt;</span>1<span class="tag">&lt;/<span class="name">log_queries</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_threads</span>&gt;</span>24<span class="tag">&lt;/<span class="name">max_threads</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_execution_time</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">max_execution_time</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- force_index_by_date&gt;1&lt;/force_index_by_date --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">force_index_by_date</span>&gt;</span>0<span class="tag">&lt;/<span class="name">force_index_by_date</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_columns_to_read</span>&gt;</span>200<span class="tag">&lt;/<span class="name">max_columns_to_read</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- max_rows_to_read&gt;100000000000&lt;/max_rows_to_read --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_rows_to_group_by</span>&gt;</span>100000000000<span class="tag">&lt;/<span class="name">max_rows_to_group_by</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_rows_to_sort</span>&gt;</span>100000000000<span class="tag">&lt;/<span class="name">max_rows_to_sort</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_rows_in_distinct</span>&gt;</span>10000000000<span class="tag">&lt;/<span class="name">max_rows_in_distinct</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- max_rows_to_transfer&gt;10000000000&lt;/max_rows_to_transfer --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">skip_unavailable_shards</span>&gt;</span>1<span class="tag">&lt;/<span class="name">skip_unavailable_shards</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_bytes_before_external_group_by</span>&gt;</span>60000000000<span class="tag">&lt;/<span class="name">max_bytes_before_external_group_by</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_partitions_per_insert_block</span>&gt;</span>5000<span class="tag">&lt;/<span class="name">max_partitions_per_insert_block</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">distributed_aggregation_memory_efficient</span>&gt;</span>1<span class="tag">&lt;/<span class="name">distributed_aggregation_memory_efficient</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_insert_block_size</span>&gt;</span>4194304<span class="tag">&lt;/<span class="name">max_insert_block_size</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">default</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">readonly</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">readonly</span>&gt;</span>2<span class="tag">&lt;/<span class="name">readonly</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">log_queries</span>&gt;</span>1<span class="tag">&lt;/<span class="name">log_queries</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_threads</span>&gt;</span>24<span class="tag">&lt;/<span class="name">max_threads</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">force_index_by_date</span>&gt;</span>1<span class="tag">&lt;/<span class="name">force_index_by_date</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_execution_time</span>&gt;</span>300<span class="tag">&lt;/<span class="name">max_execution_time</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_memory_usage</span>&gt;</span>68719476736<span class="tag">&lt;/<span class="name">max_memory_usage</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_memory_usage_for_user</span>&gt;</span>68719476736<span class="tag">&lt;/<span class="name">max_memory_usage_for_user</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">use_uncompressed_cache</span>&gt;</span>1<span class="tag">&lt;/<span class="name">use_uncompressed_cache</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_columns_to_read</span>&gt;</span>60<span class="tag">&lt;/<span class="name">max_columns_to_read</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- max_rows_to_read&gt;100000000000&lt;/max_rows_to_read --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_rows_to_group_by</span>&gt;</span>100000000000<span class="tag">&lt;/<span class="name">max_rows_to_group_by</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_rows_to_sort</span>&gt;</span>100000000000<span class="tag">&lt;/<span class="name">max_rows_to_sort</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_rows_in_distinct</span>&gt;</span>30000000000<span class="tag">&lt;/<span class="name">max_rows_in_distinct</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- max_rows_to_transfer&gt;10000000000&lt;/max_rows_to_transfer --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">skip_unavailable_shards</span>&gt;</span>1<span class="tag">&lt;/<span class="name">skip_unavailable_shards</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">max_bytes_before_external_group_by</span>&gt;</span>60000000000<span class="tag">&lt;/<span class="name">max_bytes_before_external_group_by</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">distributed_aggregation_memory_efficient</span>&gt;</span>1<span class="tag">&lt;/<span class="name">distributed_aggregation_memory_efficient</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">readonly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">users</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">default</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">password_sha256_hex</span>&gt;</span>87ccaf4a5f72d09512b1311a1ed293b8d5ba5af6fc6b1afa326e52c8f311dcbe<span class="tag">&lt;/<span class="name">password_sha256_hex</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">networks</span> <span class="attr">incl</span>=<span class="string">"networks"</span> <span class="attr">replace</span>=<span class="string">"replace"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ip</span>&gt;</span>::/0<span class="tag">&lt;/<span class="name">ip</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">networks</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">access_management</span>&gt;</span>1<span class="tag">&lt;/<span class="name">access_management</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">profile</span>&gt;</span>default<span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">quota</span>&gt;</span>default<span class="tag">&lt;/<span class="name">quota</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">default</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">users</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">quotas</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">default</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">interval</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">duration</span>&gt;</span>3600<span class="tag">&lt;/<span class="name">duration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">queries</span>&gt;</span>0<span class="tag">&lt;/<span class="name">queries</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">errors</span>&gt;</span>0<span class="tag">&lt;/<span class="name">errors</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">result_rows</span>&gt;</span>0<span class="tag">&lt;/<span class="name">result_rows</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">read_rows</span>&gt;</span>0<span class="tag">&lt;/<span class="name">read_rows</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution_time</span>&gt;</span>0<span class="tag">&lt;/<span class="name">execution_time</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">interval</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">default</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">quotas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">yandex</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><font color="#750000"><strong>整个离线表CK推送过程氛围三个阶段：1）RDD ：Hive数据源获取及结构转换（时长受限于：数据源标结构、数据质量、有效数据量、5K集群稳定-节点NameNode是否正常）2）Map：待推送数据区间Hash、重分片及推送字段字符串StringTokenizer格式化（Spark最大并发数、repartition数量、CK Hash方式）3）Foreach：数据真实Insert阶段（Insert bacth大小、Thread休眠时间、Spark最大并发数、CK CPU有效承受范围、CK Merge性能-磁盘IO读写速度、推送数据量-offset量+标签数量+标签枚举量</strong></font></p>
+<h2 id="三、推送逻辑优化"><a href="#三、推送逻辑优化" class="headerlink" title="三、推送逻辑优化"></a>三、推送逻辑优化</h2><p><strong>代码层面优化</strong>                  <font color="#dd0000"><strong>重要</strong></font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1、建表语句添加use_minimalistic_part_header_in_zookeeper=1参数配置</span><br><span class="line"></span><br><span class="line">2、添加失败队列，统计每日推送失败的表信息，同时针对加工失败的推送表进行自动二次加工（原因为：Merges are processing significantly slower than inserts）</span><br><span class="line"></span><br><span class="line">3、添加删除CK历史分区逻辑，保证磁盘存储量控制在一定范围。（针对17张业务宽表，保留3天的数据分区，单机无备份存储量3.6T保持在附近，以10.220.38.147节点为例，01-588G、02-692G、03-601G、04-614G、05-625G、06-605G、07-607G、08-595G、09-625G、10-597G、11-660G、12-622G，其中01-06盘为主数据盘、07-12盘为同步备份数据盘）</span><br><span class="line"></span><br><span class="line">4、适配不同宽表数据量的情况下，spark使用资源分为高、中、低三档进行动态调整</span><br><span class="line"></span><br><span class="line">5、CK推送添加全局锁，同时采用sample.count的方式，避免spark懒执行问题，准确获取推送阶段真正与CK进行数据交互时的时间段，同应用端的位图计算及预估、画像生成等内容进行读写隔离</span><br><span class="line"></span><br><span class="line">6、CK Hash规则进行调整，从全局Hash方式x%n调整为区间Hash方式(x/y)%n，结合CK底层位图的存储方式，以2^20次方作为区间间隔，使得单机offset分布更连续，降低CK底层Bitmap稀疏度，应用端计算位图时，能针对更小数据区间offset位图进行读操作</span><br><span class="line"></span><br><span class="line">7、插入数据集按StringTokenizer进行格式化，同时针对-9999、null值用&quot;&amp;&quot;字符替代，极大降低数据传输过程中的IO量及shuffle大小</span><br><span class="line"></span><br><span class="line">8、引入Thread休眠时间，同时executor-cores控制为1，保证最多500 executors执行推送操作，尽量避免插入速度多快引起的CK Merge异常</span><br><span class="line"></span><br><span class="line">9、Insert-Batch同CK-mulitiple参数组合调优，Insert-Batch极大影响CK Foreach阶段耗时，Batch块、CK-mulitiple越大，耗时越短，同时CPU指标越大，也越容易产生 Merges are processing significantly slower than inserts 错误。值得注意：CK-mulitiple参数的引入，解决了单节点数据连续推送导致的机器热点问题，有效保证了Spark按partitionID顺序推送时，较短时间内的partition能分发到不同机器节点执行，而不是单机连续推送，同时进一步提高了CK推送阶段的数据并发能力。</span><br><span class="line"></span><br><span class="line">ckMulitiple 100 Batch 20000000 CPU利用率提升60%，推送速度提升62%</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、前置数据优化：【前置数据的标准化及数据质量尤为关键、涉及到推送阶段1）和阶段3）的运行时长】"><a href="#四、前置数据优化：【前置数据的标准化及数据质量尤为关键、涉及到推送阶段1）和阶段3）的运行时长】" class="headerlink" title="四、前置数据优化：【前置数据的标准化及数据质量尤为关键、涉及到推送阶段1）和阶段3）的运行时长】"></a>四、前置数据优化：【前置数据的标准化及数据质量尤为关键、涉及到推送阶段1）和阶段3）的运行时长】</h2><p><strong>代码层面优化</strong>                  <font color="#dd0000"><strong>重要</strong></font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">整体推送结论如下：全流程宽表推送服务已线上平稳运行一周，整体能保证下午15：00前保证所有表的最新分区维护到OLAP，CK实现T+1的数据更新。</span><br><span class="line">以2020-11-14为例，12：00能完成75%、12：30完成87.5%；2020-11-16为例，13：30完成81.25%、14：00完成87.5%</span><br><span class="line">其中推送时间超60min的表仅有两张 dmxupf_width_jd_usr_pin_jdmall_all_alpha_add_s_d（126min）、dmxupf_width_biz_jd_usr_pin_csf_s_d（100min）、dmxupf_width_biz_jd_usr_pin_pay_s_d（90min）- 建议：行数修正、枚举值修正</span><br><span class="line">1、同一行内，某一JDPIN下的所有标签值，不可全为null、-9999或者&quot;-9999&quot;，加工逻辑请针对指定枚举进行有效打标。</span><br><span class="line">	针对 dmxupf_width_jd_usr_pin_crd_s_d 测试结论如下：数据行数急剧缩小的基础上74%，CK推送数据量不变，整个RDD、Map阶段时间24.3min缩短至14min，实效提升42.3%</span><br><span class="line"></span><br><span class="line">2、宽表行数：保证宽表的行数控制在有效真实活跃的JDPIN上，数据量不可随全量PIN池大小进行膨胀。</span><br><span class="line">	针对 dmxupf_width_biz_jd_usr_pin_csf_s_d 测试结论如下：Hive表行数减少60%，列数增加40%，同样CK推送量下，时效提升22% ~ 33%</span><br><span class="line"></span><br><span class="line">3、宽表列数：宽表列数可根据实际业务线标签量自主进行调整，当行数相同时，列数影响不会太大，结合推送调度资源分配及后期标签开发对外开放而言，建议业务宽表列数可以控制在200~400列区间内，尽量做到宽表列数不要过小也不要过大，提高标签质量，及时下线无用标签，有限资源留给业务真实需要的标签推送，同时便于分析师后期维护，具体规则可自行内部协商统一。</span><br><span class="line"></span><br><span class="line">4、标签枚举值个数：现有CK推送表架构下，标签枚举值会急剧影响推送数据量，需要再次衡量确认是否枚举标签含有无效、特殊枚举信息。标签枚举值个数超过100的标签总共46个标签，占总标签 46 / 3445 = 1.34%，</span><br><span class="line">	具体明细如下 ：dmxupf_width_jd_usr_pin_jdmall_all_alpha_add_s_d：33、dmxupf_width_com_jd_usr_pin_basic_s_d：6、dmxupf_width_biz_jd_usr_pin_csf_s_d：2、dmxupf_width_biz_jd_usr_pin_fin_s_d：2、                            dmxupf_width_biz_jd_usr_pin_jdjr_app_s_d：2、dmxupf_width_cf_biz_usr_pin_two_s_d：1</span><br><span class="line">	需要重点关注加粗两表表名，基础表：4645、4645、459、364、328、174  商城表：986（13个标签）、407、174、134（18个标签）</span><br><span class="line"></span><br><span class="line">5、针对标签覆盖量、标签所在表、标签枚举值覆盖量统计如下：</span><br><span class="line">	A、标签覆盖量：仅有25个标签的覆盖量超过10亿，占比0.72%，来自7张业务宽表，其中四张表占比达到84%，具体明细如下：（pin0000612, pin010000001, pin0001738, pin0002368, pin0001985, pin002003002, pin004002001007, pin0000276, pin0002477, pin001004001, pin0002195, pin002003001, pin0002045, pin0002046, pin001001001, pin004007002037, pin004007002001, pin004007002003, pin004007002005, pin004007002007, pin004007002023, pin004007002031, pin004007002010, pin004007002047, pin004002001005）dmxupf_width_biz_jd_usr_pin_pay_s_d占比40%，dmxupf_width_com_jd_usr_pin_basic_s_d占比20%，dmxupf_width_jd_usr_pin_jdmall_all_alpha_add_s_d占比12%，dmxupf_width_cf_usr_risk_prod_width_s_d占比12%，dmxupf_width_cf_biz_usr_pin_two_s_d占比8%，dmxupf_width_biz_jd_usr_pin_insu_s_d占比4%，dmxupf_width_biz_jd_usr_pin_csf_s_d占比4%</span><br><span class="line">	B、枚举值覆盖量：有效枚举 仅有6个枚举值覆盖量超过15亿，仅有31个枚举值覆盖量超过10亿；无效枚举-9999覆盖量超过10亿的为878个，占总枚举的0.16%</span><br><span class="line"></span><br><span class="line">结论：覆盖量超过10亿的标签是否可以调整逻辑，或者拆表的时候，可以单独拆分放到一张表；针对case when等逻辑，需要评估是否还需要添加then -9999逻辑；枚举值过多的标签需要进一步评估口径，同时可将其与高覆盖量的标签放到一张宽表中进行加工。</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、新CK集群-40节点（20主、20备）-单节点单实例-拆分业务宽表推送时间记录"><a href="#五、新CK集群-40节点（20主、20备）-单节点单实例-拆分业务宽表推送时间记录" class="headerlink" title="五、新CK集群 40节点（20主、20备） + 单节点单实例 + 拆分业务宽表推送时间记录"></a>五、新CK集群 40节点（20主、20备） + 单节点单实例 + 拆分业务宽表推送时间记录</h2><p>资源参数：–driver-cores 1 –driver-memory 6G –executor-cores 1 –executor-memory 20G</p>
+<p>配置参数：parallelism = 2001；ckMultiple = 55；batchInsert  = 500000000；threadTime = 0s</p>
+<p><strong>结论：标签宽表的数据结构较大程度地影响推送第一阶段RDD生成时间及shuffle量的大小，（单表400列，下线200列）和（单表200列）两种Hive表结构进行测试对比，后者明显shuffle量会下降，第一阶段耗时也会削减50%左右，同时Hive表的存储方式如果能从ORC调整为PARQUET，预计整体推送时间仍能提升50%以上。</strong></p>
+<p><strong>目前推送测试情况如下 标签宽表10亿行*300列，CK推送数据量膨胀比为10倍的情况下，整表推送时间的基线保持在（25min + 5min = 30min）</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">标准表表名 <strong>2020-12-06</strong></th>
+<th align="center">宽表行数</th>
+<th align="center">宽表列数</th>
+<th align="center">Hive数据量</th>
+<th align="center">CK_dist数据量</th>
+<th align="center">推送时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_sec_01_s_d 8.13min（历史）</strong></td>
+<td align="center">3143411674</td>
+<td align="center">26</td>
+<td align="center">41.0G</td>
+<td align="center">8355452</td>
+<td align="center">2020-12-08 16:10:26 （4.6min + 24s + 9s + 10s = <strong>5.3min</strong>）CPU 25%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_jdjr_01_s_d 63.3min（历史）</strong></td>
+<td align="center">1036113721</td>
+<td align="center">305</td>
+<td align="center">35.2G</td>
+<td align="center">21057585966</td>
+<td align="center">2020-12-08 14:40:08（14min + 13min + 1min + 3min = <strong>31min</strong>）CPU 40%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_basic_01_s_d 71.5min（历史）</strong></td>
+<td align="center">1522254399</td>
+<td align="center">26</td>
+<td align="center">32.3G</td>
+<td align="center">8565912577</td>
+<td align="center">2020-12-08 15:36:22（6.2min + 3.9min + 51s + 3min = <strong>14min</strong>）CPU 25%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_fin_01_s_d</strong></td>
+<td align="center">476631524</td>
+<td align="center">590</td>
+<td align="center">22.6G</td>
+<td align="center">11953291531</td>
+<td align="center">2020-12-08 16:23:50（17min + 5.9min + 38s + 4.3min = <strong>28min</strong>）CPU 30%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_fin_02_s_d 39.25min（历史）</strong></td>
+<td align="center">391740122</td>
+<td align="center">149</td>
+<td align="center">7.3G</td>
+<td align="center">2813360320</td>
+<td align="center">2020-12-08 16:33:39（14min + 2.2min + 26s + 55s = <strong>18min</strong>）CPU 15%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_mix_01_s_d 是否要用22G???</strong></td>
+<td align="center">3174724968</td>
+<td align="center">30</td>
+<td align="center">70.3G</td>
+<td align="center">45786681688</td>
+<td align="center">2020-12-08 17:04:06（9.4min + 13min + 2.7min + 16min = <strong>41min</strong>）CPU 40%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_mix_02_s_d</strong></td>
+<td align="center">978157942</td>
+<td align="center">40</td>
+<td align="center">29.7G</td>
+<td align="center">5725585312</td>
+<td align="center">2020-12-08 17:07:44 （7.3min + 3.2min + 1.6min + 2min = <strong>16min</strong>）CPU 15%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_cf_01_s_d</strong></td>
+<td align="center">892646924</td>
+<td align="center">391</td>
+<td align="center">27.6G</td>
+<td align="center">13301186218</td>
+<td align="center">2020-12-08 17:30:15 （16min + 8.1min + 41s + 4.6min = <strong>30min</strong>）CPU 20%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_cf_02_s_d</strong></td>
+<td align="center">181929673</td>
+<td align="center">137</td>
+<td align="center">2.5G</td>
+<td align="center">1077344533</td>
+<td align="center">2020-12-08 17:51:24 （13min + 2.6min + 20s + 40s = <strong>17min</strong>）CPU 15%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_cf_03_s_d</strong></td>
+<td align="center">3051212081</td>
+<td align="center">238</td>
+<td align="center">27.5G</td>
+<td align="center">10371289201</td>
+<td align="center">2020-12-08 18:06:24 （21min + 4.9min + 38s + 3.6min = <strong>31min</strong>）CPU 25%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_cf_04_s_m 99.25min / 51.6min（历史）</strong></td>
+<td align="center">3021392287</td>
+<td align="center">17</td>
+<td align="center">20.6G</td>
+<td align="center"></td>
+<td align="center">2020-12-08 18:31:04（5.6min + 2.6min + 18s + 1min = <strong>10min</strong>）CPU 15%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_jdmall_01_s_d</strong></td>
+<td align="center">3175643883</td>
+<td align="center">269</td>
+<td align="center">82.5G</td>
+<td align="center">34435203007</td>
+<td align="center">2020-12-08 19:15:23 （7.3min + 13min + 1.4min + 9min = <strong>32min</strong>）CPU 30%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_v3_jd_usr_pin_jdmall_02_s_d 112.12min（历史）</strong></td>
+<td align="center">1380243174</td>
+<td align="center">239</td>
+<td align="center">57.7G</td>
+<td align="center">32467424440</td>
+<td align="center">2020-12-08 18:51:05 （7.9min + 13min + 1.5min + 10min = <strong>32min</strong>）CPU 35%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_jd_usr_pin_pay_s_d 72.37min（历史）</strong></td>
+<td align="center">1936821583</td>
+<td align="center">144</td>
+<td align="center">49.1G</td>
+<td align="center">43633474737</td>
+<td align="center">2020-12-03 17:51:02 500 + 15G + 100 + 200000 + 2s（12min + 7.2min + 12min + 1.1min + 30min = 62.3min）75%2020-12-03 18:51:30 500 + 17G + 55 + 20000000 + 0s（11min + 7.2min + 11min + 2.2min + 17min = 48.4min）75%2020-12-03 21:58:36 1000 + 20G + 150 + 20000000 + 0s（8.9min + 7.4min + 13min + 2.2min + 21min = 54min）60%2020-12-04 15:44:25 500 + 17G + 55 + 50000000 + 0s（11min + 10min + 14min + 4.1min + 20min = 59.1min）40%2020-12-07 11:20:08 500 + 20G + 55 + 100000000 + 0s（41min + 14min = 55min）30%2020-12-07 11:20:08 500 + 20G + 55 + 500000000 + 0s（11min + 7.2min + 11min + 14min = 43min）CPU 40%（11 + 13 + 2 + 13 = <strong>40min</strong>）<strong>最终参数确认组</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_jd_usr_pin_ftc_s_d 16min（历史）</strong></td>
+<td align="center">246458197</td>
+<td align="center">125</td>
+<td align="center">1.8G</td>
+<td align="center">793037332</td>
+<td align="center">2020-12-08 10:59:01 （10min + 2.2min + 22s + 38s = <strong>13min</strong>）CPU 15%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_biz_jd_usr_pin_insu_s_d 65min（历史）</strong></td>
+<td align="center">29847749741016161997</td>
+<td align="center">300</td>
+<td align="center">33.3G13.3G</td>
+<td align="center">7681909161</td>
+<td align="center">2020-12-08 10:59:01 （37min + 23min + 1.5min + 8min = <strong>69.5min</strong>）CPU 20%pin0002368问题标签业务已经下线，待明日底表数据更新后再次推送（32min + 5.2min + 20s + 1.5min = <strong>39min</strong>）CPU 20%（27min + 3.5min + 18s + 1.6min = <strong>32min</strong>）CPU 20%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_jd_usr_pin_crd_s_d 27.75min（历史）</strong></td>
+<td align="center">825078098</td>
+<td align="center">243</td>
+<td align="center">15.1 G</td>
+<td align="center">3593827335</td>
+<td align="center">2020-12-08 12:55:05 （19min + 3.1min + 22s + 1min = <strong>23min</strong>）CPU 20%</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_width_cs_jd_usr_pin_s_d 6.625min（历史）</strong></td>
+<td align="center">17282332</td>
+<td align="center">51</td>
+<td align="center">127.9M</td>
+<td align="center"></td>
+<td align="center">后期标准化表名后再推送，无推送风险</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_biz_lh_impt_tm_s_d 7.875min（历史）</strong></td>
+<td align="center">107191918</td>
+<td align="center">25</td>
+<td align="center">3.7G</td>
+<td align="center"></td>
+<td align="center">后期标准化表名后再推送，无推送风险</td>
+</tr>
+<tr>
+<td align="center"><strong>dmxupf_dmt_biz_lhzt_model_s_d 3min（历史）</strong></td>
+<td align="center">213681367</td>
+<td align="center">6</td>
+<td align="center">3.2G</td>
+<td align="center"></td>
+<td align="center">后期标准化表名后再推送，无推送风险</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+    
+        
+    
+    </div>
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大 吉 大 利！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.jpg" alt="yiiiiis、 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yiiiiis、
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2021/04/15/ClickHouse推送实战及集群部署/" title="ClickHouse推送实战及集群部署">http://yoursite.com/2021/04/15/ClickHouse推送实战及集群部署/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ClickHouse/" rel="tag"><i class="fa fa-tag"></i> ClickHouse</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/22/人群（一）系统人群生成上线总结/" rel="next" title="人群（一）系统人群生成上线总结">
+                <i class="fa fa-chevron-left"></i> 人群（一）系统人群生成上线总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/15/关于ClickHouse-OLAP数据库下Bitmap数据存储问题研究/" rel="prev" title="关于ClickHouse OLAP数据库下Bitmap数据存储问题研究">
+                关于ClickHouse OLAP数据库下Bitmap数据存储问题研究 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="yiiiiis、">
+            
+              <p class="site-author-name" itemprop="name">yiiiiis、</p>
+              <p class="site-description motion-element" itemprop="description">愿能阅尽天下事，洗手仍能做羹汤</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Co-Hwang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.163.com/" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、ZK集群优化：【ZK日志压力不再成为推送瓶颈】"><span class="nav-number">1.</span> <span class="nav-text">一、ZK集群优化：【ZK日志压力不再成为推送瓶颈】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、CK集群优化：【标D机器-12块-5-5T磁盘容量，CK推送write平均速率保持在50MB-s-100MB-s，2-6Kw-s-2-9Kw-s】"><span class="nav-number">2.</span> <span class="nav-text">二、CK集群优化：【标D机器-12块*5.5T磁盘容量，CK推送write平均速率保持在50MB/s ~ 100MB/s，2.6Kw/s ~ 2.9Kw/s】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、推送逻辑优化"><span class="nav-number">3.</span> <span class="nav-text">三、推送逻辑优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、前置数据优化：【前置数据的标准化及数据质量尤为关键、涉及到推送阶段1）和阶段3）的运行时长】"><span class="nav-number">4.</span> <span class="nav-text">四、前置数据优化：【前置数据的标准化及数据质量尤为关键、涉及到推送阶段1）和阶段3）的运行时长】</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、新CK集群-40节点（20主、20备）-单节点单实例-拆分业务宽表推送时间记录"><span class="nav-number">5.</span> <span class="nav-text">五、新CK集群 40节点（20主、20备） + 单节点单实例 + 拆分业务宽表推送时间记录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">这個人好蠢、</span>
+
+  
+</div>
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+-->
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 浏览量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
